@@ -19,10 +19,10 @@ class Engine {
     addBackground(this.root);
     // score counter
     this.score = 0;
-    this.scoreTxt = new Text(this.root, 10, 10);
+    this.scoreTxt = new Text(this.root, 15, 15);
     // current level counter
     this.difficultyLevel = 0;
-    this.levelCounter = new Text(this.root, 260, 10);
+    this.levelCounter = new Text(this.root, 240, 15);
     // pause state
     this.gamePaused = false;
   }
