@@ -9,18 +9,21 @@ class Player {
     // the leftmost x position of the image.
     this.x = 2 * PLAYER_WIDTH;
 
+    //adding a spot property, to have lane comparison between the enemies and player
+    this.spot = 2;
+
     // The y position never changes, so we don't need to store it in a property. It represents the y position of the top of the
     // hamburger. The y position is the distance from the top margin of the browsing area.
     const y = GAME_HEIGHT - PLAYER_HEIGHT - 10;
 
     // We create a DOM node. We will be updating the DOM node every time we move the player, so we store a reference to the
     // DOM node in a property.
-    this.domElement = document.createElement('img');
-    this.domElement.src = 'images/player.png';
-    this.domElement.style.position = 'absolute';
+    this.domElement = document.createElement("img");
+    this.domElement.src = "images/player.png";
+    this.domElement.style.position = "absolute";
     this.domElement.style.left = `${this.x}px`;
     this.domElement.style.top = ` ${y}px`;
-    this.domElement.style.zIndex = '10';
+    this.domElement.style.zIndex = "10";
     root.appendChild(this.domElement);
   }
 
@@ -32,6 +35,12 @@ class Player {
     }
 
     this.domElement.style.left = `${this.x}px`;
+    //changing the spot property every time the player moves
+    this.spot -= 1;
+    if (this.spot <= 0) {
+      this.spot = 0;
+    }
+    console.log(this.spot);
   }
 
   // We do the same thing for the right key. See Engine.js to see when this happens.
@@ -40,5 +49,11 @@ class Player {
       this.x = this.x + PLAYER_WIDTH;
     }
     this.domElement.style.left = `${this.x}px`;
+    //changing the spot property every time the player moves
+    this.spot += 1;
+    if (this.spot >= 4) {
+      this.spot = 4;
+    }
+    console.log(this.spot);
   }
 }
