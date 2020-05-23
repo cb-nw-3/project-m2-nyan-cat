@@ -30,7 +30,7 @@ const nextEnemySpot = (enemies) => {
     candidate = Math.floor(Math.random() * enemySpots);
   }
 
-  // When the while loop is fgitinished, we are assured that we have a number that corresponds to a free spot, so we return it.
+  // When the while loop is finished, we are assured that we have a number that corresponds to a free spot, so we return it.
   return candidate;
 };
 
@@ -46,7 +46,7 @@ const addBackground = (root) => {
   bg.style.backgroundImage = "url(images/stars.gif)";
   bg.style.backgroundRepeat = "repeat";
   bg.style.height = `${GAME_HEIGHT}px`;
-  bg.style.width = `${GAME_WIDTH}px`;
+  bg.style.width = `${GAME_WIDTH + ENEMY_WIDTH}px`;
 
   // We add it to the root DOM node
   root.append(bg);
@@ -62,7 +62,7 @@ const addBackground = (root) => {
   whiteBox.style.top = `${GAME_HEIGHT}px`;
   whiteBox.style.left = "-15px";
   whiteBox.style.height = `${ENEMY_HEIGHT + 10}px`;
-  whiteBox.style.width = `${GAME_WIDTH + 60}px`;
+  whiteBox.style.width = `${GAME_WIDTH + ENEMY_WIDTH + 18}px`;
   whiteBox.style.background = "#fff";
   root.append(whiteBox);
 };
