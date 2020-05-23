@@ -16,6 +16,10 @@ class Engine {
     this.enemies = [];
     // We add the background image to the game
     addBackground(this.root);
+    //we add the background musique to the game (code in the engine utilities)
+    this.bgmElement = addBackgroundMusic(this.root);
+    //add and remove the start button at will (code in the engine utilities)
+    addStartBtn(this.root);
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -57,7 +61,7 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert("Game over");
+      addStartBtn(this.root);
       return;
     }
 
@@ -74,7 +78,7 @@ class Engine {
         enemy.y >= GAME_HEIGHT - PLAYER_HEIGHT * 3.5 &&
         enemy.spot === this.player.spot
       ) {
-        //dont collidd if it's only the tail end of the rainbow
+        //don't collide if it's only the tail end of the rainbow
         if (enemy.y <= 430) {
           isColliding = true;
         }

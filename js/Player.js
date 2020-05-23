@@ -40,7 +40,6 @@ class Player {
     if (this.spot <= 0) {
       this.spot = 0;
     }
-    console.log(this.spot);
   }
 
   // We do the same thing for the right key. See Engine.js to see when this happens.
@@ -54,6 +53,5 @@ class Player {
     if (this.spot >= 4) {
       this.spot = 4;
     }
-    console.log(this.spot);
   }
 }
