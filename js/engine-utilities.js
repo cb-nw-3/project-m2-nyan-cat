@@ -30,7 +30,7 @@ const nextEnemySpot = (enemies) => {
     candidate = Math.floor(Math.random() * enemySpots);
   }
 
-  // When the while loop is finished, we are assured that we have a number that corresponds to a free spot, so we return it.
+  // When the while loop is fgitinished, we are assured that we have a number that corresponds to a free spot, so we return it.
   return candidate;
 };
 
