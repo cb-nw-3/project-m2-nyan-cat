@@ -59,7 +59,19 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      gameOver()
+      button.addEventListener('click', () => {
+        // this.enemies.forEach((item)=>{
+          // item.destroyed = true
+          // item.y = 500
+          // item.update(timeDiff)
+          // this.enemies = this.enemies.filter((enemy) => {
+          //   return !enemy.destroyed;
+          // });
+          dialogueBox.setAttribute('style', 'display:none;')
+          this.gameLoop()
+        // })
+      })
       return;
     }
 
@@ -84,3 +96,21 @@ class Engine {
   };
   
 }
+
+
+let dialogueBox = document.querySelector('#continue');
+let title = document.querySelector('#title');
+let livesDOM = document.querySelector('#lives');
+let button = document.querySelector('#continueButton');
+let lives = 4
+
+function gameOver(){
+lives -= 1
+if(lives > 0){
+    dialogueBox.setAttribute('style', 'display:flex;')
+    title.innerText = "Would you like to continue ?"
+    livesDOM.innerText = `You have ${lives} lives left`
+}
+}
+
+

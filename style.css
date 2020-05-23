@@ -1,0 +1,17 @@
+#continue{
+    width: 330px;
+    border:2px black solid;
+    background-color: #03befc;
+    color:white;
+    position:absolute;
+    top:200px;
+    left:25px;
+    z-index:10;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    padding:5px;
+    text-align:center;
+    
+}
