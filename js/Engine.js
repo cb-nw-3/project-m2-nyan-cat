@@ -80,6 +80,8 @@ class Engine {
       ) {
         isPlayerDead = true;
         clearTimeout(score);
+        AUDIO.pause();
+        AUDIO.currentTime = 0;
       }
     }
     return isPlayerDead;
