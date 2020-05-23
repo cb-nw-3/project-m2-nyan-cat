@@ -70,8 +70,11 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
+    let BodyOfCat = (ENEMY_HEIGHT/4*3); //this will be used to seperate the cat into 4 parts.
+    //we are adding it to item.y in order to set the top limit of our collision system to the first fourth of the cat.
+    //that way the player isn't penalized for changing position onto the rainbow of the cat. 
     let isThereCollisionArray = this.enemies.map((item) =>{
-      if(item.y + ENEMY_HEIGHT > 436 && item.x === this.player.x){
+      if(item.y + BodyOfCat < 436 + PLAYER_HEIGHT && item.y + ENEMY_HEIGHT > 436 && item.x === this.player.x){
         return true;
       }
     })
