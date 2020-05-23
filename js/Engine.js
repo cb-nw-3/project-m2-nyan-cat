@@ -14,11 +14,31 @@ class Engine {
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
+    this.enemiesOriginalSpeed = [];
     // We add the background image to the game
     addBackground(this.root);
-    // score counter;
+    // score counter
     this.score = 0;
     this.scoreTxt = new Text(this.root, 10, 10);
+    // current level counter
+    this.difficultyLevel = 0;
+    this.levelCounter = new Text(this.root, 260, 10);
+    // pause state
+    this.gamePaused = false;
+  }
+
+  pauseAll = () => {
+    this.enemies.forEach((badGuy) => {
+      badGuy.speed *= 0.7;
+    })
+  }
+
+  resumeAll = () => {
+    for (let i = 0; i < this.enemies.length; i++) {
+      if (this.enemies[i].speed <= this.enemiesOriginalSpeed[i]) {
+        this.enemies[i].speed = this.enemiesOriginalSpeed[i];
+      }
+    }
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -55,7 +75,17 @@ class Engine {
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
+      this.enemiesOriginalSpeed.push(this.enemies[this.enemies.length - 1].speed);
       this.scoreTxt.update("Score: " + this.score);
+    }
+
+    // check pause state; if true, slow everything down
+    // if false, accelerate again
+
+    if (this.gamePaused === true) {
+      this.pauseAll();
+    } else if (this.gamePaused === false) {
+      this.resumeAll();
     }
 
     // We check if the player is dead. If he is, we alert the user
@@ -65,8 +95,13 @@ class Engine {
       return;
     }
 
+    this.difficultyLevel = 1 + Math.floor(this.score / 10);
+
+    this.levelCounter.update("Level: " + this.difficultyLevel);
+
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
     setTimeout(this.gameLoop, 20);
+
   };
 
   // This method is not implemented correctly, which is why
