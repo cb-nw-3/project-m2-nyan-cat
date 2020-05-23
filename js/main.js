@@ -19,9 +19,9 @@ const keydownHandler = (event) => {
     gameEngine.player.moveRight();
   }
 };
-
-const SCORE = new Text(document.querySelector("#app"), 10, 10);
 let scorePoints = 0;
+let score;
+const SCORE = new Text(document.querySelector("#app"), 10, 10);
 
 function scoreScreen() {
   scorePoints++;
@@ -41,7 +41,8 @@ START.addEventListener("click", gameInit);
 document.body.appendChild(START);
 
 function gameInit() {
-  const AUDIO = new Audio("sounds/Nyanyanyanyanyanyanya.mp3");
+  scorePoints = 0;
+  const AUDIO = new Audio("sounds/Nyanyanyanyanyanyanya.mp3"); // The Music theme was a contribution of Roger Lam
   AUDIO.play();
   gameEngine.gameLoop();
   score = setInterval(scoreScreen, 100);
