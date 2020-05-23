@@ -18,13 +18,20 @@ class Engine {
     // We add the background image to the game
     this.score = "";
     addBackground(this.root);
+    this.text = new Text(this.root, GAME_WIDTH / 2 - 65, GAME_HEIGHT / 2);
+    this.start = false;
   }
 
   // The gameLoop will run every few milliseconds. It does several things
   //  - Updates the enemy positions
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
+
   gameLoop = () => {
+    if (this.start) {
+      this.text.update("");
+    }
+    this.start = true;
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
@@ -54,12 +61,10 @@ class Engine {
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
     }
-
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      const text = new Text(this.root, GAME_WIDTH / 2 - 65, GAME_HEIGHT / 2);
-      text.update("Game Over");
+      this.text.update("Game Over");
 
       return;
     }
