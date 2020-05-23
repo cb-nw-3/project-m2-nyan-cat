@@ -20,8 +20,40 @@ const keydownHandler = (event) => {
   }
 };
 
+let scoreCount = 0;
+let score;
+const SCORE = new Text(document.querySelector("#app"), 20, 5);
+const AUDIO = new Audio("/DontStopMeNow.mp3");
+
+function scoreCounter() {
+  scoreCount++;
+  SCORE.update(scoreCount);
+}
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
 document.addEventListener("keydown", keydownHandler);
 
+const START = document.createElement("button");
+START.innerText = "START";
+START.style.position = "absolute";
+START.style.zIndex = 4000;
+START.style.backgroundColor = "dodgerblue";
+START.style.color = "white";
+START.style.fontWeight = "bold";
+START.style.fontSize = "20px";
+START.style.width = GAME_WIDTH;
+START.style.height = "50px";
+START.style.marginTop = "-8px";
+START.style.borderRadius = "4px";
+START.addEventListener("click", initGame);
+document.body.appendChild(START);
+
+function initGame() {
+  scoreCount = 0;
+  AUDIO.play();
+  AUDIO.loop = true;
+  gameEngine.gameLoop();
+  score = setInterval(scoreCounter, 100);
+}
+
 // We call the gameLoop method to start the game
-gameEngine.gameLoop();
+//gameEngine.gameLoop();
