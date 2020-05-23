@@ -104,13 +104,16 @@ class Engine {
     this.levelCounter.update("Level: " + this.difficultyLevel);
 
     // invincibility logic
-    // 
+    // if the counter has started, start decrementing the counter
+    // if the counter is at zero, make player vulnerable again and reset the counter
 
     if (this.playerInvincible === true && this.invincibleCounter < 75 && this.invincibleCounter > 0) {
       this.invincibleCounter--;
+      this.player.domElement.classList.toggle("flicker");
     } else if (this.playerInvincible === true && this.invincibleCounter === 0) {
       this.playerInvincible = false;
       this.invincibleCounter = 75;
+      this.player.domElement.classList.remove("flicker");
     }
 
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
