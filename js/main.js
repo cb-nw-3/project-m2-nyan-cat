@@ -22,7 +22,6 @@ const keydownHandler = (event) => {
 
 const SCORE = new Text(document.querySelector("#app"), 10, 10);
 let scorePoints = 0;
-score = setInterval(scoreScreen, 100);
 
 function scoreScreen() {
   scorePoints++;
@@ -33,4 +32,17 @@ function scoreScreen() {
 document.addEventListener("keydown", keydownHandler);
 
 // We call the gameLoop method to start the game
-gameEngine.gameLoop();
+const START = document.createElement("button");
+START.innerText = "START";
+START.style.position = "absolute";
+START.style.left = GAME_WIDTH / 2;
+START.style.zIndex = 4000;
+START.addEventListener("click", gameInit);
+document.body.appendChild(START);
+
+function gameInit() {
+  const AUDIO = new Audio("sounds/Nyanyanyanyanyanyanya.mp3");
+  AUDIO.play();
+  gameEngine.gameLoop();
+  score = setInterval(scoreScreen, 100);
+}
