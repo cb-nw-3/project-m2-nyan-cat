@@ -46,7 +46,7 @@ const addBackground = (root) => {
   bg.style.backgroundImage = "url(images/stars.gif)";
   bg.style.backgroundRepeat = "repeat";
   bg.style.height = `${GAME_HEIGHT}px`;
-  bg.style.width = `${GAME_WIDTH + ENEMY_WIDTH}px`;
+  bg.style.width = `${GAME_WIDTH + ENEMY_WIDTH / 2 + 4}px`;
 
   // We add it to the root DOM node
   root.append(bg);
