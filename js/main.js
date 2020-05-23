@@ -1,6 +1,6 @@
 // We create an instance of the Engine class. Looking at our index.html,
 // we see that it has a div with an id of `"app"`
-const gameEngine = new Engine(document.querySelector("body"));
+const gameEngine = new Engine(document.querySelector("#app"));
 
 // keydownHandler is a variable that refers to a function. The function has one parameter
 // (does the parameter name matter?) which is called event. As we will see below, this function
@@ -19,6 +19,15 @@ const keydownHandler = (event) => {
     gameEngine.player.moveRight();
   }
 };
+
+const SCORE = new Text(document.querySelector("#app"), 10, 10);
+let scorePoints = 0;
+score = setInterval(scoreScreen, 100);
+
+function scoreScreen() {
+  scorePoints++;
+  SCORE.update(scorePoints);
+}
 
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
 document.addEventListener("keydown", keydownHandler);

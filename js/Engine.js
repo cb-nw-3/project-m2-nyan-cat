@@ -16,6 +16,7 @@ class Engine {
     // that contains instances of the Enemy class
     this.enemies = [];
     // We add the background image to the game
+    this.score = "";
     addBackground(this.root);
   }
 
@@ -32,7 +33,6 @@ class Engine {
     }
 
     let timeDiff = new Date().getTime() - this.lastFrame;
-
     this.lastFrame = new Date().getTime();
     // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
     // Furthermore, if any enemy is below the bottom of our game, its destroyed property will be set. (See Enemy.js)
@@ -58,7 +58,7 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      const text = new Text(this.root, GAME_WIDTH / 2, GAME_HEIGHT / 2);
+      const text = new Text(this.root, GAME_WIDTH / 2 - 65, GAME_HEIGHT / 2);
       text.update("Game Over");
 
       return;
@@ -75,10 +75,11 @@ class Engine {
     let isPlayerDead = false;
     for (let enemy of this.enemies) {
       if (
-        enemy.y + ENEMY_HEIGHT - 12 >= this.player.playerY() &&
+        enemy.y + ENEMY_HEIGHT - 4 >= this.player.playerY() &&
         enemy.x === this.player.x
       ) {
         isPlayerDead = true;
+        clearTimeout(score);
       }
     }
     return isPlayerDead;
