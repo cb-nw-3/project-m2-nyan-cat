@@ -30,7 +30,6 @@ class Player {
     if (this.x > 0) {
       this.x = this.x - PLAYER_WIDTH;
     }
-    console.log("current x:", this.x);
     this.domElement.style.left = `${this.x}px`;
   }
 
@@ -39,7 +38,6 @@ class Player {
     if (this.x + PLAYER_WIDTH < GAME_WIDTH) {
       this.x = this.x + PLAYER_WIDTH;
     }
-    console.log("current x:", this.x);
     this.domElement.style.left = `${this.x}px`;
   }
 }

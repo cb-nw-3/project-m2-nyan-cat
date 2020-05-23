@@ -16,6 +16,9 @@ class Engine {
     this.enemies = [];
     // We add the background image to the game
     addBackground(this.root);
+    // score counter;
+    this.score = 0;
+    this.scoreTxt = new Text(this.root, 10, 10);
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -52,12 +55,12 @@ class Engine {
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
+      this.scoreTxt.update("Score: " + this.score);
     }
 
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      console.log('value triggered');
       window.alert('Game over');
       return;
     }
