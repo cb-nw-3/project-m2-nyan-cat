@@ -13,6 +13,11 @@ class Player {
     // hamburger. The y position is the distance from the top margin of the browsing area.
     const y = GAME_HEIGHT - PLAYER_HEIGHT - 10;
 
+    this.top = y;
+
+    this.rightEdge = this.x + PLAYER_WIDTH;
+
+
     // We create a DOM node. We will be updating the DOM node every time we move the player, so we store a reference to the
     // DOM node in a property.
     this.domElement = document.createElement('img');
@@ -30,6 +35,7 @@ class Player {
     if (this.x > 0) {
       this.x = this.x - PLAYER_WIDTH;
     }
+    this.rightEdge = this.x + PLAYER_WIDTH;
 
     this.domElement.style.left = `${this.x}px`;
   }
@@ -39,6 +45,8 @@ class Player {
     if (this.x + PLAYER_WIDTH < GAME_WIDTH) {
       this.x = this.x + PLAYER_WIDTH;
     }
+    this.rightEdge = this.x + PLAYER_WIDTH;
+
     this.domElement.style.left = `${this.x}px`;
   }
 }

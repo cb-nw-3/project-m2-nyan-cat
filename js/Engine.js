@@ -14,6 +14,12 @@ class Engine {
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
+
+    this.lives = [];
+
+    this.life = new Life(this.root);
+
+
     // We add the background image to the game
     addBackground(this.root);
   }
@@ -23,6 +29,8 @@ class Engine {
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
   gameLoop = () => {
+
+    console.log(this.life);
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
@@ -54,6 +62,15 @@ class Engine {
       this.enemies.push(new Enemy(this.root, spot));
     }
 
+    // while (this.lives.length < LIVES_START) {
+    //   // We find the next available spot and, using this spot, we create an enemy.
+    //   // We add this enemy to the enemies array
+    //   //const spot = nextEnemySpot(this.enemies);
+    //   let new_Life = new Life(this.root);
+    //   this.lives.push(new Life(this.root));
+    // }
+
+
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
@@ -68,6 +85,44 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    return false;
+
+    let isDead = false;
+    this.enemies.forEach(
+      (enemyElement) =>
+      {
+
+
+           if (enemyElement.bottom > this.player.top)
+          {
+            if (this.player.x === enemyElement.x)
+            {
+              // enemyElement.setBorderToRed();
+              isDead = true;
+
+            }
+
+
+          } 
+        // enemyElement.spot is the column they are in
+        // maybe have these jump a bit???
+          // console.log("-------");
+
+          // //console.log(enemyElement.bottom);
+          // console.log(this.player.x);
+          // console.log(this.player.rightEdge);
+          // console.log("//////");
+          // console.log(enemyElement.x);
+          // console.log(enemyElement.rightEdge);
+          
+
+       
+          
+        
+      }
+    )
+
+
+    // should loop over all the enemies, see if it intersects with the player.
+    return isDead;
   };
 }

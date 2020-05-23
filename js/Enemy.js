@@ -23,6 +23,9 @@ class Enemy {
     // of the instance, so we make it a property of the instance. (Why is this information needed for the lifetime of the instance?)
     this.x = enemySpot * ENEMY_WIDTH;
 
+    this.bottom = this.y + ENEMY_HEIGHT;
+    this.rightEdge = this.x + ENEMY_WIDTH;
+
     // The y position is initially less than 0 so that the enemies fall from the top. This data is stored as a property
     // of the instance since it is needed throughout its lifetime. The destroyed property will indicate whether this enemy
     // is still in play. It is set to true whenever the enemy goes past the bottom of the screen.
@@ -48,6 +51,11 @@ class Enemy {
     this.speed = Math.random() / 2 + 0.25;
   }
 
+  setBorderToRed()
+  {
+    this.domElement.style.border = "solid red 5px";
+  }
+
   // We set the speed property of the enemy. This determines how fast it moves down the screen.
   // To make sure that every enemy has a different speed, we use Math.random()
   // this method will be called on the enemy instance every few milliseconds. The parameter
@@ -58,7 +66,10 @@ class Enemy {
     // is updated on screen
     this.y = this.y + timeDiff * this.speed;
     this.domElement.style.top = `${this.y}px`;
+    this.bottom = this.y + ENEMY_HEIGHT;
+    this.rightEdge = this.x + ENEMY_WIDTH;
 
+    
     // If the y position of the DOM element is greater than the GAME_HEIGHT then the enemy is at the bottom
     // of the screen and should be removed. We remove the DOM element from the root DOM element and we set
     // the destroyed property to indicate that the enemy should no longer be in play
