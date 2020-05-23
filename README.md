@@ -4,7 +4,7 @@
 
 # Introduction
 
-This project was designed as a way for you to practice and learn about Object Oriented Programming. A good bit of code has already been provided for you, and it makes for an _almost_ working game.
+This project was designed as a way for you to practice and learn about Object Oriented Programming. A good bit of code has already been provided for you, and it makes for an _almost_ working game.   
 
 The project is divided in two parts. In a first part, you will fix and implement some basic functionality. In the second part, you will be able to customize the game as you wish!
 

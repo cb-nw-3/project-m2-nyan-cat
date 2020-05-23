@@ -57,6 +57,7 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
+      console.log('value triggered');
       window.alert('Game over');
       return;
     }
@@ -67,7 +68,11 @@ class Engine {
 
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
+
+  // presumably this is where we'll check where a collision occurs.
   isPlayerDead = () => {
-    return false;
+    return this.enemies.some(badGuy =>
+      (badGuy.x === this.player.x && (badGuy.y + ENEMY_HEIGHT) >= (GAME_HEIGHT - PLAYER_HEIGHT))
+    )
   };
 }
