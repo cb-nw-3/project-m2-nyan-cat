@@ -38,8 +38,8 @@ class Engine {
     this.enemies.forEach((enemy) => {
       enemy.update(timeDiff);
     });
-    console.log(this.player);
-    console.log(this.enemies);
+    //console.log(this.player);
+    //console.log(this.enemies);
 
     // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
     // We use filter to accomplish this.
@@ -60,6 +60,7 @@ class Engine {
     // and return from the method (Why is the return statement important?) - because if not it keeps popping!
     if (this.isPlayerDead()) {
       window.alert("Game over");
+      location.reload();
       return;
     }
 
@@ -75,7 +76,7 @@ class Engine {
     this.enemies.forEach((enemy) => {
       const sameSpot = this.player.x === enemy.x;
       const enemyHeightGreater =
-        enemy.y + ENEMY_HEIGHT > GAME_HEIGHT - PLAYER_HEIGHT - 5;
+        enemy.y + ENEMY_HEIGHT > GAME_HEIGHT - PLAYER_HEIGHT - 10;
       const collision = sameSpot && enemyHeightGreater;
       if (collision) {
         isPlayerHit = true;
