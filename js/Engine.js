@@ -13,7 +13,9 @@ class Engine {
     this.player = new Player(this.root);
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
+    
     this.enemies = [];
+
     // We add the background image to the game
     addBackground(this.root);
   }
@@ -68,6 +70,14 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    return false;
+    let isThereCollisionArray = this.enemies.map((item) =>{
+      if(item.y + ENEMY_HEIGHT > 436 && item.x === this.player.x){
+        return true;
+      }
+    })
+    if (isThereCollisionArray.includes(true)){
+      return true
+    }
   };
+  
 }
