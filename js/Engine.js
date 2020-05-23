@@ -11,6 +11,9 @@ class Engine {
     // We create our hamburger.
     // Please refer to Player.js for more information about what happens when you create a player
     this.player = new Player(this.root);
+    this.lives = 3;
+    this.playerInvincible = false;
+    this.invincibleCounter = 75;
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
@@ -22,7 +25,7 @@ class Engine {
     this.scoreTxt = new Text(this.root, 15, 15);
     // current level counter
     this.difficultyLevel = 0;
-    this.levelCounter = new Text(this.root, 240, 15);
+    this.levelCounter = new Text(this.root, 240, 20);
     // pause state
     this.gamePaused = false;
   }
@@ -76,7 +79,7 @@ class Engine {
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
       this.enemiesOriginalSpeed.push(this.enemies[this.enemies.length - 1].speed);
-      this.scoreTxt.update("Score: " + this.score);
+      this.scoreTxt.update("Score:" + this.score);
     }
 
     // check pause state; if true, slow everything down
@@ -95,9 +98,20 @@ class Engine {
       return;
     }
 
-    this.difficultyLevel = 1 + Math.floor(this.score / 10);
+    // provide difficulty level to Enemy.js
 
+    this.difficultyLevel = 1 + Math.floor(this.score / 10);
     this.levelCounter.update("Level: " + this.difficultyLevel);
+
+    // invincibility logic
+    // 
+
+    if (this.playerInvincible === true && this.invincibleCounter < 75 && this.invincibleCounter > 0) {
+      this.invincibleCounter--;
+    } else if (this.playerInvincible === true && this.invincibleCounter === 0) {
+      this.playerInvincible = false;
+      this.invincibleCounter = 75;
+    }
 
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
     setTimeout(this.gameLoop, 20);
@@ -108,9 +122,28 @@ class Engine {
   // the burger never dies. In your exercises you will fix this method.
 
   // presumably this is where we'll check where a collision occurs.
+  // set to invincible for, let's say, three seconds or so
+  // decrement lives by one
+
+  // on collision, trigger invincibility status and decrement lives
+  // decrement invincibility by one, so that above timer logic can work properly
+
   isPlayerDead = () => {
-    return this.enemies.some(badGuy =>
+
+    if (this.lives === 0) {
+      return true;
+    }
+
+    if (this.enemies.some(badGuy =>
       (badGuy.x === this.player.x && (badGuy.y + ENEMY_HEIGHT) >= (GAME_HEIGHT - PLAYER_HEIGHT))
-    )
-  };
-}
+    )) {
+      if (this.playerInvincible === false && this.invincibleCounter === 75) {
+        this.lives--;
+        this.playerInvincible = true;
+        this.invincibleCounter--;
+        console.log("invincible!");
+        console.log("lives remaining " + this.lives);
+      }
+    }
+  }
+};
