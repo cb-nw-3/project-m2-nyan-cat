@@ -49,19 +49,26 @@ class Engine {
     });
 
     // We need to perform the addition of enemies until we have enough enemies.
-    while (this.enemies.length < MAX_ENEMIES) {
+    if (this.enemies.length < MAX_ENEMIES) {
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
     }
 
+    if (scoreCount === 350) {
+      MAX_ENEMIES = 4;
+    }
+    if (scoreCount === 600) {
+      MAX_ENEMIES = 5;
+    }
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?) - because if not it keeps popping!
     if (this.isPlayerDead()) {
-      window.alert("Game over");
+      window.alert(
+        `Oh no! The Katz gots the Hamburgerz! Your score is ${scoreCount}`
+      );
       location.reload();
-      return;
     }
 
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
@@ -76,10 +83,13 @@ class Engine {
     this.enemies.forEach((enemy) => {
       const sameSpot = this.player.x === enemy.x;
       const enemyHeightGreater =
-        enemy.y + ENEMY_HEIGHT > GAME_HEIGHT - PLAYER_HEIGHT - 10;
+        enemy.y + ENEMY_HEIGHT >= GAME_HEIGHT - PLAYER_HEIGHT;
       const collision = sameSpot && enemyHeightGreater;
       if (collision) {
         isPlayerHit = true;
+        AUDIO.pause();
+        START.removeEventListener("click", initGame);
+        //location.reload();
       }
     });
     return isPlayerHit;
