@@ -1,6 +1,7 @@
 // The engine class will only be instantiated once. It contains all the logic
 // of the game relating to the interactions between the player and the
 // enemy and also relating to how our enemies are created and evolve over time
+
 class Engine {
   // The constructor has one parameter. It will refer to the DOM node that we will be adding everything to.
   // You need to provide the DOM node when you create an instance of the class
@@ -57,7 +58,7 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      window.alert("Game over");
       return;
     }
 
@@ -67,7 +68,14 @@ class Engine {
 
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
+
   isPlayerDead = () => {
-    return false;
+    let isPlayerDead = false;
+    for (let enemy of this.enemies) {
+      if (enemy.y >= this.player.playerY() && enemy.x === this.player.x) {
+        isPlayerDead = true;
+      }
+    }
+    return isPlayerDead;
   };
 }
