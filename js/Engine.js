@@ -38,6 +38,8 @@ class Engine {
     this.enemies.forEach((enemy) => {
       enemy.update(timeDiff);
     });
+    console.log(this.player);
+    console.log(this.enemies);
 
     // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
     // We use filter to accomplish this.
@@ -55,9 +57,9 @@ class Engine {
     }
 
     // We check if the player is dead. If he is, we alert the user
-    // and return from the method (Why is the return statement important?)
+    // and return from the method (Why is the return statement important?) - because if not it keeps popping!
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      window.alert("Game over");
       return;
     }
 
@@ -68,6 +70,17 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    return false;
+    let isPlayerHit = false;
+
+    this.enemies.forEach((enemy) => {
+      const sameSpot = this.player.x === enemy.x;
+      const enemyHeightGreater =
+        enemy.y + ENEMY_HEIGHT > GAME_HEIGHT - PLAYER_HEIGHT - 5;
+      const collision = sameSpot && enemyHeightGreater;
+      if (collision) {
+        isPlayerHit = true;
+      }
+    });
+    return isPlayerHit;
   };
 }
