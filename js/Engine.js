@@ -73,6 +73,7 @@ class Engine {
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
     let isColliding = false;
+    let enemyCollider = null;
     this.enemies.forEach((enemy) => {
       if (
         enemy.y >= GAME_HEIGHT - PLAYER_HEIGHT * 3.5 &&
@@ -81,10 +82,16 @@ class Engine {
         //don't collide if it's only the tail end of the rainbow
         if (enemy.y <= 430) {
           isColliding = true;
+          enemyCollider = enemy;
         }
       }
     });
     if (isColliding) {
+      enemyCollider.y = GAME_HEIGHT;
+      this.player.loseLife();
+    }
+
+    if (this.player.lives === 0) {
       return true;
     }
 

@@ -9,6 +9,14 @@ class Player {
     // the leftmost x position of the image.
     this.x = 2 * PLAYER_WIDTH;
 
+    //adding lives to the player
+    this.lives = PLAYER_LIVES;
+    //adding visual representation of lives
+
+    //////////!!!! MUST REPLENISH THE LIVES AT RESTART
+    this.livesArray = document.querySelectorAll(".lives > img");
+    console.log(this.livesArray);
+
     //adding a spot property, to have lane comparison between the enemies and player
     this.spot = 2;
 
@@ -54,4 +62,9 @@ class Player {
       this.spot = 4;
     }
   }
+
+  loseLife = () => {
+    this.lives--;
+    this.livesArray[this.lives].remove();
+  };
 }
