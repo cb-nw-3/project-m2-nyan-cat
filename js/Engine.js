@@ -72,7 +72,10 @@ class Engine {
   isPlayerDead = () => {
     let isPlayerDead = false;
     for (let enemy of this.enemies) {
-      if (enemy.y >= this.player.playerY() && enemy.x === this.player.x) {
+      if (
+        enemy.y + ENEMY_HEIGHT - 12 >= this.player.playerY() &&
+        enemy.x === this.player.x
+      ) {
         isPlayerDead = true;
       }
     }
