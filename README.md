@@ -8,7 +8,7 @@ This project was designed as a way for you to practice and learn about Object Or
 
 The project is divided in two parts. In a first part, you will fix and implement some basic functionality. In the second part, you will be able to customize the game as you wish!
 
-Because there is a fair bit of JavaScript in this app, we have split code into more manageable pieces. You wil find all of the code in the `js` folder.
+Because there is a fair bit of JavaScript in this app, we have split code into more manageable pieces. You will find all of the code in the `js` folder.
 
 _Because we split the code into many files, we need to add the `<script>` tags in the right order in the `index.html` file._ This is already done for you, but it's important not to change the order.
 
@@ -24,7 +24,7 @@ At the moment, the game is a bit broken. This project will have you first fix th
 
 1. Open the `index.html` file in your browser, and observe what goes on when you load it.
 2. After reading the instructions of the project, **take a look at the provided code**. Don't worry if you don't understand _everything_, but try to get a general feel for what the code is doing. There are extensive comments throughout the code.
-3. Once the provided code has been consulted,go through the Assignment section at your own pace.
+3. Once the provided code has been consulted, go through the Assignment section at your own pace.
 
 ## Assignment
 
