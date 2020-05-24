@@ -119,7 +119,17 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+
+      let newText = new Text(this.root, (20), GAME_HEIGHT*0.5-80, false, "80px")
+      newText.update("GAME OVER");
+      this.root.appendChild(newText.domElement);
+  
+
+
+     //window.alert('Game over');
+
+
+      
       return;
     }
 
