@@ -75,17 +75,24 @@ const addBackgroundMusic = (root) => {
   return backgroundMusic;
 };
 
-const addStartBtn = (root) => {
-  //show a start button to start the game and let the gameloop go
+const addStartBtn = (root, text) => {
+  //game engine calls this on itself to create a start button to start the game and let the gameloop go
   let startBtn = document.createElement("button");
   startBtn.classList.add("startButton");
-  startBtn.innerText = "Start Game";
+  startBtn.innerText = text;
   startBtn.addEventListener("click", triggerGameStart);
   root.append(startBtn);
+};
+
+const resetGame = () => {
+  //called when player is dead resets all the components and calls a new start button toallow players to restart
+  gameEngine.player.lives = 3;
+  addStartBtn(gameEngine.root, "Game Over!!\nRestart");
 };
 
 const triggerGameStart = (event) => {
   event.target.remove();
   gameEngine.bgmElement.play();
+  gameEngine.player.showLives();
   gameEngine.gameLoop();
 };

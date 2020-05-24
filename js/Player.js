@@ -9,13 +9,18 @@ class Player {
     // the leftmost x position of the image.
     this.x = 2 * PLAYER_WIDTH;
 
-    //adding lives to the player
+    //adding lives to the player and showing an icon for each
     this.lives = PLAYER_LIVES;
-    //adding visual representation of lives
+    this.livesArray = [];
 
-    //////////!!!! MUST REPLENISH THE LIVES AT RESTART
-    this.livesArray = document.querySelectorAll(".lives > img");
-    console.log(this.livesArray);
+    const showLives = () => {
+      for (let i = 0; i < PLAYER_LIVES; i++) {
+        let newLifeIcon = document.createElement("img");
+        newLifeIcon.src = "images/player.png";
+        document.querySelector(".lives").appendChild(newLifeIcon);
+        this.livesArray.push(newLifeIcon);
+      }
+    };
 
     //adding a spot property, to have lane comparison between the enemies and player
     this.spot = 2;
@@ -62,9 +67,19 @@ class Player {
       this.spot = 4;
     }
   }
-
+  //this is called by the game engine when a enemy/player collision is detected
   loseLife = () => {
     this.lives--;
     this.livesArray[this.lives].remove();
+    this.livesArray.pop();
+  };
+
+  showLives = () => {
+    for (let i = 0; i < PLAYER_LIVES; i++) {
+      let newLifeIcon = document.createElement("img");
+      newLifeIcon.src = "images/player.png";
+      document.querySelector(".lives").appendChild(newLifeIcon);
+      this.livesArray.push(newLifeIcon);
+    }
   };
 }

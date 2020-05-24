@@ -19,7 +19,7 @@ class Engine {
     //we add the background musique to the game (code in the engine utilities)
     this.bgmElement = addBackgroundMusic(this.root);
     //add and remove the start button at will (code in the engine utilities)
-    addStartBtn(this.root);
+    addStartBtn(this.root, "Start Game");
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -61,7 +61,7 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      addStartBtn(this.root);
+      resetGame();
       return;
     }
 
