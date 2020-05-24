@@ -10,7 +10,6 @@ body {
 
 button {
   position: absolute;
-  left: -50px;
   margin-top: 1%;
   font-size: 2vmin;
   font-weight: bolder;
@@ -25,7 +24,7 @@ button {
   overflow: hidden;
   cursor: pointer;
   z-index: 1;
-  box-shadow: 2px 2px 1em rgba(1, 1, 1, 0.8);
+  box-shadow: 2px 2px 1em rgba(165, 31, 143, 0.9);
   outline: none;
   width: 180px;
 }

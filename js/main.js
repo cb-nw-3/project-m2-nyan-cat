@@ -21,7 +21,7 @@ const keydownHandler = (event) => {
 };
 let scorePoints = 0;
 let score;
-const SCORE = new Text(document.querySelector("#app"), 10, 10);
+const SCORE = new Text(document.querySelector("#app"), GAME_WIDTH - 20, 10);
 const AUDIO = new Audio("sounds/Nyanyanyanyanyanyanya.mp3"); // The Music theme was a contribution of Roger Lam
 
 function scoreScreen() {
@@ -35,9 +35,6 @@ document.addEventListener("keydown", keydownHandler);
 // We call the gameLoop method to start the game
 const START = document.createElement("button");
 START.innerText = "START";
-START.style.position = "absolute";
-START.style.left = GAME_WIDTH / 2;
-START.style.zIndex = 4000;
 START.addEventListener("click", gameInit);
 document.body.appendChild(START);
 
