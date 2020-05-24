@@ -57,6 +57,8 @@ class Enemy {
     theRoot.appendChild(this.domElement);
     this.speed = Math.random() / 2 + 0.25;
 
+    this.randomFrameRate = Math.random() * 120;
+
       
 
       // let animatedCat = setInterval(() => { 
@@ -93,16 +95,14 @@ class Enemy {
     this.rightEdge = this.x + ENEMY_WIDTH;
 
     this.milliSecondsSinceFrameSwitch = this.milliSecondsSinceFrameSwitch + timeDiff;
-
-    if (this.milliSecondsSinceFrameSwitch > 60.0) {
+   
+    if (this.milliSecondsSinceFrameSwitch > this.randomFrameRate) {
       this.animated_cat_images_current_element = this.animated_cat_images_current_element + 1;
       if (this.animated_cat_images_current_element > this.animated_cat_images.length-1) {
        this.animated_cat_images_current_element = 0;
       }
     
-
       this.domElement.src = './images/' + this.animated_cat_images[this.animated_cat_images_current_element];
-    
       this.milliSecondsSinceFrameSwitch = 0;
 
     }

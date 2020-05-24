@@ -32,7 +32,7 @@ class Engine {
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
 
-  kickOff = () => {
+  addLives = () => {
 
     let i;
     
@@ -41,10 +41,6 @@ class Engine {
       this.lives.push(new Life(this.root, i));
     }
     this.livesIconsBottom = this.lives[0].bottom;
-
-
-
-
   }
 
   gameLoop = () => {
@@ -120,22 +116,12 @@ class Engine {
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
 
-      let newText = new Text(this.root, (20), GAME_HEIGHT*0.5-80, false, "80px")
+      let newText = new Text(this.root, (20), GAME_HEIGHT*0.5-80, true, "80px", 500)
       newText.update("GAME OVER");
       this.root.appendChild(newText.domElement);
-  
-
-
      //window.alert('Game over');
-
-
-      
       return;
     }
-
-
-
-
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
     setTimeout(this.gameLoop, 20);
   };

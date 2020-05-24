@@ -26,6 +26,6 @@ document.addEventListener('keydown', keydownHandler);
 
 
 // We call the gameLoop method to start the game
-gameEngine.kickOff();
+gameEngine.addLives();
 
 gameEngine.gameLoop();

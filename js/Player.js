@@ -35,19 +35,17 @@ class Player {
   flash()
   {
     console.log(this.domElement.style);
+
     let flashing = setInterval(() => { 
         
-      if (this.domElement.style.opacity === '0.99')
-      {
+      if (this.domElement.style.opacity === '0.99') {
         this.domElement.style.opacity = '0.3';
-      } else if (this.domElement.style.opacity === '0.3')
-      {
+      } else if (this.domElement.style.opacity === '0.3') {
         this.domElement.style.opacity = '0.99';
       }    
     }, 50);    
 
-    let stopFlash = setTimeout( () =>
-    {
+    let stopFlash = setTimeout( () => {
           clearInterval(flashing);
           clearTimeout(stopFlash);
     }, 300
