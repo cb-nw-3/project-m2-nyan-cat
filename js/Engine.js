@@ -112,12 +112,6 @@ class Engine {
     }
 
     
-    // while (this.lives.length < LIVES_START) {
-    //   // We find the next available spot and, using this spot, we create an enemy.
-    //   // We add this enemy to the enemies array
-    //   //const spot = nextEnemySpot(this.enemies);
-    //   this.lives.push(new Life(this.root));
-    // }
 
 
     // We check if the player is dead. If he is, we alert the user
@@ -141,9 +135,7 @@ class Engine {
       {
 
 
-           if (enemyElement.bottom > this.player.top)
-          {
-            if (this.player.x === enemyElement.x)
+           if (enemyElement.bottom > this.player.top && this.player.x === enemyElement.x)
             {
 
             
@@ -159,41 +151,31 @@ class Engine {
                 newText.update("1 Up!!!");
                 this.root.appendChild(newText.domElement);
             
-                let textGo = setTimeout( () =>
-                  {
+                let textGo = setTimeout( () => {
                         this.root.removeChild(newText.domElement);
                   }, 1000
                 );
-            
-                
-            
-
 
               }
-              else 
-              {
 
-
-
-             if (this.lives.length == 0) 
-              {
-                isDead = true
+              else { 
+                if (this.lives.length == 0) {
+                  isDead = true
+                }
+                else {
+                  var liveToBlast = this.lives.pop()
+                  this.root.removeChild(liveToBlast.domElement);
+                  this.root.removeChild(enemyElement.domElement);
+                  enemyElement.destroyed = true;
+                  this.player.flash();
+                }
               }
-              else
-              {
-                var liveToBlast = this.lives.pop()
-                this.root.removeChild(liveToBlast.domElement);
-                this.root.removeChild(enemyElement.domElement);
-                enemyElement.destroyed = true;
-                this.player.flash();
-              }
-            }
 
         
 
             //  isDead = true;
 
-            }
+          
 
 
           } 
