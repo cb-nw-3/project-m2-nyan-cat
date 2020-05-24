@@ -39,8 +39,16 @@ START.addEventListener("click", gameInit);
 document.body.appendChild(START);
 
 function gameInit() {
-  scorePoints = 0;
-  AUDIO.play();
+  console.log(gameEngine.player.lifes);
+  if (gameEngine.player.lifes <= 0) {
+    scorePoints = 0;
+    AUDIO.currentTime = 0;
+    gameEngine.player.lifes = 3;
+    gameEngine.player.domElement[1].style.display = "block";
+    gameEngine.player.domElement[2].style.display = "block";
+    gameEngine.player.domElement[3].style.display = "block";
+  }
   gameEngine.gameLoop();
+  AUDIO.play();
   score = setInterval(scoreScreen, 100);
 }

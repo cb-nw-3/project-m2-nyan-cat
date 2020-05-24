@@ -65,10 +65,10 @@ class Engine {
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
       this.player.lessLife();
-      if (this.player.life <= 0) {
+      this.text.update("Try again");
+      if (this.player.lifes <= 0) {
         this.text.update("Game Over");
       }
-      this.text.update("Try again");
       return;
     }
 
@@ -84,12 +84,12 @@ class Engine {
     for (let enemy of this.enemies) {
       if (
         enemy.y + ENEMY_HEIGHT - 4 >= this.player.playerY() &&
-        enemy.x === this.player.x
+        enemy.x === this.player.x &&
+        this.player.lifes >= 0
       ) {
         isPlayerDead = true;
         clearTimeout(score);
         AUDIO.pause();
-        AUDIO.currentTime = 0;
       }
     }
     return isPlayerDead;
