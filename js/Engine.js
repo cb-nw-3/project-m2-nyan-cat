@@ -19,6 +19,7 @@ class Engine {
 
     this.isOneUpInSystem = false;
 
+    this.livesIconsBottom = 0;
 
     // We add the background image to the game
     addBackground(this.root);
@@ -39,6 +40,7 @@ class Engine {
     {         
       this.lives.push(new Life(this.root, i));
     }
+    this.livesIconsBottom = this.lives[0].bottom;
 
 
 
@@ -121,6 +123,9 @@ class Engine {
       return;
     }
 
+
+
+
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
     setTimeout(this.gameLoop, 20);
   };
@@ -133,12 +138,8 @@ class Engine {
     this.enemies.forEach(
       (enemyElement) =>
       {
-
-
            if (enemyElement.bottom > this.player.top && this.player.x === enemyElement.x)
             {
-
-            
               if (enemyElement.isOneUp)
               {
 
@@ -153,8 +154,9 @@ class Engine {
             
                 let textGo = setTimeout( () => {
                         this.root.removeChild(newText.domElement);
+                        clearTimeout(textGo);
                   }, 1000
-                );
+                );  
 
               }
 
@@ -168,34 +170,30 @@ class Engine {
                   this.root.removeChild(enemyElement.domElement);
                   enemyElement.destroyed = true;
                   this.player.flash();
+
+                  console.log("array is --------");
+                  console.log(this.lives.length);
+
+                  if (this.lives.length === 0)
+                  {
+                    let newText = new Text(this.root, (GAME_WIDTH-150), this.livesIconsBottom, true)
+                    newText.update("LAST LIFE!!!!");
+                    this.root.appendChild(newText.domElement);
+                
+                    let textGo2 = setTimeout( () => {
+                            this.root.removeChild(newText.domElement);
+                            clearTimeout(textGo2);
+                      }, 2000
+                    );  
+    
+                  }
+
                 }
               }
 
-        
-
-            //  isDead = true;
-
-          
-
-
-          } 
-        // enemyElement.spot is the column they are in
-        // maybe have these jump a bit???
-          // console.log("-------");
-
-          // //console.log(enemyElement.bottom);
-          // console.log(this.player.x);
-          // console.log(this.player.rightEdge);
-          // console.log("//////");
-          // console.log(enemyElement.x);
-          // console.log(enemyElement.rightEdge);
-          
-
-       
-          
-        
+          }  
       }
-    )
+    );
 
 
     // should loop over all the enemies, see if it intersects with the player.
