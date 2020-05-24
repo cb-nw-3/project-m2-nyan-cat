@@ -19,6 +19,15 @@ const keydownHandler = (event) => {
     gameEngine.player.moveRight();
   }
 };
+
+const mouseHandlerR = () => {
+  gameEngine.player.moveRight();
+};
+
+const mouseHandlerL = () => {
+  gameEngine.player.moveLeft();
+};
+
 let scorePoints = 0;
 let score;
 const SCORE = new Text(document.querySelector("#app"), GAME_WIDTH - 20, 10);
@@ -37,6 +46,22 @@ const START = document.createElement("button");
 START.innerText = "START";
 START.addEventListener("click", gameInit);
 document.body.appendChild(START);
+
+const RIGHTARROW = document.createElement("img");
+RIGHTARROW.src = "images/arrow.png";
+RIGHTARROW.id = "right";
+RIGHTARROW.style.top = `${GAME_HEIGHT - 180}px`;
+RIGHTARROW.style.left = `${GAME_WIDTH - 120}px`;
+RIGHTARROW.addEventListener("click", mouseHandlerR);
+document.body.appendChild(RIGHTARROW);
+
+const LEFTARROW = document.createElement("img");
+LEFTARROW.src = "images/arrow.png";
+LEFTARROW.id = "left";
+LEFTARROW.style.top = `${GAME_HEIGHT - 180}px`;
+LEFTARROW.style.left = `${50}px`;
+LEFTARROW.addEventListener("click", mouseHandlerL);
+document.body.appendChild(LEFTARROW);
 
 function gameInit() {
   console.log(gameEngine.player.lifes);

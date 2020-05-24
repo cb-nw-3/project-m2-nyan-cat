@@ -33,3 +33,15 @@ button {
   outline: none;
   width: 180px;
 }
+#right {
+  position: absolute;
+  z-index: 100;
+  width: 120px;
+}
+
+#left {
+  position: absolute;
+  z-index: 100;
+  width: 120px;
+  transform: rotate(180deg);
+}
