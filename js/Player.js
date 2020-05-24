@@ -24,6 +24,13 @@ class Player {
 
     //adding a spot property, to have lane comparison between the enemies and player
     this.spot = 2;
+    // add the score element to the player
+    this.score = 0;
+    this.scoreText = new Text(
+      document.getElementById("app"),
+      GAME_WIDTH - 125,
+      0
+    );
 
     // The y position never changes, so we don't need to store it in a property. It represents the y position of the top of the
     // hamburger. The y position is the distance from the top margin of the browsing area.
@@ -81,5 +88,14 @@ class Player {
       document.querySelector(".lives").appendChild(newLifeIcon);
       this.livesArray.push(newLifeIcon);
     }
+  };
+
+  updateScore = (points, scoreWipe) => {
+    if (scoreWipe) {
+      this.score = 0;
+      this.scoreText.update(this.score);
+    }
+    this.score += points;
+    this.scoreText.update(this.score);
   };
 }
