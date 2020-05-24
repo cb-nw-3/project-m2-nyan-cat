@@ -26,7 +26,33 @@ class Player {
     this.domElement.style.left = `${this.x}px`;
     this.domElement.style.top = ` ${y}px`;
     this.domElement.style.zIndex = '10';
+    this.domElement.style.opacity = '0.99';
+
     root.appendChild(this.domElement);
+  }
+
+  
+  flash()
+  {
+    console.log(this.domElement.style);
+    let flashing = setInterval(() => { 
+        
+      if (this.domElement.style.opacity === '0.99')
+      {
+        this.domElement.style.opacity = '0.3';
+      } else if (this.domElement.style.opacity === '0.3')
+      {
+        this.domElement.style.opacity = '0.99';
+      }    
+    }, 50);    
+
+    let stopFlash = setTimeout( () =>
+    {
+          clearInterval(flashing);
+          clearTimeout(stopFlash);
+    }, 300
+  );
+
   }
 
   // This method will be called when the user presses the left key. See in Engine.js

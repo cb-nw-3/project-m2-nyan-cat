@@ -17,20 +17,38 @@ class Engine {
 
     this.lives = [];
 
-    this.life = new Life(this.root);
+    this.isOneUpInSystem = false;
 
 
     // We add the background image to the game
     addBackground(this.root);
+
+    
   }
 
   // The gameLoop will run every few milliseconds. It does several things
   //  - Updates the enemy positions
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
+
+  kickOff = () => {
+
+    let i;
+    
+    for (i=0; i < LIVES_START; i++)
+    {         
+      this.lives.push(new Life(this.root, i));
+    }
+
+
+
+
+  }
+
   gameLoop = () => {
 
-    console.log(this.life);
+
+
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
@@ -59,14 +77,45 @@ class Engine {
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
-      this.enemies.push(new Enemy(this.root, spot));
+      let new_enemy = new Enemy(this.root, spot);
+      this.enemies.push(new_enemy);
+      // console.log("made new enemy")
+      // console.log(new_enemy);
     }
 
+    if (this.lives.length === 1)
+    {
+      // I could do a search for "is the proto.contrustor name OneUp but that seems computationally expensive
+      // to do instead of just making a simple Bool. Much simpler, but admiteddly not as cool. 
+      if (this.isOneUpInSystem === false)
+      {
+        let free_spots = [ 1, 2, 3, 4, 5];
+        console.log(free_spots);
+
+        this.enemies.forEach(
+          (enemy) =>
+          {
+            free_spots = free_spots.filter((element) => {return element !== enemy.spot});
+          }
+
+        );
+
+        console.log(free_spots);
+
+        if (free_spots.length > 0)
+        {
+          let oneUp = new OneUp(this.root, free_spots[0]);
+          this.enemies.push(oneUp);
+          this.isOneUpInSystem = true;
+        }
+      }
+    }
+
+    
     // while (this.lives.length < LIVES_START) {
     //   // We find the next available spot and, using this spot, we create an enemy.
     //   // We add this enemy to the enemies array
     //   //const spot = nextEnemySpot(this.enemies);
-    //   let new_Life = new Life(this.root);
     //   this.lives.push(new Life(this.root));
     // }
 
@@ -96,8 +145,53 @@ class Engine {
           {
             if (this.player.x === enemyElement.x)
             {
-              // enemyElement.setBorderToRed();
-              isDead = true;
+
+            
+              if (enemyElement.isOneUp)
+              {
+
+                this.lives.push(new Life(this.root, this.lives.length));
+                this.root.removeChild(enemyElement.domElement);
+                enemyElement.destroyed = true;
+                this.isOneUpInSystem = false;
+                
+                let newText = new Text(this.root, (GAME_WIDTH-70), this.lives[0].bottom, true)
+                newText.update("1 Up!!!");
+                this.root.appendChild(newText.domElement);
+            
+                let textGo = setTimeout( () =>
+                  {
+                        this.root.removeChild(newText.domElement);
+                  }, 1000
+                );
+            
+                
+            
+
+
+              }
+              else 
+              {
+
+
+
+             if (this.lives.length == 0) 
+              {
+                isDead = true
+              }
+              else
+              {
+                var liveToBlast = this.lives.pop()
+                this.root.removeChild(liveToBlast.domElement);
+                this.root.removeChild(enemyElement.domElement);
+                enemyElement.destroyed = true;
+                this.player.flash();
+              }
+            }
+
+        
+
+            //  isDead = true;
 
             }
 

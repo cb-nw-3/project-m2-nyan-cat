@@ -21,5 +21,5 @@ const PLAYER_HEIGHT = 54;
 const LIFE_ICON_HEIGHT = 20;
 const LIFE_ICON_WIDTH = 20;
 
-const LIVES_START = 3;
+const LIVES_START = 2;
 
