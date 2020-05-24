@@ -71,5 +71,21 @@ class Player {
     this.domElement[0].style.left = `${this.x}px`;
   }
 
+  lessLife() {
+    if (this.lifes >= 0) {
+      this.lifes--;
+    }
+    switch (this.lifes) {
+      case 2:
+        this.domElement[1].style.display = "none";
+        break;
+      case 1:
+        this.domElement[2].style.display = "none";
+        break;
+      case 0:
+        this.domElement[3].style.display = "none";
+        break;
+    }
+  }
   playerY = () => this.y;
 }
