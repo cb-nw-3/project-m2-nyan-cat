@@ -68,6 +68,18 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    return false;
+    let status = false;
+    this.enemies.forEach(pos => {
+      // game over when tip of cat is in hamburger area.
+      // if the cat is out of game board but tail is still in 
+      // doesn't count as death
+      if (
+        pos.x === this.player.x && 
+        pos.y > GAME_HEIGHT - PLAYER_HEIGHT - 10 - ENEMY_HEIGHT &&
+        pos.y < GAME_HEIGHT - 10 - ENEMY_HEIGHT) {
+        status = true
+      }
+    })
+    return status;
   };
 }
