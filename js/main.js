@@ -5,14 +5,8 @@ const gameEngine = new Engine(app);
 let score = 0;
 
 const scoreTally = document.createElement("span");
-scoreTally.innerText = `Score: ${score}`;
-scoreTally.style.position = "absolute";
-scoreTally.style.right = "410px";
-scoreTally.style.top = "30px";
-scoreTally.style.color = "orange";
-scoreTally.style.fontFamily = "sans-serif";
-scoreTally.style.fontSize = "18px";
-scoreTally.style.zIndex = "999";
+// const livesTally = document.createElement("div");
+// livesTally.classList.add("heart");
 
 // keydownHandler is a variable that refers to a function. The function has one parameter
 // (does the parameter name matter?) which is called event. As we will see below, this function
