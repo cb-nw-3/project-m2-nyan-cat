@@ -70,7 +70,6 @@ class Engine {
   isPlayerDead = () => {
     let dead = false;
     this.enemies.forEach((enemy) => {
-      console.log(enemy.spot);
       if (
         enemy.y >= GAME_HEIGHT - PLAYER_HEIGHT * 4 + 18 &&
         enemy.spot === this.player.position
