@@ -6,10 +6,11 @@ class Enemy {
   // - theRoot refers to the parent DOM element.
   //   We need a way to add the DOM element we create in this constructor to our DOM.
   // - enemySpot is the position of the enemy (either 0, 1, 2, 3 or 4)
-  // Since the constructor takes 2 parameters
-  // and the 2 parameters provide important information, we must supply 2 arguments to "new" every time we
+  // - speed is the speed of the nyan cat and it increases during the game
+  // Since the constructor takes 3 parameters
+  // and the 3 parameters provide important information, we must supply 3 arguments to "new" every time we
   // create an instance of this class.
-  constructor(theRoot, enemySpot) {
+  constructor(theRoot, enemySpot, speed) {
     // When we create an Enemy instance, for example, new Enemy(someRoot, 3)
     // A new object is created and the constructor of the Enemy class is called. The context (the \`this\` keyword) is going
     // to be the new object. In these lines of code we see how to add 2 properties to this object: spot, root and gameHeight.
@@ -45,7 +46,13 @@ class Enemy {
 
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     theRoot.appendChild(this.domElement);
-    this.speed = Math.random() / 2 + 0.25;
+
+    let enemySpeed = Math.random() / 2 + 0.15;
+    console.log(Engine.score)
+    if (Engine.score / 10000 >= 0) {
+      enemySpeed += 0.5;
+    }
+    this.speed = speed;
   }
 
   // We set the speed property of the enemy. This determines how fast it moves down the screen.

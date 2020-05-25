@@ -53,12 +53,18 @@ class Engine {
       return !enemy.destroyed;
     });
 
+    // initialize the enemy speed
+    let enemySpeed;
+
     // We need to perform the addition of enemies until we have enough enemies.
     while (this.enemies.length < MAX_ENEMIES) {
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
-      this.enemies.push(new Enemy(this.root, spot));
+
+      // formula to increase speed during game every 10000 points
+      enemySpeed = (Math.random() / 2 + 0.15) + (Math.round(this.score / 10000) * 0.1);
+      this.enemies.push(new Enemy(this.root, spot, enemySpeed));
     }
 
     // We check if the player is dead. If he is, we alert the user
