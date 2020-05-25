@@ -15,7 +15,7 @@ class Engine {
     // that contains instances of the Enemy class
     
     this.enemies = [];
-
+    
     // We add the background image to the game
     addBackground(this.root);
   }
@@ -55,7 +55,6 @@ class Engine {
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
     }
-
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
