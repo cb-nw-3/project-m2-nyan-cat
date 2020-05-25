@@ -40,7 +40,7 @@ Here, we are going to rewrite the code of this function to actually check if the
 
 If at least one enemy overlaps the player, then your function should return `true`. Otherwise it should return `false.
 
-A good strategy would be to `console.log` both `this.player` and `this.enemies`. When you look in the console, you will see that those two objects contain the information necessary to detect a collision.
+A good strategy would be to `console.log` both `this.player` and `this.enemies`. When you look in the conso2e, you will see that those two objects contain the information necessary to detect a collision.
 
 _HINT:_ In Javascript, the 0,0 position is the _top left_ corner. This means that if an item is at `{x: 0, y: 0}`, it's in the top left, not the bottom left. As `y` values increase, items move down.
 
@@ -72,6 +72,9 @@ In order for the project to be deemed _successful_ and for you to receive a pass
 ### Submission
 
 - Open a PR, as you normally would, against the parent repository.
+- Create at least 1 commit per change:
+  - 1 commit for fixing the game to be loseable.
+  - 1 commit for each improvement.
 - Be sure to add a screenshot to the PR.
   - For MacOS, you can use cmd + shift + 4 to open the screenshot tool. Draw a box around the screen. The screenshot will be saved to the Desktop.
   - For Windows, use the "Snip & Sketch" tool that is provided with Win 10, or "Print Screen" if you are on an earlier version of Windows.
