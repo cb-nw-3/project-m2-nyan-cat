@@ -2,6 +2,9 @@
 // we see that it has a div with an id of `"app"`
 const gameEngine = new Engine(document.getElementById('app'));
 
+// add score div in the app
+const score = new Text(gameEngine.root, 0, -5);
+
 // keydownHandler is a variable that refers to a function. The function has one parameter
 // (does the parameter name matter?) which is called event. As we will see below, this function
 // will be called every time the user presses a key. The argument of the function call will be an object.

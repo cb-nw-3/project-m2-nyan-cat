@@ -14,6 +14,8 @@ class Engine {
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
+    // initialize player score
+    this.score = 0;
     // We add the background image to the game
     addBackground(this.root);
   }
@@ -31,6 +33,11 @@ class Engine {
     }
 
     let timeDiff = new Date().getTime() - this.lastFrame;
+    
+    // update score property
+    this.score += timeDiff
+    // update innerText property
+    score.update(this.score);
 
     this.lastFrame = new Date().getTime();
     // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
@@ -57,7 +64,7 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      window.alert(`Game Over - Score: ${this.score}`);
       return;
     }
 
@@ -76,7 +83,7 @@ class Engine {
       if (
         pos.x === this.player.x && 
         pos.y > GAME_HEIGHT - PLAYER_HEIGHT - 10 - ENEMY_HEIGHT &&
-        pos.y < GAME_HEIGHT - 10 - ENEMY_HEIGHT) {
+        pos.y < GAME_HEIGHT - 10 - ENEMY_HEIGHT + (ENEMY_HEIGHT / 2)) {
         status = true
       }
     })
