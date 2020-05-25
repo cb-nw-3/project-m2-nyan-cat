@@ -1,11 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
+:root {
+  --totalWidth: 0;
+  --totalHeight: 0;
+}
+
 body {
   margin: 0;
   padding: 0;
   display: flex;
   font-family: "Bebas Neue", cursive;
   font-size: 2.5rem;
+  box-sizing: border-box;
 }
 
 #app > div {
@@ -52,6 +58,7 @@ button {
 }
 
 #wrapper {
+  position: relative;
   background-color: #302244;
   border: 12px solid transparent;
   border-image: linear-gradient(
@@ -64,4 +71,19 @@ button {
   );
   border-image-slice: 1;
   overflow: hidden;
+}
+
+#text-1 {
+  position: absolute;
+  top: calc(var(--totalHeight) / 2);
+  left: calc(var(--totalWidth) / 2);
+  transform: translateX(-50%);
+  color: white;
+}
+
+#text-2 {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: white;
 }

@@ -7,6 +7,7 @@
 // of the game area in pixels and is used in engine-utilities.js.
 const GAME_WIDTH = 700;
 const GAME_HEIGHT = 650;
+document.documentElement.style.setProperty("--totalHeight", `${GAME_HEIGHT}px`);
 
 // These constants represent the width and height of an enemy in pixels
 // as well as the maximum number of enemies on screen at any given time.
@@ -14,6 +15,10 @@ const ENEMY_WIDTH = 75;
 const ENEMY_HEIGHT = 156;
 const MAX_ENEMIES = 3;
 
+document.documentElement.style.setProperty(
+  "--totalWidth",
+  `${GAME_WIDTH + ENEMY_WIDTH / 2 + 4}px`
+);
 // These constants represent the player width and height.
 const PLAYER_WIDTH = 75;
 const PLAYER_HEIGHT = 54;

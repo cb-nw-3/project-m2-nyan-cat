@@ -51,6 +51,12 @@ class Player {
     this.domElement[3].style.top = "20px";
     this.domElement[3].style.zIndex = "5000";
     root.appendChild(this.domElement[3]);
+    // this.domElement[4].src = "images/lifes.png";
+    // this.domElement[4].style.position = "absolute";
+    // this.domElement[4].style.left = `${GAME_WIDTH - 110}px`;
+    // this.domElement[4].style.width = "60px";
+    // this.domElement[4].style.top = "20px";
+    // this.domElement[4].style.zIndex = "5000";
   }
 
   // This method will be called when the user presses the left key. See in Engine.js

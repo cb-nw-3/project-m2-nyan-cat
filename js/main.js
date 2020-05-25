@@ -30,7 +30,7 @@ const mouseHandlerL = () => {
 
 let scorePoints = 0;
 let score;
-const SCORE = new Text(document.querySelector("#app"), GAME_WIDTH - 20, 10);
+const SCORE = new Text(document.querySelector("#wrapper"), GAME_WIDTH - 20, 10);
 const AUDIO = new Audio("sounds/Nyanyanyanyanyanyanya.mp3"); // The Music theme was a contribution of Roger Lam
 
 function scoreScreen() {
