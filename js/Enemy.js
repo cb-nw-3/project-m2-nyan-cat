@@ -47,7 +47,7 @@ class Enemy {
     theRoot.appendChild(this.domElement);
     scoreTally.innerText = `Score: ${score}`;
     scoreTally.style.position = "absolute";
-    scoreTally.style.right = "410px";
+    scoreTally.style.left = "290px";
     scoreTally.style.top = "30px";
     scoreTally.style.color = "orange";
     scoreTally.style.fontFamily = "sans-serif";
