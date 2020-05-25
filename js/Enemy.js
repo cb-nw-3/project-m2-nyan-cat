@@ -45,6 +45,8 @@ class Enemy {
 
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     theRoot.appendChild(this.domElement);
+    theRoot.appendChild(scoreTally);
+    console.log(score);
     this.speed = Math.random() / 2 + 0.25;
   }
 
