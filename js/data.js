@@ -19,6 +19,8 @@ const PLAYER_WIDTH = 75;
 const PLAYER_HEIGHT = 54;
 
 const bg = document.createElement("div");
+let noMovement = false;
+// control hamburguer movement
 
 const addBackground = (root) => {
   // We create a new img DOM node.
@@ -40,6 +42,5 @@ const addBackground = (root) => {
   // so we place a white div to hide the enemies after they reach the bottom.
   // To see what it does, you can comment out all the remaining lines in the function to see the effect.
   const whiteBox = document.createElement("div");
-
   // We put a high z-index so that the div is placed over all other DOM nodes
 };

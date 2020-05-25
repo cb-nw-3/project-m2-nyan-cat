@@ -15,12 +15,13 @@ body {
 button {
   font-family: "Bebas Neue", cursive;
   position: absolute;
-  margin-top: 1%;
+  top: 18px;
+  left: 18px;
   font-size: 2rem;
   font-weight: bolder;
   display: flex;
   justify-content: center;
-  padding: 15px 0;
+  padding: 8px 0;
   appearance: none;
   background: rgb(223, 188, 52);
   border: none;
@@ -29,7 +30,7 @@ button {
   overflow: hidden;
   cursor: pointer;
   z-index: 1;
-  box-shadow: 2px 2px 1em rgba(165, 31, 143, 0.9);
+  box-shadow: 4px 4px 6px rgba(233, 202, 228, 0.9);
   outline: none;
   width: 180px;
 }
@@ -52,7 +53,7 @@ button {
 
 #wrapper {
   background-color: #302244;
-  border: 10px solid transparent;
+  border: 12px solid transparent;
   border-image: linear-gradient(
     to bottom right,
     #b827fc 0%,

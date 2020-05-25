@@ -56,7 +56,7 @@ class Player {
   // This method will be called when the user presses the left key. See in Engine.js
   // how we relate the key presses to this method
   moveLeft() {
-    if (this.x > 0) {
+    if (this.x > 0 && !noMovement) {
       this.x = this.x - PLAYER_WIDTH;
     }
 
@@ -65,7 +65,7 @@ class Player {
 
   // We do the same thing for the right key. See Engine.js to see when this happens.
   moveRight() {
-    if (this.x + PLAYER_WIDTH < GAME_WIDTH) {
+    if (this.x + PLAYER_WIDTH < GAME_WIDTH && !noMovement) {
       this.x = this.x + PLAYER_WIDTH;
     }
     this.domElement[0].style.left = `${this.x}px`;

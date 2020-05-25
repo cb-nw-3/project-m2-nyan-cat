@@ -66,6 +66,7 @@ class Engine {
     if (this.isPlayerDead()) {
       this.player.lessLife();
       this.text.update("Try again");
+      noMovement = true;
       if (this.player.lifes <= 0) {
         this.text.update("Game Over");
       }
