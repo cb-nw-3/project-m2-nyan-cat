@@ -1,3 +1,27 @@
 body {
   margin: 0;
 }
+
+button {
+  z-index: 9999;
+  background: url('images/stars.png') no-repeat;
+  background-size: 100%;
+  opacity: 0.8;
+  position: absolute;
+  border: none;
+  color: #eeeeee;
+  top: 760px;
+  width: 525px;
+  height: 50px;
+  font-family: impact;
+  font-size: 2rem;
+  transition: all 0.2s linear;
+}
+button:hover {
+  opacity: 1;
+  font-size: 2.2rem;
+}
+button:focus {
+  opacity: 1;
+  font-size: 2.2rem;
+}

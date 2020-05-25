@@ -5,6 +5,13 @@ const gameEngine = new Engine(document.getElementById('app'));
 // add score div in the app
 const score = new Text(gameEngine.root, 0, -5);
 
+// select reset button
+let resetButton = document.querySelector('button')
+// event listener that reloads the page to restart the game when clicked
+resetButton.addEventListener('click', function() {
+  window.location.reload();
+})
+
 // keydownHandler is a variable that refers to a function. The function has one parameter
 // (does the parameter name matter?) which is called event. As we will see below, this function
 // will be called every time the user presses a key. The argument of the function call will be an object.
