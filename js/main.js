@@ -34,8 +34,10 @@ const SCORE = new Text(document.querySelector("#app"), GAME_WIDTH - 20, 10);
 const AUDIO = new Audio("sounds/Nyanyanyanyanyanyanya.mp3"); // The Music theme was a contribution of Roger Lam
 
 function scoreScreen() {
-  scorePoints++;
-  SCORE.update(scorePoints);
+  if (!noMovement) {
+    scorePoints++;
+    SCORE.update(scorePoints);
+  }
 }
 
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
