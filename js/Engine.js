@@ -14,6 +14,7 @@ class Engine {
     this.lives = 3;
     this.playerInvincible = false;
     this.invincibleCounter = 75;
+    this.livesTxt = new Text(this.root, 240, 40);
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
@@ -25,7 +26,7 @@ class Engine {
     this.scoreTxt = new Text(this.root, 15, 15);
     // current level counter
     this.difficultyLevel = 0;
-    this.levelCounter = new Text(this.root, 240, 20);
+    this.levelCounter = new Text(this.root, 240, 15);
     // pause state
     this.gamePaused = false;
   }
@@ -80,6 +81,7 @@ class Engine {
       this.enemies.push(new Enemy(this.root, spot));
       this.enemiesOriginalSpeed.push(this.enemies[this.enemies.length - 1].speed);
       this.scoreTxt.update("Score:" + this.score);
+      this.livesTxt.update("Lives: " + this.lives);
     }
 
     // check pause state; if true, slow everything down
@@ -138,14 +140,12 @@ class Engine {
     }
 
     if (this.enemies.some(badGuy =>
-      (badGuy.x === this.player.x && (badGuy.y + ENEMY_HEIGHT) >= (GAME_HEIGHT - PLAYER_HEIGHT))
+      (badGuy.x === this.player.x && (badGuy.y + ENEMY_HEIGHT - 20) >= (GAME_HEIGHT - PLAYER_HEIGHT))
     )) {
       if (this.playerInvincible === false && this.invincibleCounter === 75) {
         this.lives--;
         this.playerInvincible = true;
         this.invincibleCounter--;
-        console.log("invincible!");
-        console.log("lives remaining " + this.lives);
       }
     }
   }
