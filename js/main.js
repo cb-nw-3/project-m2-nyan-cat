@@ -1,5 +1,6 @@
 // We create an instance of the Engine class. Looking at our index.html,
 // we see that it has a div with an id of `"app"`
+console.log(document.querySelector("#wrapper"));
 const gameEngine = new Engine(document.querySelector("#app"));
 
 // keydownHandler is a variable that refers to a function. The function has one parameter
@@ -71,9 +72,7 @@ function gameInit() {
     scorePoints = 0;
     AUDIO.currentTime = 0;
     gameEngine.player.lifes = 3;
-    gameEngine.player.domElement[1].style.display = "block";
-    gameEngine.player.domElement[2].style.display = "block";
-    gameEngine.player.domElement[3].style.display = "block";
+    gameEngine.player.fullLife();
   }
   gameEngine.gameLoop();
   AUDIO.play();

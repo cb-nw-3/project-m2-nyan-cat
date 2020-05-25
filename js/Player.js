@@ -9,7 +9,7 @@ class Player {
     // store the data in a property of the instance. It represents the distance from the left margin of the browsing area to
     // the leftmost x position of the image.
     this.showlife;
-    this.lifes = 3;
+    this.lifes = 0;
     this.x = 2 * PLAYER_WIDTH;
     const y = GAME_HEIGHT - PLAYER_HEIGHT - 10;
     this.y = y;
@@ -36,6 +36,8 @@ class Player {
     this.domElement[1].style.width = "60px";
     this.domElement[1].style.top = "20px";
     this.domElement[1].style.zIndex = "5000";
+    this.domElement[1].classList.add("lifes");
+    this.domElement[1].classList.add("hiddenlifes");
     root.appendChild(this.domElement[1]);
     this.domElement[2].src = "images/lifes.png";
     this.domElement[2].style.position = "absolute";
@@ -43,6 +45,8 @@ class Player {
     this.domElement[2].style.width = "60px";
     this.domElement[2].style.top = "20px";
     this.domElement[2].style.zIndex = "5000";
+    this.domElement[2].classList.add("lifes");
+    this.domElement[2].classList.add("hiddenlifes");
     root.appendChild(this.domElement[2]);
     this.domElement[3].src = "images/lifes.png";
     this.domElement[3].style.position = "absolute";
@@ -50,6 +54,8 @@ class Player {
     this.domElement[3].style.width = "60px";
     this.domElement[3].style.top = "20px";
     this.domElement[3].style.zIndex = "5000";
+    this.domElement[3].classList.add("lifes");
+    this.domElement[3].classList.add("hiddenlifes");
     root.appendChild(this.domElement[3]);
     // this.domElement[4].src = "images/lifes.png";
     // this.domElement[4].style.position = "absolute";
@@ -83,15 +89,21 @@ class Player {
     }
     switch (this.lifes) {
       case 2:
-        this.domElement[1].style.display = "none";
+        this.domElement[1].classList.add("hiddenlifes");
         break;
       case 1:
-        this.domElement[2].style.display = "none";
+        this.domElement[2].classList.add("hiddenlifes");
         break;
       case 0:
-        this.domElement[3].style.display = "none";
+        this.domElement[3].classList.add("hiddenlifes");
         break;
     }
+  }
+
+  fullLife() {
+    this.domElement[1].classList.remove("hiddenlifes");
+    this.domElement[2].classList.remove("hiddenlifes");
+    this.domElement[3].classList.remove("hiddenlifes");
   }
   playerY = () => this.y;
 }

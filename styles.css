@@ -87,3 +87,10 @@ button {
   right: 10px;
   color: white;
 }
+
+.lifes {
+  transition: all 1s ease-in-out;
+}
+.hiddenlifes {
+  opacity: 0;
+}
