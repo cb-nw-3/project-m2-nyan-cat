@@ -38,31 +38,36 @@ const nextEnemySpot = (enemies) => {
 // It is a variable that refers to a function.
 // The function takes one parameter
 // The parameter represents the DOM node to which we will add the background
-const addBackground = (root) => {
-  // We create a new img DOM node.
-  const bg = document.createElement("div");
+// const addBackground = (root) => {
+//   // We create a new img DOM node.
+//   const WRAPPER = document.createElement("div");
+//   WRAPPER.id = "wrapper";
+//   root.append(WRAPPER);
+//   const bg = document.createElement("div");
 
-  // We set its src attribute and the height and width CSS attributes
-  bg.style.backgroundImage = "url(images/stars.gif)";
-  bg.style.backgroundRepeat = "repeat";
-  bg.style.height = `${GAME_HEIGHT}px`;
-  bg.style.width = `${GAME_WIDTH + ENEMY_WIDTH / 2 + 4}px`;
+//   // We set its src attribute and the height and width CSS attributes
+//   bg.style.backgroundImage = "url(images/stars.gif)";
+//   bg.style.backgroundRepeat = "repeat";
+//   bg.style.height = `${GAME_HEIGHT}px`;
+//   bg.style.width = `${GAME_WIDTH + ENEMY_WIDTH / 2 + 4}px`;
+//   bg.id = "frame";
 
-  // We add it to the root DOM node
-  root.append(bg);
+//   // We add it to the root DOM node
+//   WRAPPER.appendChild(bg);
 
-  // We don't want the enemies to go beyond the lower edge of the image
-  // so we place a white div to hide the enemies after they reach the bottom.
-  // To see what it does, you can comment out all the remaining lines in the function to see the effect.
-  const whiteBox = document.createElement("div");
+//   // We don't want the enemies to go beyond the lower edge of the image
+//   // so we place a white div to hide the enemies after they reach the bottom.
+//   // To see what it does, you can comment out all the remaining lines in the function to see the effect.
+//   const whiteBox = document.createElement("div");
 
-  // We put a high z-index so that the div is placed over all other DOM nodes
-  whiteBox.style.zIndex = 100;
-  whiteBox.style.position = "absolute";
-  whiteBox.style.top = `${GAME_HEIGHT}px`;
-  whiteBox.style.left = "-15px";
-  whiteBox.style.height = `${ENEMY_HEIGHT + 10}px`;
-  whiteBox.style.width = `${GAME_WIDTH + ENEMY_WIDTH + 18}px`;
-  whiteBox.style.background = "#fff";
-  root.append(whiteBox);
-};
+//   // We put a high z-index so that the div is placed over all other DOM nodes
+//   whiteBox.style.zIndex = 100;
+//   whiteBox.style.position = "absolute";
+//   whiteBox.style.top = `${GAME_HEIGHT + 30}px`;
+//   whiteBox.style.left = "-15px";
+//   whiteBox.style.height = `${ENEMY_HEIGHT + 10}px`;
+//   whiteBox.style.width = `${GAME_WIDTH + ENEMY_WIDTH + 18}px`;
+//   whiteBox.style.background = "#fff";
+//   whiteBox.id = "whiteframe";
+//   root.append(whiteBox);
+// };
