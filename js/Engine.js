@@ -139,8 +139,11 @@ class Engine {
       return true;
     }
 
+    // cat hitbox is basically the bottom two thirds of the div
+    // no more loss if you hit the rainbow, much like if you taunt a real cat
+
     if (this.enemies.some(badGuy =>
-      (badGuy.x === this.player.x && (badGuy.y + ENEMY_HEIGHT - 20) >= (GAME_HEIGHT - PLAYER_HEIGHT))
+      (badGuy.x === this.player.x && (badGuy.y + ENEMY_HEIGHT) >= (GAME_HEIGHT - PLAYER_HEIGHT) && (badGuy.y + ENEMY_HEIGHT / 3) <= (GAME_HEIGHT - PLAYER_HEIGHT))
     )) {
       if (this.playerInvincible === false && this.invincibleCounter === 75) {
         this.lives--;

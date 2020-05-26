@@ -7,7 +7,7 @@ const gameEngine = new Engine(document.getElementById('app'));
 // will be called every time the user presses a key. The argument of the function call will be an object.
 // The object will contain information about the key press, such as which key was pressed.
 const keydownHandler = (event) => {
-  if (event.code === 'Space') {
+  if (event.code === 'KeyP') {
     gameEngine.gamePaused = !gameEngine.gamePaused;
   }
 

@@ -5,3 +5,9 @@ body {
 .flicker {
     visibility: hidden;
 }
+
+.pause {
+    left: 300px;
+    transform-origin: center top;
+    transform: rotate(90deg);
+}
