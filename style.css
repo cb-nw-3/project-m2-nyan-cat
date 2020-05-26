@@ -1,0 +1,21 @@
+.start-btn {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2rem;
+  position:  absolute;
+  z-index: 1000;
+  width: 250px;
+  height: 80px;
+  background-color: rgb(70, 170, 70);
+  border-radius: 5px;
+  /* border: 2px solid black; */
+  margin: 0;
+  padding: 5px;
+}
+
+.start-btn:hover {
+  color: white;
+}
+
+.visible {
+  display: none;
+}

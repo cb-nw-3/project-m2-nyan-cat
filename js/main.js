@@ -20,8 +20,34 @@ const keydownHandler = (event) => {
   }
 };
 
+
+//create a start button that will initiate the gameLoop method, instead of it being
+//started onload.
+
+const startBtn = document.createElement("button")
+startBtn.innerText = "Start";
+startBtn.id = "start";
+startBtn.classList.toggle("start-btn");
+// startBtn.classList.toggle("visible");
+//restartBtn.style.left = `${GAME_WIDTH/5}px`;
+startBtn.style.left = "70px"; //looks centered enough
+startBtn.style.top = `${GAME_HEIGHT/2}px`;
+document.getElementById('app').appendChild(startBtn);
+
+
+document.getElementById("start").addEventListener("click", function(){
+  startBtn.classList.toggle("visible");
+  document.addEventListener('keydown', keydownHandler);
+  gameEngine.gameLoop();
+});
+
+
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
 document.addEventListener('keydown', keydownHandler);
 
-// We call the gameLoop method to start the game
-gameEngine.gameLoop();
+
+
+
+
+// // We call the gameLoop method to start the game
+// gameEngine.gameLoop();
