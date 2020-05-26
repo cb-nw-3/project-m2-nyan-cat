@@ -14,8 +14,42 @@ class Engine {
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
+
+    this.timesDead = 0;
     // We add the background image to the game
     addBackground(this.root);
+
+    // Rendering lives
+    this.life1 = document.createElement("img");
+    this.life1.setAttribute("src", "../images/heart.png");
+    this.life1.style.width = "40px";
+    this.life1.style.height = "40px";
+    this.life1.style.zIndex = "999";
+    this.life1.style.position = "absolute";
+    this.life1.style.top = "20px";
+    this.life1.style.left = "20px";
+
+    this.life2 = document.createElement("img");
+    this.life2.setAttribute("src", "../images/heart.png");
+    this.life2.style.width = "40px";
+    this.life2.style.height = "40px";
+    this.life2.style.zIndex = "999";
+    this.life2.style.position = "absolute";
+    this.life2.style.top = "20px";
+    this.life2.style.left = "50px";
+
+    this.life3 = document.createElement("img");
+    this.life3.setAttribute("src", "../images/heart.png");
+    this.life3.style.width = "40px";
+    this.life3.style.height = "40px";
+    this.life3.style.zIndex = "999";
+    this.life3.style.position = "absolute";
+    this.life3.style.top = "20px";
+    this.life3.style.left = "80px";
+
+    this.root.appendChild(this.life1);
+    this.root.appendChild(this.life2);
+    this.root.appendChild(this.life3);
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -52,12 +86,33 @@ class Engine {
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
+      // Rendering the score
+      scoreTally.innerText = `${score}`;
+      scoreTally.style.position = "absolute";
+      scoreTally.style.left = "320px";
+      scoreTally.style.top = "25px";
+      scoreTally.style.color = "orange";
+      scoreTally.style.fontFamily = "sans-serif";
+      scoreTally.style.fontSize = "24px";
+      scoreTally.style.zIndex = "999";
+      this.root.appendChild(scoreTally);
     }
 
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
+      this.timesDead++;
       // window.alert("Game over");
+      if (this.timesDead === 1) {
+        this.root.removeChild(this.life3);
+        this.gameLoop();
+      } else if (this.timesDead === 2) {
+        this.root.removeChild(this.life2);
+        this.gameLoop();
+      } else if (this.timesDead === 3) {
+        this.root.removeChild(this.life1);
+        // window.alert("Game over");
+      }
       return;
     }
 
@@ -69,12 +124,14 @@ class Engine {
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
     let dead = false;
-    this.enemies.forEach((enemy) => {
+    this.enemies.forEach((enemy, index) => {
       if (
-        enemy.y >= GAME_HEIGHT - PLAYER_HEIGHT * 4 + 18 &&
+        enemy.y >= GAME_HEIGHT - PLAYER_HEIGHT * 4 &&
         enemy.spot === this.player.position
       ) {
+        this.enemies.splice(index, 1);
         dead = true;
+        this.root.removeChild(enemy.domElement);
       }
     });
     return dead;

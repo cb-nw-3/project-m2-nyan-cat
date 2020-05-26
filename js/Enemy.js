@@ -45,15 +45,7 @@ class Enemy {
 
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     theRoot.appendChild(this.domElement);
-    scoreTally.innerText = `Score: ${score}`;
-    scoreTally.style.position = "absolute";
-    scoreTally.style.left = "290px";
-    scoreTally.style.top = "30px";
-    scoreTally.style.color = "orange";
-    scoreTally.style.fontFamily = "sans-serif";
-    scoreTally.style.fontSize = "18px";
-    scoreTally.style.zIndex = "999";
-    theRoot.appendChild(scoreTally);
+
     this.speed = Math.random() / 2 + 0.25;
   }
 
@@ -76,7 +68,6 @@ class Enemy {
 
       this.destroyed = true;
       score = score + 1 * 10;
-      console.log(score);
     }
   }
 }
