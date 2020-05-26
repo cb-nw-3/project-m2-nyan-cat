@@ -38,7 +38,7 @@ const nextEnemySpot = (enemies) => {
 // It is a variable that refers to a function.
 // The function takes one parameter
 // The parameter represents the DOM node to which we will add the background
-const addBackground = (root) => {
+const addBorders = (root) => {
   // We create a new img DOM node.
   // const bg = document.createElement('img');
 
@@ -59,7 +59,7 @@ const addBackground = (root) => {
   whiteBox.style.zIndex = 100;
   whiteBox.style.position = 'absolute';
   whiteBox.style.top = `${GAME_HEIGHT}px`;
-  whiteBox.style.height = `${1000}px`;
+  whiteBox.style.height = `${ENEMY_HEIGHT}px`;
   whiteBox.style.width = `${GAME_WIDTH}px`;
   whiteBox.style.background = '#fff';
 

@@ -23,26 +23,46 @@ class Engine {
 
     this.resetbutton = new ResetButton(this.root, 0);
 
+    this.score = 0;
+
 
 
 
     // We add the background image to the game
-    addBackground(this.root);
+    addBorders(this.root);
 
-    this.bg = document.createElement('img');
-
-    // We set its src attribute and the height and width CSS attributes
-    this.bg.src = 'images/stars.png';
-    this.bg.style.height = `${GAME_HEIGHT*3}px`;
-    this.bg.style.width = `${GAME_WIDTH}px`;
-    this.bg.style.position = 'absolute';
 
     
+    this.spaceBackgroundYPos = 0;
+    this.spaceBackground = document.createElement('div');
+    this.spaceBackground.style.backgroundImage = `url('images/space999.png')`;
+    this.spaceBackground.style.height = `${GAME_HEIGHT}px`;
+    this.spaceBackground.style.width = `${GAME_WIDTH}px`;
+    this.spaceBackground.style.position = 'absolute';
+    this.root.append(this.spaceBackground);
 
-    this.bg_y_pos = -1000;
 
-    // We add it to the root DOM node
-    this.root.append(this.bg);
+
+    this.starsparalaxYPos = 0;
+    this.starsparalax = document.createElement('div');
+    this.starsparalax.style.backgroundImage = `url('images/bigger_stars.png')`;
+    this.starsparalax.style.height = `${GAME_HEIGHT}px`;
+    this.starsparalax.style.width = `${GAME_WIDTH}px`;
+    this.starsparalax.style.position = 'absolute';
+    this.root.append(this.starsparalax);
+
+    this.starsparalax2YPos = 0;
+    this.starsparalax2 = document.createElement('div');
+    this.starsparalax2.style.backgroundImage = `url('images/smaller_stars.png')`;
+    this.starsparalax2.style.height = `${GAME_HEIGHT}px`;
+    this.starsparalax2.style.width = `${GAME_WIDTH}px`;
+    this.starsparalax2.style.position = 'absolute';
+    this.root.append(this.starsparalax2);
+
+
+
+
+
 
     this.messageText = new Text(this.root, (GAME_WIDTH - 150), this.livesIconsBottom, true)
     this.messageText.update("Blank Text");
@@ -55,17 +75,17 @@ class Engine {
     this.gameOverText.update("GAME OVER");
     this.gameOverText.domElement.style.visibility = "hidden";
 
-
     let newYpos = this.gameOverText.bottom;
 
     this.resetbutton.internalButton.style.top = `${newYpos + 20}px`;
     this.resetbutton.internalButton.addEventListener('click', () => { this.resetGame() });
-
     this.root.appendChild(this.gameOverText.domElement);
 
     this.gameOverState = true;
 
-
+    this.scoreText = new Text(this.root, (20), 30, false, "20", 400, "red", "scoretext")
+    this.scoreText.update(`${this.score} pts`);
+    this.root.appendChild(this.scoreText.domElement);
 
 
     console.log(this)
@@ -146,24 +166,40 @@ class Engine {
       enemy.update(timeDiff);
     });
 
-    //moving background frame
-    if (this.bg_y_pos > -250)
-    {
-      this.bg_y_pos = -1000;
-    }
 
-    this.bg_y_pos = this.bg_y_pos + timeDiff * 0.2;
-    console.log(this.bg_y_pos);
-    this.bg.style.top = `${this.bg_y_pos}px`;
-    console.log(this.bg.style.top);
+    // move the backgoundImage position down to simulate space travel
+    this.spaceBackgroundYPos = this.spaceBackgroundYPos + timeDiff * 0.1;
+    this.spaceBackground.style.backgroundPositionY = `${this.spaceBackgroundYPos}px`;
+
+
+    this.starsparalaxYPos = this.starsparalaxYPos + timeDiff * 0.15;
+    this.starsparalax.style.backgroundPositionY = `${this.starsparalaxYPos}px`;
+
+
+    this.starsparalax2YPos = this.starsparalax2YPos + timeDiff * 0.3;
+    this.starsparalax2.style.backgroundPositionY = `${this.starsparalax2YPos}px`;
+
+
+
+
+
+
+
+    // clip-path: inset(10% 10% 10% 10% round 20%, 20%);
 
 
     // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
     // We use filter to accomplish this.
     // Remember: this.enemies only contains instances of the Enemy class.
+    let enemy_count = this.enemies.length;
     this.enemies = this.enemies.filter((enemy) => {
       return !enemy.destroyed;
     });
+    enemy_count = enemy_count - this.enemies.length;
+    let score_to_add = enemy_count * 100;
+    this.score = this.score + score_to_add;
+    this.scoreText.update(`${this.score} pts`);
+
 
     // We need to perform the addition of enemies until we have enough enemies.
     while (this.enemies.length < MAX_ENEMIES) {
