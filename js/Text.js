@@ -11,7 +11,7 @@ class Text {
     div.style.left = xPos;
     div.style.top = yPos;
     div.style.color = 'white';
-    div.style.font = 'bold 30px Impact';
+    div.style.font = 'cursive 24px Press Start 2P';
     div.style.zIndex = 2000;
 
     root.appendChild(div);

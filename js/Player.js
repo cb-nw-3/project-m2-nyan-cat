@@ -30,7 +30,6 @@ class Player {
     if (this.x > 0) {
       this.x = this.x - PLAYER_WIDTH;
     }
-
     this.domElement.style.left = `${this.x}px`;
   }
 

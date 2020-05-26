@@ -45,7 +45,10 @@ class Enemy {
 
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     theRoot.appendChild(this.domElement);
-    this.speed = Math.random() / 2 + 0.25;
+
+    // gradually speed up cats as score goes up
+    let enemySpeed = Math.random() / 2 + (0.25 * (1 + (gameEngine.difficultyLevel / 10)));
+    this.speed = enemySpeed;
   }
 
   // We set the speed property of the enemy. This determines how fast it moves down the screen.
@@ -66,6 +69,7 @@ class Enemy {
       this.root.removeChild(this.domElement);
 
       this.destroyed = true;
+      gameEngine.score++;
     }
   }
 }

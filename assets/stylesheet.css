@@ -1,0 +1,13 @@
+body {
+    font-family: 'Press Start 2P', cursive;
+}
+
+.flicker {
+    visibility: hidden;
+}
+
+.pause {
+    left: 300px;
+    transform-origin: center top;
+    transform: rotate(90deg);
+}
