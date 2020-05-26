@@ -31,7 +31,6 @@ class Engine {
     if (this.lastFrame === undefined) {
       this.lastFrame = new Date().getTime();
     }
-
     let timeDiff = new Date().getTime() - this.lastFrame;
     
     // update score property
@@ -43,8 +42,7 @@ class Engine {
     // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
     // Furthermore, if any enemy is below the bottom of our game, its destroyed property will be set. (See Enemy.js)
     this.enemies.forEach((enemy) => {
-      // extra argument for the hamburger spawn
-      enemy.update(timeDiff, this.player);
+      enemy.update(timeDiff);
     });
 
     // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
@@ -63,18 +61,16 @@ class Engine {
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
-
       randomNumberToCallBonus = Math.floor(Math.random() * 50);
 
       enemySpeed = (Math.random() / 2 + 0.15) + (Math.round(this.score / 10000) * 0.1);
-
+      console.log(enemySpeed)
       if (randomNumberToCallBonus === 17) {
         this.enemies.push(new Hamburger(this.root, spot, enemySpeed, 'Hamburger'));
       } else {
         // formula to increase speed during game every 10000 points
         this.enemies.push(new Enemy(this.root, spot, enemySpeed, 'Enemy'));
       }
-      console.log(this.enemies)
     }
 
     // We check if the player is dead. If he is, we alert the user
@@ -107,11 +103,10 @@ class Engine {
       } else if (pos.name === 'Hamburger') {
         if (
           pos.x === this.player.x && 
-          this.y > GAME_HEIGHT - (PLAYER_HEIGHT * 2) - 10 &&
-          this.y < GAME_HEIGHT - PLAYER_HEIGHT - 10
+          pos.y > GAME_HEIGHT - (PLAYER_HEIGHT * 2) - 10 &&
+          pos.y < GAME_HEIGHT - PLAYER_HEIGHT - 10
         ) {
-          this.score += 100000;
-          console.log(this.score)
+          this.score += 1000;
         }
       }
     })
