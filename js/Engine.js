@@ -13,9 +13,11 @@ class Engine {
     this.player = new Player(this.root);
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
-    
+
     this.enemies = [];
-    
+
+    this.lives = 4;
+
     // We add the background image to the game
     addBackground(this.root);
   }
@@ -25,6 +27,7 @@ class Engine {
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
   gameLoop = () => {
+    console.log("gameloop");
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
@@ -58,58 +61,99 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      gameOver()
-      button.addEventListener('click', () => {
+      let button = document.querySelector("#continueButton");
+      let reset = document.querySelector("#restartButton");
+
+      this.gameOver();
+      button.addEventListener("click", () => {
         // this.enemies.forEach((item)=>{
-          // item.destroyed = true
-          // item.y = 500
-          // item.update(timeDiff)
-          // this.enemies = this.enemies.filter((enemy) => {
-          //   return !enemy.destroyed;
-          // });
-          dialogueBox.setAttribute('style', 'display:none;')
-          this.gameLoop()
-        // })
-      })
-      return;
+        // item.destroyed = true
+        // item.y = 500
+        // item.update(timeDiff)
+        // this.enemies = this.enemies.filter((enemy) => {
+        //   return !enemy.destroyed;
+        // });
+        dialogueBox.setAttribute("style", "display:none;");
+        console.log("running gameLoop");
+        this.gameLoop();
+      });
+      reset.addEventListener("click", () => {
+        location.reload();
+      });
+    } else {
+      setTimeout(() => {
+        console.log("running gameLOOP");
+        this.gameLoop();
+      }, 20);
     }
 
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
-    setTimeout(this.gameLoop, 20);
   };
 
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    let BodyOfCat = (ENEMY_HEIGHT/4*3); //this will be used to seperate the cat into 4 parts.
+    let BodyOfCat = (ENEMY_HEIGHT / 4) * 3; //this will be used to seperate the cat into 4 parts.
     //we are adding it to item.y in order to set the top limit of our collision system to the first fourth of the cat.
-    //that way the player isn't penalized for changing position onto the rainbow of the cat. 
-    let isThereCollisionArray = this.enemies.map((item) =>{
-      if(item.y + BodyOfCat < 436 + PLAYER_HEIGHT && item.y + ENEMY_HEIGHT > 436 && item.x === this.player.x){
+    //that way the player isn't penalized for changing position onto the rainbow of the cat.
+    let isThereCollisionArray = this.enemies.map((item) => {
+      if (
+        item.y + BodyOfCat < 436 + PLAYER_HEIGHT &&
+        item.y + ENEMY_HEIGHT > 436 &&
+        item.x === this.player.x
+      ) {
         return true;
       }
-    })
-    if (isThereCollisionArray.includes(true)){
-      return true
+    });
+    if (isThereCollisionArray.includes(true)) {
+      return true;
     }
   };
-  
+
+  gameOver = () => {
+    console.log("game Over");
+    this.lives -= 1;
+    if (this.lives > 0) {
+      dialogueBox.setAttribute("style", "display:flex;");
+      title.innerText = "Would you like to continue ?";
+      livesDOM.innerText = `You have ${this.lives} this.lives left`;
+      console.log(`You have ${this.lives} this.lives left`);
+      // }else if(this.lives < 0 ){
+      //   dialogueBox.setAttribute('style', 'display:flex;');
+      //   title.innerText = "GAME OVER";
+      //   livesDOM.innerText = `You have ${this.lives} this.lives left`;
+      //   console.log(`You have ${this.lives} lives left`);
+      //   button.setAttribute('style', 'display:none;');
+      // };
+    }
+  };
 }
 
+// let dialogueBox = document.querySelector('#continue');
+// let title = document.querySelector('#title');
+// let livesDOM = document.querySelector('#lives');
+// let button = document.querySelector('#continueButton');
+// let reset = document.querySelector('#restartButton')
+// let lives = 4
 
-let dialogueBox = document.querySelector('#continue');
-let title = document.querySelector('#title');
-let livesDOM = document.querySelector('#lives');
-let button = document.querySelector('#continueButton');
-let lives = 4
+// function gameOver(){
+//   lives -= 1
+//   if(lives > 0){
+//       dialogueBox.setAttribute('style', 'display:flex;');
+//       title.innerText = "Would you like to continue ?";
+//       livesDOM.innerText = `You have ${lives} lives left`;
+//       console.log(`You have ${lives} lives left`);
+//   }else{
+//     dialogueBox.setAttribute('style', 'display:flex;');
+//     title.innerText = "GAME OVER";
+//     livesDOM.innerText = `You have ${lives} lives left`;
+//     console.log(`You have ${lives} lives left`);
+//     button.setAttribute('style', 'display:none;');
+//   };
+// }
 
-function gameOver(){
-lives -= 1
-if(lives > 0){
-    dialogueBox.setAttribute('style', 'display:flex;')
-    title.innerText = "Would you like to continue ?"
-    livesDOM.innerText = `You have ${lives} lives left`
-}
-}
-
-
+let dialogueBox = document.querySelector("#continue");
+let title = document.querySelector("#title");
+let livesDOM = document.querySelector("#lives");
+let button = document.querySelector("#continueButton");
+let reset = document.querySelector("#restartButton");
