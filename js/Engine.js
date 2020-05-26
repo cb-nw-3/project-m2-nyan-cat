@@ -68,6 +68,42 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    return false;
+    //create a boolean indicator to show if a crash occurs
+    let crash = false;
+
+    //A collision can only occur when the enemy position has reached the beginning of the player's burger image
+    let collisionY = GAME_HEIGHT - PLAYER_HEIGHT - 10;
+
+    //let distDiff = enemy.y - playerY;
+    //console.log(this.enemies[0].y);
+    //console.log("Player is at",gameEngine.player.x);
+
+    //Loop through each enemy class and verify that a collision occurs.
+    this.enemies.forEach(enemy => {
+      //console.log(`Enemy at lane ${enemy.spot} is at `,enemy.x, enemy.y);
+
+      //collision can only occur if the player is in the same lane as an enemy
+      //AND that the distance between the enemy and player is less than 0.
+      if(enemy.x === gameEngine.player.x && (enemy.y + ENEMY_HEIGHT) > collisionY ) {
+        
+        //console.log("we're aligned!");
+        //console.log(`${enemy.y+ENEMY_HEIGHT} and ${playerY}`);
+        //console.log(enemy.y,playerY);
+        //console.log("CRASSSH");
+
+        //once that happens, set the indicator to true
+        crash = true;
+      }
+    });
+
+    //the global variable _crash_ is now set to true and the isPlayerDead function 
+    //can now return a boolean, which will trigger the gameLoop method's end
+    //condition that the player has died and will exit the gameloop.
+    if(crash) {
+      return true;
+    } else {
+      return false;
+    }
+    //return false;
   };
 }
