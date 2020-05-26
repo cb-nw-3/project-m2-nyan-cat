@@ -98,6 +98,7 @@ class Engine {
         ATOM.style.left = `${enemy.x}`;
         ATOM.id = "crash";
         document.querySelector("#wrapper").appendChild(ATOM);
+        this.player.domElement[0].src = "images/sadplayer.png";
       }
     }
     return isPlayerDead;

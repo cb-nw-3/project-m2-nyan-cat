@@ -80,6 +80,7 @@ function gameInit() {
     document
       .querySelector("#wrapper")
       .removeChild(document.querySelector("#crash"));
+    gameEngine.player.domElement[0].src = "images/player.png";
   }
   gameEngine.gameLoop();
   AUDIO.play();
