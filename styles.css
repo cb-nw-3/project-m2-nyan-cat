@@ -97,6 +97,6 @@ button {
 
 .atom {
   position: absolute;
-  width: 210px;
+  width: 100px;
   z-index: 200;
 }

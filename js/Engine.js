@@ -97,8 +97,8 @@ class Engine {
         const ATOM = document.createElement("img");
         ATOM.classList.add("atom");
         ATOM.src = "images/atom.gif";
-        ATOM.style.top = `${this.player.playerY() - 80}px`;
-        ATOM.style.left = `${this.player.x - PLAYER_WIDTH}px`;
+        ATOM.style.top = `${this.player.playerY() - 65}px`;
+        ATOM.style.left = `${this.player.x - PLAYER_WIDTH / 2 + 15}px`;
         ATOM.id = "crash";
         document.querySelector("#wrapper").appendChild(ATOM);
         this.player.domElement[0].src = "images/sadplayer.png";
