@@ -21,7 +21,7 @@ class Enemy {
 
     // The x position of the enemy is determined by its width and its spot. We need this information for the lifetime
     // of the instance, so we make it a property of the instance. (Why is this information needed for the lifetime of the instance?)
-    this.x = enemySpot * ENEMY_WIDTH;
+    this.x = enemySpot * ENEMY_WIDTH - 25;
 
     // The y position is initially less than 0 so that the enemies fall from the top. This data is stored as a property
     // of the instance since it is needed throughout its lifetime. The destroyed property will indicate whether this enemy
@@ -36,7 +36,7 @@ class Enemy {
     this.domElement = document.createElement("img");
 
     // We give it a src attribute to specify which image to display.
-    this.domElement.src = "./images/enemy.png";
+    this.domElement.src = "./images/cat.gif";
     // We modify the CSS style of the DOM node.
     this.domElement.style.position = "absolute";
     this.domElement.style.left = `${this.x}px`;

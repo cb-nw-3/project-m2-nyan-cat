@@ -87,7 +87,7 @@ class Engine {
     for (let enemy of this.enemies) {
       if (
         enemy.y + ENEMY_HEIGHT - 4 >= this.player.playerY() &&
-        enemy.x === this.player.x &&
+        enemy.x === this.player.x - 25 &&
         this.player.lifes >= 0
       ) {
         isPlayerDead = true;
