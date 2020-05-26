@@ -63,6 +63,20 @@ const addBackground = (root) => {
   whiteBox.style.width = `${GAME_WIDTH}px`;
   whiteBox.style.background = '#fff';
   root.append(whiteBox);
+
+  // lets another whitebox to the upper part
+
+  // We put a high z-index so that the div is placed over all other DOM nodes
+  const whiteBoxUpper = document.createElement('div');
+
+  whiteBoxUpper.style.zIndex = 100;
+  whiteBoxUpper.style.position = 'absolute';
+  whiteBoxUpper.style.top = `${0}px`;
+  whiteBoxUpper.style.height = `${8}px`;
+  whiteBoxUpper.style.width = `${GAME_WIDTH}px`;
+  whiteBoxUpper.style.background = '#fff';
+  root.append(whiteBoxUpper);
+
 };
 
 

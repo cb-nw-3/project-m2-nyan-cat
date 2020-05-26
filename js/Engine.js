@@ -21,11 +21,7 @@ class Engine {
 
     this.livesIconsBottom = 0;
 
-    //this.button1 =  document.createElement('button');
-    
-    this.button1 = new ResetButton(this.root, 0);
-
-
+    this.resetbutton = new ResetButton(this.root, 0);
 
     // We add the background image to the game
     addBackground(this.root);
@@ -44,12 +40,12 @@ class Engine {
 
     let newYpos = this.gameOverText.bottom;
 
-    this.button1.internalButton.style.top = `${newYpos+20}px`;
-    this.button1.internalButton.addEventListener('click', ()=> {this.resetGame()});
+    this.resetbutton.internalButton.style.top = `${newYpos+20}px`;
+    this.resetbutton.internalButton.addEventListener('click', ()=> {this.resetGame()});
 
     this.root.appendChild(this.gameOverText.domElement);
 
-    this.addResetButton()
+    this.gameOverState = true;
 
 
     
@@ -71,33 +67,6 @@ class Engine {
   //  - Removes enemies that are too low from the enemies array
 
 
-  addResetButton = () => {
-
-
-    // this.button1.innerText = "Click to Play Again!";
-    // this.button1.style.backgroundColor = "hotPink";
-    // this.button1.style.color = "white";
-
-    // this.button1.style.position = 'absolute';
-    // this.button1.style.left = `${GAME_WIDTH/2-75}px`;
-    
-    // let newYpos = this.gameOverText.bottom;
-
-    // this.button1.style.top = `${newYpos+20}px`;
-    // this.button1.style.font = `bold 20px Impact`;
-    // this.button1.style.padding = '10px';
-    // this.button1.style.borderRadius =  "9px";
-    // this.button1.style.border =  "0px";
-
-    // this.button1.style.zIndex = '40';
-    // this.button1.id = 'helloDave';
-    // this.button1.addEventListener('click', ()=> {this.resetGame()});
-    // this.button1.style.visibility = 'hidden';
-    // this.root.appendChild(this.button1);
-
-    this.gameOverState = true;
-
-  }
 
   
 
@@ -118,7 +87,6 @@ class Engine {
 
 
   resetGame = () =>  { 
-     console.log("clickedddd");
 
     this.enemies.map( (enemyElement) =>
     {
@@ -127,31 +95,16 @@ class Engine {
     }
     );
 
-    // this.lives.map( (lifeElement) =>
-    // {
-    //   this.root.removeChild(lifeElement.domElement)
-    // }
-    // );
-    
-
-    
-
-
     this.enemies = [];
-
     this.lives = [];
-
     this.isOneUpInSystem = false;
-
     this.livesIconsBottom = 0;
-    
     this.player.flash();
-
     this.addLives();
 
     this.gameLoop();
     this.gameOverText.domElement.style.visibility = "hidden";
-    this.button1.internalButton.style.visibility = 'hidden';
+    this.resetbutton.internalButton.style.visibility = 'hidden';
 
     this.player.gameStillOn = true;
   }
@@ -232,7 +185,7 @@ class Engine {
 
       this.messageText.domElement.style.opacity = '0.0';
 
-      this.button1.internalButton.style.visibility = 'visible';
+      this.resetbutton.internalButton.style.visibility = 'visible';
 
       this.gameOverText.domElement.style.visibility = "visible";
 
