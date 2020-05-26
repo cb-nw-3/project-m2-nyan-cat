@@ -16,6 +16,10 @@ class Engine {
     this.enemies = [];
     // We add the background image to the game
     addBackground(this.root);
+
+    
+    
+
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -52,7 +56,9 @@ class Engine {
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
+  
     }
+    
 
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
@@ -68,6 +74,29 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    return false;
-  };
+
+    let isPlayerDead = false;
+    for (let enemy of this.enemies) {
+      if (
+        enemy.y + ENEMY_HEIGHT - 4 >= (GAME_HEIGHT - PLAYER_HEIGHT - 10) &&
+        enemy.x === this.player.x
+      ) {
+        isPlayerDead = true;
+       
+      }
+    }
+    return isPlayerDead;
+
+
+
+    
+
+
+  }
 }
+
+
+
+
+
+
