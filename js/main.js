@@ -74,6 +74,13 @@ function gameInit() {
     gameEngine.player.lifes = 3;
     gameEngine.player.fullLife();
   }
+  document;
+  const CRASH = document.querySelector("#crash") !== null;
+  if (CRASH) {
+    document
+      .querySelector("#wrapper")
+      .removeChild(document.querySelector("#crash"));
+  }
   gameEngine.gameLoop();
   AUDIO.play();
   score = setInterval(scoreScreen, 100);

@@ -94,3 +94,9 @@ button {
 .hiddenlifes {
   opacity: 0;
 }
+
+.atom {
+  position: absolute;
+  width: 150px;
+  z-index: 200;
+}

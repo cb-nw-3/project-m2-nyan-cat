@@ -91,6 +91,13 @@ class Engine {
         isPlayerDead = true;
         clearTimeout(score);
         AUDIO.pause();
+        const ATOM = document.createElement("img");
+        ATOM.classList.add("atom");
+        ATOM.src = "images/atom.gif";
+        ATOM.style.top = `${this.player.playerY() - 80}px`;
+        ATOM.style.left = `${enemy.x}`;
+        ATOM.id = "crash";
+        document.querySelector("#wrapper").appendChild(ATOM);
       }
     }
     return isPlayerDead;
