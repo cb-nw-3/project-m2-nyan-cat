@@ -43,6 +43,9 @@ document.getElementById("start").addEventListener("click", function() {
   //the left and right arrow keys will enable the player to move
   document.addEventListener('keydown', keydownHandler);
 
+  //enable the music loop to play;
+  document.getElementById("bg-music").play();
+
   //the game loop starts
   gameEngine.gameLoop();
 });
@@ -69,6 +72,9 @@ document.getElementById("restart").addEventListener("click", function() {
   //the left and right arrow keys will be re-enabled, previously removed
   //when the first game loop finished
   document.addEventListener('keydown', keydownHandler);
+
+  //reenable the music loop to play;
+  document.getElementById("bg-music").play();
 
   //restart the game loop
   gameEngine.gameLoop();
