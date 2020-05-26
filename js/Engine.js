@@ -26,12 +26,20 @@ class Engine {
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
+    // if (currentTime < 5000) { ***
+    //   MAX_ENEMIES = 3;
+    // } else {
+    //   MAX_ENEMIES = 5;
+    // }
+
     if (this.lastFrame === undefined) {
       this.lastFrame = new Date().getTime();
     }
 
     let timeDiff = new Date().getTime() - this.lastFrame;
-
+    // console.log(timeDiff);
+    // currentTime = currentTime + timeDiff; ***
+    // console.log(currentTime); ***
     this.lastFrame = new Date().getTime();
     // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
     // Furthermore, if any enemy is below the bottom of our game, its destroyed property will be set. (See Enemy.js)
@@ -45,7 +53,6 @@ class Engine {
     this.enemies = this.enemies.filter((enemy) => {
       return !enemy.destroyed;
     });
-
     // We need to perform the addition of enemies until we have enough enemies.
     while (this.enemies.length < MAX_ENEMIES) {
       // We find the next available spot and, using this spot, we create an enemy.
@@ -67,7 +74,29 @@ class Engine {
 
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
+
   isPlayerDead = () => {
-    return false;
+    let collision = false;
+    // This should be changed to true in order to work.
+    let collisionCriteria = GAME_HEIGHT - PLAYER_HEIGHT + 10;
+    // If this is the criteria to be met if the hamburger and cat are touching.
+    // If this turns out to be smaller than the enemy height + their current "y" position
+    // the game should end
+    let catArray = gameEngine.enemies;
+    // console.log(catArray);
+
+    for (let i = 0; i < catArray.length; i++) {
+      if (
+        catArray[i].x === gameEngine.player.x &&
+        catArray[i].y + ENEMY_HEIGHT > collisionCriteria
+      ) {
+        collision = true;
+      }
+    }
+    if (collision === true) {
+      return true;
+    } else {
+      return false;
+    }
   };
 }
