@@ -20,16 +20,26 @@ const keydownHandler = (event) => {
   }
 };
 //Addition of Score and audio files
-let scoreCount = 0;
+//let scoreCount = 0;
 let score;
+//let lifeCount = 100;
+let life;
 const SCORE = new Text(document.querySelector("#app"), 10, 10);
 const BG_MUSIC = new Audio("/DontStopMeNow.mp3");
 const PRESS_START = new Audio("/gamestart.mp3");
 const GAME_OVER = new Audio("/gameover.mp3");
+const LIFE = new Text(document.querySelector("#app"), 750, 10);
 
 function scoreCounter() {
   scoreCount++;
   SCORE.update(`ALIVE FOR ${scoreCount} SECONDS!`);
+}
+
+function showLife() {
+  LIFE.update(`${lifeCount} HP LEFT`);
+}
+function loseLife() {
+  LIFE.update(`${lifeCount - 1} HP LEFT`);
 }
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
 document.addEventListener("keydown", keydownHandler);
@@ -51,9 +61,11 @@ document.body.appendChild(START);
 //Initializing the game with all the trinkets :)
 function initGame() {
   scoreCount = 0;
+  lifeCount = 100;
   PRESS_START.play();
   gameEngine.gameLoop();
   score = setInterval(scoreCounter, 1000);
+  life = setInterval(showLife, 1000);
   setTimeout(function () {
     BG_MUSIC.play();
   }, 500);

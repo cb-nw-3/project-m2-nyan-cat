@@ -80,6 +80,10 @@ class Engine {
 
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?) - because if not it keeps popping!
+    if (this.isPlayerHurt()) {
+      lifeCount = lifeCount - 1;
+      LIFE.update(`${lifeCount} HP LEFT`);
+    }
     if (this.isPlayerDead()) {
       GAME_OVER.play();
       window.alert(
@@ -94,7 +98,7 @@ class Engine {
 
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
-  isPlayerDead = () => {
+  isPlayerHurt = () => {
     let isPlayerHit = false;
 
     this.enemies.forEach((enemy) => {
@@ -102,6 +106,23 @@ class Engine {
       const enemyHeightGreater =
         enemy.y + ENEMY_HEIGHT >= GAME_HEIGHT - PLAYER_HEIGHT;
       const collision = sameSpot && enemyHeightGreater;
+      if (collision) {
+        isPlayerHit = true;
+        loseLife(lifeCount);
+        //location.reload();
+      }
+    });
+    return isPlayerHit;
+  };
+
+  isPlayerDead = () => {
+    let isPlayerHit = false;
+
+    this.enemies.forEach((enemy) => {
+      const sameSpot = this.player.x === enemy.x;
+      const enemyHeightGreater =
+        enemy.y + ENEMY_HEIGHT >= GAME_HEIGHT - PLAYER_HEIGHT;
+      const collision = sameSpot && enemyHeightGreater && lifeCount === 0;
       if (collision) {
         isPlayerHit = true;
         BG_MUSIC.pause();
