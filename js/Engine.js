@@ -25,25 +25,56 @@ class Engine {
 
     this.score = 0;
 
+    this.gameOverState = true;
+
+
+//     window.AudioContext  = window.AudioContext || window.webkitAudioContext;
+// window.context = new AudioContext();
 
 
 
-    // We add the background image to the game
+// let fileInput = "/sounds/Flashpoint001a.flac");
+// bufferSource.gain.value = 1;
+// bufferSource.loop = true;
+// bufferSource.connect(oscillatorGain);
+// fileInput.addEventListener("change", () =>  {
+// 	var reader = new FileReader();
+// 	reader.onload = function(ev) {
+// 		context.decodeAudioData(ev.target.result, function(buffer) {
+// 			bufferSource.buffer = buffer;
+// 			bufferSource.noteOn(0);
+// 		});
+// 	};
+// 	reader.readAsArrayBuffer(this.files[0]);
+// }, false);
+
+
+
+
+
+
+    // sound effects from https://opengameart.org/
+
+    this.catHitSound = new Sound(this.root, ["/sounds/Flashpoint001a.flac", "/sounds/Flashpoint001b.flac", "/sounds/Flashpoint001c.flac", "/sounds/Flashpoint001d.flac"]);
+
+    this.punchSound = new Sound(this.root, ["/sounds/hit01.mp3.flac", "/sounds/hit02.mp3.flac", "/sounds/hit03.mp3.flac", "/sounds/hit04.mp3.flac", ]);
+
+    this.explosionSound = new Sound(this.root, ["/sounds/missile_explosion.ogg"]);
+
+    this.oneUpSound = new Sound(this.root, ["/sounds/message1.wav"]);
+
+    // this.clickSound = new Sound(this.root, ["/sounds/click1.wav", "/sounds/click2.wav", "/sounds/click3.wav"]);
+
+
+    // music from https://www.premiumbeat.com/blog/free-ambient-background-tracks/
+    this.music = new Sound(this.root, ["/sounds/Forest 1.mp3", "/sounds/Forest 2.mp3", "/sounds/Bird Ambience.mp3"]);
+
+    this.subwaySound = new Sound(this.root, ["/sounds/subwayTrain_B-line.wav"]);
+
+
     addBorders(this.root);
 
-
-    
-
-
-      this.spaceLayers = new SpaceBackground(this.root);
-
-
-
-
-
-
-
-
+    this.spaceLayers = new SpaceBackground(this.root);
 
     this.messageText = new Text(this.root, (GAME_WIDTH - 150), this.livesIconsBottom, true)
     this.messageText.update("Blank Text");
@@ -62,7 +93,6 @@ class Engine {
     this.resetbutton.internalButton.addEventListener('click', () => { this.resetGame() });
     this.root.appendChild(this.gameOverText.domElement);
 
-    this.gameOverState = true;
 
     this.scoreText = new Text(this.root, (20), 30, false, "20", 400, "red", "scoretext")
     this.scoreText.update(`${this.score} pts`);
@@ -78,69 +108,70 @@ class Engine {
 
 
 
+    
+
+
   }
-
-  // The gameLoop will run every few milliseconds. It does several things
-  //  - Updates the enemy positions
-  //  - Detects a collision between the player and any enemy
-  //  - Removes enemies that are too low from the enemies array
-
-
-
 
 
   addLives = () => {
     let i;
 
-
     for (i = 0; i < LIVES_START; i++) {
       this.lives.push(new Life(this.root, i));
     }
-    this.livesIconsBottom = this.lives[0].bottom;
 
+    this.livesIconsBottom = this.lives[0].bottom;
     this.messageText.domElement.style.top = this.lives[0].bottom;
 
+    this.music.play();
+    this.music.setVolume(0.3);
+
+    // this.clickSound.setVolume(0.2);
+
+    // this.music.setPlayBackSpeed(1.5);
 
   }
 
 
   resetGame = () => {
 
+    // get ride of gameover message and the button
+    this.gameOverText.domElement.style.visibility = "hidden";
+    this.resetbutton.internalButton.style.visibility = 'hidden';
+
     this.enemies.map((enemyElement) => {
       enemyElement.destroyed = true;
       this.root.removeChild(enemyElement.domElement)
-
-      
     }
     );
 
+    // reset everything by zeroing out all the values
     this.enemies = [];
     this.lives = [];
     this.isOneUpInSystem = false;
     this.livesIconsBottom = 0;
-    this.player.flash();
-    this.addLives();
-
-    this.gameLoop();
-    this.gameOverText.domElement.style.visibility = "hidden";
-    this.resetbutton.internalButton.style.visibility = 'hidden';
-
     this.score = 0;
+
+    this.player.flash();
 
     this.player.gameStillOn = true;
 
+    // rebuild, and restart
+    this.addLives();
+    this.gameLoop();
+    this.player.domElement.style.webkitFilter = "";
 
+    this.music.play();
 
-  this.player.domElement.style.webkitFilter = "";
-
-
-
-
-    
   }
 
 
 
+  // The gameLoop will run every few milliseconds. It does several things
+  //  - Updates the enemy positions
+  //  - Detects a collision between the player and any enemy
+  //  - Removes enemies that are too low from the enemies array
 
   gameLoop = () => {
 
@@ -149,6 +180,7 @@ class Engine {
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
     if (this.lastFrame === undefined) {
       this.lastFrame = new Date().getTime();
+  
     }
 
     let timeDiff = new Date().getTime() - this.lastFrame;
@@ -163,8 +195,6 @@ class Engine {
 
     this.spaceLayers.moveDownSpaceBackgrouds(timeDiff);
 
-    // clip-path: inset(10% 10% 10% 10% round 20%, 20%);
-
 
     // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
     // We use filter to accomplish this.
@@ -174,10 +204,15 @@ class Engine {
       return !enemy.destroyed;
     });
     enemy_count = enemy_count - this.enemies.length;
+    
     let score_to_add = enemy_count * 100;
     this.score = this.score + score_to_add;
     this.scoreText.update(`${this.score} pts`);
+    // if (enemy_count > 0) 
+    // {
+    //   this.clickSound.play();
 
+    // }
 
     // We need to perform the addition of enemies until we have enough enemies.
     while (this.enemies.length < MAX_ENEMIES) {
@@ -187,25 +222,20 @@ class Engine {
       const spot = nextEnemySpot(this.enemies);
       let new_enemy = new Enemy(this.root, spot);
       this.enemies.push(new_enemy);
-      // console.log("made new enemy")
-      // console.log(new_enemy);
     }
 
     if (this.lives.length === 1) {
       // I could do a search for "is the proto.contrustor name OneUp but that seems computationally expensive
       // to do instead of just making a simple Bool. Much simpler, but admiteddly not as cool. 
       if (this.isOneUpInSystem === false) {
+
         let free_spots = [1, 2, 3, 4, 5];
-        console.log(free_spots);
 
         this.enemies.forEach(
           (enemy) => {
             free_spots = free_spots.filter((element) => { return element !== enemy.spot });
           }
-
         );
-
-        console.log(free_spots);
 
         if (free_spots.length > 0) {
           let oneUp = new OneUp(this.root, free_spots[0]);
@@ -213,6 +243,7 @@ class Engine {
           this.isOneUpInSystem = true;
         }
       }
+
     }
 
 
@@ -230,10 +261,10 @@ class Engine {
         enemyElement.domElement.style.webkitFilter = "blur(2px)";
       }
 
-      
       );
       this.player.domElement.style.webkitFilter = "blur(2px)";
 
+      this.explosionSound.play();
 
       return;
     }
@@ -251,8 +282,10 @@ class Engine {
     this.enemies.forEach(
       (enemyElement) => {
         if (enemyElement.bottom > this.player.top && this.player.x === enemyElement.x) {
-          if (enemyElement.isOneUp) {
 
+
+          if (enemyElement.isOneUp) {
+            this.oneUpSound.play();
             this.lives.push(new Life(this.root, this.lives.length));
             this.root.removeChild(enemyElement.domElement);
             enemyElement.destroyed = true;
@@ -266,7 +299,15 @@ class Engine {
                 this.messageText.domElement.style.opacity = '0.0';
               }
             }, 2000);
-          }
+
+            if (this.lives.length === 2)
+            {
+              this.music.setPlayBackSpeed(2.0);
+
+              this.music.setVolume(0.1);
+
+            }
+        }
 
           else {
             if (this.lives.length == 0) {
@@ -274,7 +315,7 @@ class Engine {
             }
             else {
               var lifetoBlast = this.lives.pop()
-
+    
               //remove a life marker from the top of the screen, then remove the enemy
               this.root.removeChild(lifetoBlast.domElement);
               this.root.removeChild(enemyElement.domElement);
@@ -282,7 +323,17 @@ class Engine {
               enemyElement.destroyed = true;
               this.player.flash();
 
+              if (this.lives.length === 1)
+              {
+                this.music.setVolume(0.1);
+
+              }
+
+
               if (this.lives.length === 0) {
+                this.punchSound.play();
+                this.music.setPlayBackSpeed(2.0);
+
                 this.messageText.update("LAST LIFE!!!!");
                 this.messageText.domElement.style.opacity = '1.0';
 
@@ -292,6 +343,11 @@ class Engine {
                   }
                 }, 2000
                 );
+
+              }
+              else
+              {
+                this.catHitSound.play();
 
               }
 
