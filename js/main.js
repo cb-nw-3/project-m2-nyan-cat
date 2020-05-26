@@ -19,24 +19,26 @@ const keydownHandler = (event) => {
     gameEngine.player.moveRight();
   }
 };
-
+//Addition of Score and audio files
 let scoreCount = 0;
 let score;
-const SCORE = new Text(document.querySelector("#app"), 20, 5);
-const AUDIO = new Audio("/DontStopMeNow.mp3");
+const SCORE = new Text(document.querySelector("#app"), 10, 10);
+const BG_MUSIC = new Audio("/DontStopMeNow.mp3");
+const PRESS_START = new Audio("/gamestart.mp3");
+const GAME_OVER = new Audio("/gameover.mp3");
 
 function scoreCounter() {
   scoreCount++;
-  SCORE.update(scoreCount);
+  SCORE.update(`ALIVE FOR ${scoreCount} SECONDS!`);
 }
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
 document.addEventListener("keydown", keydownHandler);
-
+//Modification on Start button
 const START = document.createElement("button");
 START.innerText = "START";
 START.style.position = "absolute";
 START.style.zIndex = 4000;
-START.style.backgroundColor = "dodgerblue";
+START.style.backgroundColor = "blueviolet";
 START.style.color = "white";
 START.style.fontWeight = "bold";
 START.style.fontSize = "20px";
@@ -46,13 +48,17 @@ START.style.marginTop = "-8px";
 START.style.borderRadius = "4px";
 START.addEventListener("click", initGame);
 document.body.appendChild(START);
-
+//Initializing the game with all the trinkets :)
 function initGame() {
   scoreCount = 0;
-  AUDIO.play();
-  AUDIO.loop = true;
+  PRESS_START.play();
   gameEngine.gameLoop();
-  score = setInterval(scoreCounter, 100);
+  score = setInterval(scoreCounter, 1000);
+  setTimeout(function () {
+    BG_MUSIC.play();
+  }, 500);
+  BG_MUSIC.loop = true;
+  START.removeEventListener("click", initGame);
 }
 
 // We call the gameLoop method to start the game

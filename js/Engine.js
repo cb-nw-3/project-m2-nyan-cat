@@ -55,18 +55,35 @@ class Engine {
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
     }
+    //Game Difficulty increases here :)
+    if (scoreCount === 35) {
+      MAX_ENEMIES = 6;
+    }
+    if (scoreCount === 65) {
+      MAX_ENEMIES = 7;
+    }
+    if (scoreCount === 90) {
+      MAX_ENEMIES = 8;
+    }
+    if (scoreCount === 120) {
+      MAX_ENEMIES = 9;
+    }
+    if (scoreCount === 135) {
+      MAX_ENEMIES = 10;
+    }
+    if (scoreCount === 155) {
+      MAX_ENEMIES = 6;
+    }
+    if (scoreCount === 165) {
+      MAX_ENEMIES = 11;
+    }
 
-    if (scoreCount === 350) {
-      MAX_ENEMIES = 4;
-    }
-    if (scoreCount === 600) {
-      MAX_ENEMIES = 5;
-    }
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?) - because if not it keeps popping!
     if (this.isPlayerDead()) {
+      GAME_OVER.play();
       window.alert(
-        `Oh no! The Katz gots the Hamburgerz! Your score is ${scoreCount}`
+        `Oh no! The Katz gots the Hamburgerz! You survived for ${scoreCount} seconds!`
       );
       location.reload();
     }
@@ -87,8 +104,7 @@ class Engine {
       const collision = sameSpot && enemyHeightGreater;
       if (collision) {
         isPlayerHit = true;
-        AUDIO.pause();
-        START.removeEventListener("click", initGame);
+        BG_MUSIC.pause();
         //location.reload();
       }
     });
