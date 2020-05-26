@@ -31,6 +31,7 @@ class Player {
   moveLeft() {
     if (this.x > 0) {
       this.x = this.x - PLAYER_WIDTH;
+      gameSound.play();
     }
 
     this.domElement.style.left = `${this.x}px`;
@@ -40,6 +41,7 @@ class Player {
   moveRight() {
     if (this.x + PLAYER_WIDTH < GAME_WIDTH) {
       this.x = this.x + PLAYER_WIDTH;
+      gameSound.play();
     }
     this.domElement.style.left = `${this.x}px`;
     
