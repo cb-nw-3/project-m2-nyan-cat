@@ -60,6 +60,7 @@ class Engine {
 
       //togle the visible class so that the restart button can appear
       document.getElementById("restart").classList.toggle("visible");
+      document.getElementById("end-msg").classList.toggle("visible");
 
       //remove the players ability to move
       document.removeEventListener('keydown', keydownHandler);

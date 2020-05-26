@@ -24,3 +24,10 @@
 .visible {
   display: none;
 }
+
+.msg {
+  font-family: 'Press Start 2P', cursive;
+  position:  absolute;
+  z-index: 1000;
+  color: white;
+}
