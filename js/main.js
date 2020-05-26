@@ -20,6 +20,17 @@ const keydownHandler = (event) => {
   }
 };
 
+// ################################ LEVELS #####################################
+
+const level = document.createElement("h2");
+level.innerText = `Level ${levelCount}`;
+level.id = "level";
+level.classList.add("msg");
+level.style.left = "200px"; //looks centered enough
+level.style.top = `0px`;
+document.getElementById('app').appendChild(level);
+
+// ################################ SCOREBOARD ################################
 
 const scoreboard = document.createElement("h2");
 scoreboard.innerText = count;
@@ -38,6 +49,9 @@ scoreMsg.classList.toggle("visible");
 scoreMsg.style.left = "15px"; //looks centered enough
 scoreMsg.style.top = `${GAME_HEIGHT*0.70}px`;
 document.getElementById('app').appendChild(scoreMsg);
+
+
+// ################################ START BUTTON ################################
 
 //create a start button that will initiate the gameLoop method, instead of it being
 //started onload.
@@ -78,6 +92,7 @@ document.getElementById("start").addEventListener("click", function() {
   gameEngine.gameLoop();
 });
 
+// ############################## RESTART BUTTON ###############################
 
 //create a restart button that is initially hidden, and will only appear when 
 //the gameloop end condition is met (player dies).

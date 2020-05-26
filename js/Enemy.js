@@ -5,6 +5,10 @@
 //Create a global count variable that will track the number of times the enemies have been destroyed
 let count = 0;
 
+//this will track the current level the player is at, which will modify the speed
+//of the enemies
+let levelCount = 1;
+
 class Enemy {
 
   // The constructor takes 2 arguments.
@@ -51,8 +55,21 @@ class Enemy {
 
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     theRoot.appendChild(this.domElement);
-    this.speed = Math.random() / 2 + 0.25;
+    //this.speed = Math.random() / 2 + 0.25;
 
+    //######################### LEVEL SPEED ###################################
+    //created the level feature that increases speed
+    if(levelCount == 1) {
+      this.speed = Math.random() / 2 + 0.15;
+    } else if(levelCount == 2) {
+      this.speed = Math.random() / 2 + 0.20;
+    } else if (levelCount == 3) {
+      this.speed = Math.random() / 2 + 0.30;
+    } else if (levelCount == 4) {
+      this.speed = Math.random() / 2 + 0.40;
+    } else if (levelCount == 5) {
+      this.speed = Math.random() / 2 + 0.50;
+    } 
   }
 
   // We set the speed property of the enemy. This determines how fast it moves down the screen.
@@ -75,11 +92,15 @@ class Enemy {
       //When an enemy reaches the destroyed state, counter goes up
       count++;
 
-      //Update the score on screen, each enemy is worth 500 pts
+
 
     }
+    //Update the score on screen, each enemy is worth 500 pts
     scoreboard.innerText = count*500;
     scoreMsg.innerText = `Score: ${count*500}`;
+
+    //Update the Level based on the global levelCount variable
+    level.innerText = `Level ${levelCount}`;
   }
 
 }

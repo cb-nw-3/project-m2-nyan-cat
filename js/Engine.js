@@ -23,6 +23,22 @@ class Engine {
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
   gameLoop = () => {
+    
+        //######################### LEVEL SPEED ###################################
+        //assigns a level based on how many enemies the player has successfully
+        //dodged so far in the gameloop
+        if(count <= 10) {
+          levelCount = 1;
+        } else if (count <=20) {
+          levelCount = 2;
+        } else if (count <=30) {
+          levelCount = 3;
+        } else if (count <=40) {
+          levelCount = 4;
+        } else if (count <=50) {
+          levelCount = 5;
+        }
+    
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
@@ -52,7 +68,27 @@ class Engine {
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
+      
     }
+
+    // this.enemies.forEach(enemy => { 
+    //   if(levelCount == 2) {
+    //     enemy.speed = Math.random() / 2 + 0.20;
+    //     console.log(enemy.speed);
+    //   } else if (levelCount == 3) {
+    //     enemy.speed = Math.random() / 2 + 0.30;
+    //   } else if (levelCount == 4) {
+    //     enemy.speed = Math.random() / 2 + 0.40;
+    //   } else if (levelCount == 5) {
+    //     enemy.speed = Math.random() / 2 + 0.50;
+    //   } 
+    // })
+
+
+    
+
+  
+
 
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
