@@ -92,6 +92,7 @@ class Engine {
       ) {
         isPlayerDead = true;
         clearTimeout(score);
+        START.addEventListener("click", gameInit);
         AUDIO.pause();
         const ATOM = document.createElement("img");
         ATOM.classList.add("atom");

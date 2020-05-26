@@ -68,6 +68,7 @@ document.body.appendChild(LEFTARROW);
 
 function gameInit() {
   this.innerText = "...PLAYING";
+  START.removeEventListener("click", gameInit);
   noMovement = false;
   if (gameEngine.player.lifes <= 0) {
     scorePoints = 0;
@@ -75,7 +76,6 @@ function gameInit() {
     gameEngine.player.lifes = 3;
     gameEngine.player.fullLife();
   }
-  document;
   const CRASH = document.querySelector("#crash") !== null;
   if (CRASH) {
     document
