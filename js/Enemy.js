@@ -20,7 +20,7 @@ class Enemy {
 
     this.root = theRoot;
     this.spot = enemySpot;
-    this.animated_cat_images = ["e1.png", "e2.png", "e3.png", "e4.png", "e5.png", "e6.png", "e7.png", "e8.png", "e9.png", "e10.png", "e11.png" ];
+    this.animated_cat_images = ["e1.png", "e2.png", "e3.png", "e4.png", "e5.png", "e6.png", "e7.png", "e8.png", "e9.png", "e10.png", "e11.png"];
 
     this.animated_cat_images_current_element = 0;
 
@@ -55,29 +55,35 @@ class Enemy {
 
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     theRoot.appendChild(this.domElement);
-    this.speed = Math.random() / 2 + 0.25;
 
-    this.randomFrameRate = Math.random() * 120;
 
-      
-
-      // let animatedCat = setInterval(() => { 
-
-      //   this.animated_cat_images_current_element = this.animated_cat_images_current_element + 1;
-      //   if (this.animated_cat_images_current_element > this.animated_cat_images.length-1)
-      //   {
-      //     this.animated_cat_images_current_element = 0;
-      //   }
-      //   let totalString = './images/' + this.animated_cat_images[this.animated_cat_images_current_element];
-
-      //   this.domElement.src = totalString;
-      // }, 50);    
+    // the slower the NYANCAT goes, the higher framerate for animation, 
+    // kind of looks like it's swimming harder
     
+    let randomSeed = Math.random();
+    this.speed = randomSeed / 2 + 0.25;
+    this.randomFrameRate = randomSeed * 200;
+
+    
+
+
+
+    // let animatedCat = setInterval(() => { 
+
+    //   this.animated_cat_images_current_element = this.animated_cat_images_current_element + 1;
+    //   if (this.animated_cat_images_current_element > this.animated_cat_images.length-1)
+    //   {
+    //     this.animated_cat_images_current_element = 0;
+    //   }
+    //   let totalString = './images/' + this.animated_cat_images[this.animated_cat_images_current_element];
+
+    //   this.domElement.src = totalString;
+    // }, 50);    
+
 
   }
 
-  setBorderToRed()
-  {
+  setBorderToRed() {
     this.domElement.style.border = "solid red 5px";
   }
 
@@ -94,21 +100,24 @@ class Enemy {
     this.bottom = this.y + ENEMY_HEIGHT;
     this.rightEdge = this.x + ENEMY_WIDTH;
 
+
+    // Adjusts the current image showing in the enemy, pulling from the array, according to the cadence
+    // of randomFrameRate
     this.milliSecondsSinceFrameSwitch = this.milliSecondsSinceFrameSwitch + timeDiff;
-   
+
     if (this.milliSecondsSinceFrameSwitch > this.randomFrameRate) {
       this.animated_cat_images_current_element = this.animated_cat_images_current_element + 1;
-      if (this.animated_cat_images_current_element > this.animated_cat_images.length-1) {
-       this.animated_cat_images_current_element = 0;
+      if (this.animated_cat_images_current_element > this.animated_cat_images.length - 1) {
+        this.animated_cat_images_current_element = 0;
       }
-    
+
       this.domElement.src = './images/' + this.animated_cat_images[this.animated_cat_images_current_element];
       this.milliSecondsSinceFrameSwitch = 0;
 
     }
 
 
-    
+
     // If the y position of the DOM element is greater than the GAME_HEIGHT then the enemy is at the bottom
     // of the screen and should be removed. We remove the DOM element from the root DOM element and we set
     // the destroyed property to indicate that the enemy should no longer be in play

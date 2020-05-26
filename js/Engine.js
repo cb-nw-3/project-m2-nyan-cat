@@ -26,29 +26,29 @@ class Engine {
     // We add the background image to the game
     addBackground(this.root);
 
-    this.messageText = new Text(this.root, (GAME_WIDTH-150), this.livesIconsBottom, true)
+    this.messageText = new Text(this.root, (GAME_WIDTH - 150), this.livesIconsBottom, true)
     this.messageText.update("Blank Text");
     this.messageText.domElement.style.opacity = '0.0';
 
     this.root.appendChild(this.messageText.domElement);
 
 
-    this.gameOverText  = new Text(this.root, (20), GAME_HEIGHT*0.5-80, true, "80", 400, "red", "gameovertext")
+    this.gameOverText = new Text(this.root, (20), GAME_HEIGHT * 0.5 - 80, true, "80", 400, "red", "gameovertext")
     this.gameOverText.update("GAME OVER");
     this.gameOverText.domElement.style.visibility = "hidden";
 
 
     let newYpos = this.gameOverText.bottom;
 
-    this.resetbutton.internalButton.style.top = `${newYpos+20}px`;
-    this.resetbutton.internalButton.addEventListener('click', ()=> {this.resetGame()});
+    this.resetbutton.internalButton.style.top = `${newYpos + 20}px`;
+    this.resetbutton.internalButton.addEventListener('click', () => { this.resetGame() });
 
     this.root.appendChild(this.gameOverText.domElement);
 
     this.gameOverState = true;
 
 
-    
+
 
     console.log(this)
     // let textGo2 = setTimeout( () => {
@@ -58,7 +58,7 @@ class Engine {
     // );  
 
 
-    
+
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -68,14 +68,13 @@ class Engine {
 
 
 
-  
+
 
   addLives = () => {
     let i;
 
-    
-    for (i=0; i < LIVES_START; i++)
-    {         
+
+    for (i = 0; i < LIVES_START; i++) {
       this.lives.push(new Life(this.root, i));
     }
     this.livesIconsBottom = this.lives[0].bottom;
@@ -86,10 +85,9 @@ class Engine {
   }
 
 
-  resetGame = () =>  { 
+  resetGame = () => {
 
-    this.enemies.map( (enemyElement) =>
-    {
+    this.enemies.map((enemyElement) => {
       enemyElement.destroyed = true;
       this.root.removeChild(enemyElement.domElement)
     }
@@ -149,27 +147,23 @@ class Engine {
       // console.log(new_enemy);
     }
 
-    if (this.lives.length === 1)
-    {
+    if (this.lives.length === 1) {
       // I could do a search for "is the proto.contrustor name OneUp but that seems computationally expensive
       // to do instead of just making a simple Bool. Much simpler, but admiteddly not as cool. 
-      if (this.isOneUpInSystem === false)
-      {
-        let free_spots = [ 1, 2, 3, 4, 5];
+      if (this.isOneUpInSystem === false) {
+        let free_spots = [1, 2, 3, 4, 5];
         console.log(free_spots);
 
         this.enemies.forEach(
-          (enemy) =>
-          {
-            free_spots = free_spots.filter((element) => {return element !== enemy.spot});
+          (enemy) => {
+            free_spots = free_spots.filter((element) => { return element !== enemy.spot });
           }
 
         );
 
         console.log(free_spots);
 
-        if (free_spots.length > 0)
-        {
+        if (free_spots.length > 0) {
           let oneUp = new OneUp(this.root, free_spots[0]);
           this.enemies.push(oneUp);
           this.isOneUpInSystem = true;
@@ -177,21 +171,16 @@ class Engine {
       }
     }
 
-    
+
 
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
 
       this.messageText.domElement.style.opacity = '0.0';
-
       this.resetbutton.internalButton.style.visibility = 'visible';
-
       this.gameOverText.domElement.style.visibility = "visible";
-
-
       this.player.gameStillOn = false;
-     //window.alert('Game over');
       return;
     }
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
@@ -206,67 +195,56 @@ class Engine {
 
     let isDead = false;
     this.enemies.forEach(
-      (enemyElement) =>
-      {
-           if (enemyElement.bottom > this.player.top && this.player.x === enemyElement.x)
-            {
-              if (enemyElement.isOneUp)
-              {
+      (enemyElement) => {
+        if (enemyElement.bottom > this.player.top && this.player.x === enemyElement.x) {
+          if (enemyElement.isOneUp) {
 
-                this.lives.push(new Life(this.root, this.lives.length));
-                this.root.removeChild(enemyElement.domElement);
-                enemyElement.destroyed = true;
-                this.isOneUpInSystem = false;
-                
-                this.messageText.update("ONE UP!");
+            this.lives.push(new Life(this.root, this.lives.length));
+            this.root.removeChild(enemyElement.domElement);
+            enemyElement.destroyed = true;
+            this.isOneUpInSystem = false;
+
+            this.messageText.update("ONE UP!");
+            this.messageText.domElement.style.opacity = '1.0';
+
+            let textGo1Up = setTimeout(() => {
+              if (this.messageText.domElement.innerText === "ONE UP!") {
+                this.messageText.domElement.style.opacity = '0.0';
+              }
+            }, 2000);
+          }
+
+          else {
+            if (this.lives.length == 0) {
+              isDead = true;
+            }
+            else {
+              var lifetoBlast = this.lives.pop()
+
+              //remove a life marker from the top of the screen, then remove the enemy
+              this.root.removeChild(lifetoBlast.domElement);
+              this.root.removeChild(enemyElement.domElement);
+
+              enemyElement.destroyed = true;
+              this.player.flash();
+
+              if (this.lives.length === 0) {
+                this.messageText.update("LAST LIFE!!!!");
                 this.messageText.domElement.style.opacity = '1.0';
-            
-                let textGo1Up = setTimeout( () => {
-                  if (this.messageText.domElement.innerText === "ONE UP!")
-                  {
+
+                let lastLifeTimeout = setTimeout(() => {
+                  if (this.messageText.domElement.innerText === "LAST LIFE!!!!") {
                     this.messageText.domElement.style.opacity = '0.0';
                   }
-                }, 2000);
+                }, 2000
+                );
 
               }
 
-              else { 
-                if (this.lives.length == 0) {
-                  isDead = true
-                }
-                else {
-                  var liveToBlast = this.lives.pop()
-                  this.root.removeChild(liveToBlast.domElement);
-                  this.root.removeChild(enemyElement.domElement);
-                  enemyElement.destroyed = true;
-                  this.player.flash();
+            }
+          }
 
-                  console.log("array is --------");
-                  console.log(this.lives.length);
-
-                  if (this.lives.length === 0)
-                  {
-                    this.messageText.update("LAST LIFE!!!!");
-                    this.messageText.domElement.style.opacity = '1.0';
-
-                    // let newText = new Text(this.root, (GAME_WIDTH-150), this.livesIconsBottom, true)
-                    // newText.update("LAST LIFE!!!!");
-                    // this.root.appendChild(newText.domElement);
-                
-                    let lastLifeTimeout = setTimeout( () => {
-                      if (this.messageText.domElement.innerText === "LAST LIFE!!!!")
-                      {
-                        this.messageText.domElement.style.opacity = '0.0';
-                      }
-                    }, 2000
-                    );  
-    
-                  }
-
-                }
-              }
-
-          }  
+        }
       }
     );
 
@@ -275,5 +253,5 @@ class Engine {
     return isDead;
   };
 
- 
+
 }
