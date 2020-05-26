@@ -57,7 +57,9 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      document.getElementById("restart").classList.toggle("visible");
+      document.removeEventListener('keydown', keydownHandler);
+      //window.alert('Game over');
       return;
     }
 

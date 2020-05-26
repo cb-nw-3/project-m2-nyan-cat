@@ -34,18 +34,50 @@ startBtn.style.left = "70px"; //looks centered enough
 startBtn.style.top = `${GAME_HEIGHT/2}px`;
 document.getElementById('app').appendChild(startBtn);
 
+//Add functionality to the start button, when clicked.
+document.getElementById("start").addEventListener("click", function() {
 
-document.getElementById("start").addEventListener("click", function(){
+  //the button will disappear
   startBtn.classList.toggle("visible");
+
+  //the left and right arrow keys will enable the player to move
   document.addEventListener('keydown', keydownHandler);
+
+  //the game loop starts
   gameEngine.gameLoop();
 });
 
 
+//create a restart button that is initially hidden, and will only appear when 
+//the gameloop end condition is met (player dies).
+const restartBtn = document.createElement("button")
+restartBtn.innerText = "Restart";
+restartBtn.id = "restart";
+restartBtn.classList.toggle("restart-btn");
+restartBtn.classList.toggle("visible");
+//restartBtn.style.left = `${GAME_WIDTH/5}px`;
+restartBtn.style.left = "70px"; //looks centered enough
+restartBtn.style.top = `${GAME_HEIGHT/2}px`;
+document.getElementById('app').appendChild(restartBtn);
+
+//Add functionality to the restart button, when clicked.
+document.getElementById("restart").addEventListener("click", function() {
+
+  //the button will disappear
+  restartBtn.classList.toggle("visible");
+
+  //the left and right arrow keys will be re-enabled, previously removed
+  //when the first game loop finished
+  document.addEventListener('keydown', keydownHandler);
+
+  //restart the game loop
+  gameEngine.gameLoop();
+});
+
+
+
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
-document.addEventListener('keydown', keydownHandler);
-
-
+//document.addEventListener('keydown', keydownHandler);
 
 
 
