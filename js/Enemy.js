@@ -53,7 +53,7 @@ class Enemy {
         this.speed *= SPEED_INCREASE_VALUE;
       }
     }
-    console.log(this.speed);
+    //console.log(this.speed);
   }
 
   // We set the speed property of the enemy. This determines how fast it moves down the screen.

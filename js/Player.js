@@ -102,15 +102,32 @@ class Player {
   };
 
   scoreMultiplier = (reset) => {
-    if (reset) {
-      this.currentMultiplier = 1;
-      this.streak = 0;
-      this.currentMultiplierText.update(`x${this.currentMultiplier}`);
+    switch (reset) {
+      case true:
+        this.currentMultiplier = 1;
+        this.streak = 0;
+        this.currentMultiplierText.update(`x${this.currentMultiplier}`);
+        break;
+      default:
+        console.log("incraesed streak");
+        this.streak++;
+        if (this.streak % STREAK_TRESHOLD === 0) {
+          this.currentMultiplier++;
+          this.currentMultiplierText.update(`x${this.currentMultiplier}`);
+        }
     }
-    this.streak++;
-    if (this.streak % STREAK_TRESHOLD === 0) {
-      this.currentMultiplier++;
-      this.currentMultiplierText.update(`x${this.currentMultiplier}`);
+    switch (this.currentMultiplier) {
+      case 1:
+        this.currentMultiplierText.domElement.style.color = "white";
+        break;
+      case 2:
+        this.currentMultiplierText.domElement.style.color = "dodgerblue";
+        break;
+      case 3:
+        this.currentMultiplierText.domElement.style.color = "palevioletred";
+        break;
+      default:
+        this.currentMultiplierText.domElement.style.color = "gold";
     }
   };
 }
