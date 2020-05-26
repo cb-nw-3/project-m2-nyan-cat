@@ -45,6 +45,8 @@ class Enemy {
 
     // We give it a src attribute to specify which image to display.
     this.domElement.src = './images/e1.png';
+
+
     // We modify the CSS style of the DOM node.
     this.domElement.style.position = 'absolute';
     this.domElement.style.left = `${this.x}px`;
@@ -63,6 +65,17 @@ class Enemy {
     let randomSeed = Math.random();
     this.speed = randomSeed / 2 + 0.25;
     this.randomFrameRate = randomSeed * 200;
+
+//    this.domElement.style.webkitFilter = "blur(5px)";
+
+    let speed = this.speed;
+    console.log({speed}); 
+
+    if (this.speed > 0.6)
+    {
+      this.domElement.style.webkitFilter = "blur(2px)";
+    }
+
 
     // let animatedCat = setInterval(() => { 
     //   this.animated_cat_images_current_element = this.animated_cat_images_current_element + 1;

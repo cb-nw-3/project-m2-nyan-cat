@@ -49,6 +49,9 @@ class Engine {
     this.starsparalax.style.height = `${GAME_HEIGHT}px`;
     this.starsparalax.style.width = `${GAME_WIDTH}px`;
     this.starsparalax.style.position = 'absolute';
+
+    this.starsparalax.style.webkitFilter = "blur(2px)";
+
     this.root.append(this.starsparalax);
 
     this.starsparalax2YPos = 0;
@@ -128,6 +131,8 @@ class Engine {
     this.enemies.map((enemyElement) => {
       enemyElement.destroyed = true;
       this.root.removeChild(enemyElement.domElement)
+
+      
     }
     );
 
@@ -142,7 +147,18 @@ class Engine {
     this.gameOverText.domElement.style.visibility = "hidden";
     this.resetbutton.internalButton.style.visibility = 'hidden';
 
+    this.score = 0;
+
     this.player.gameStillOn = true;
+
+
+
+  this.player.domElement.style.webkitFilter = "";
+
+
+
+
+    
   }
 
 
@@ -247,6 +263,16 @@ class Engine {
       this.resetbutton.internalButton.style.visibility = 'visible';
       this.gameOverText.domElement.style.visibility = "visible";
       this.player.gameStillOn = false;
+
+      this.enemies.map((enemyElement) => {
+        enemyElement.domElement.style.webkitFilter = "blur(2px)";
+      }
+
+      
+      );
+      this.player.domElement.style.webkitFilter = "blur(2px)";
+
+
       return;
     }
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
