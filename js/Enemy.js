@@ -64,12 +64,7 @@ class Enemy {
     this.speed = randomSeed / 2 + 0.25;
     this.randomFrameRate = randomSeed * 200;
 
-    
-
-
-
     // let animatedCat = setInterval(() => { 
-
     //   this.animated_cat_images_current_element = this.animated_cat_images_current_element + 1;
     //   if (this.animated_cat_images_current_element > this.animated_cat_images.length-1)
     //   {

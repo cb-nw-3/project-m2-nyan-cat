@@ -22,5 +22,5 @@ const PLAYER_HEIGHT = 54;
 // Extra lives 
 const LIFE_ICON_HEIGHT = 20;
 const LIFE_ICON_WIDTH = 20;
-const LIVES_START = 2;
+const LIVES_START = 3;
 

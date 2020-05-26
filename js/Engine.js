@@ -23,8 +23,26 @@ class Engine {
 
     this.resetbutton = new ResetButton(this.root, 0);
 
+
+
+
     // We add the background image to the game
     addBackground(this.root);
+
+    this.bg = document.createElement('img');
+
+    // We set its src attribute and the height and width CSS attributes
+    this.bg.src = 'images/stars.png';
+    this.bg.style.height = `${GAME_HEIGHT*3}px`;
+    this.bg.style.width = `${GAME_WIDTH}px`;
+    this.bg.style.position = 'absolute';
+
+    
+
+    this.bg_y_pos = -1000;
+
+    // We add it to the root DOM node
+    this.root.append(this.bg);
 
     this.messageText = new Text(this.root, (GAME_WIDTH - 150), this.livesIconsBottom, true)
     this.messageText.update("Blank Text");
@@ -127,6 +145,18 @@ class Engine {
     this.enemies.forEach((enemy) => {
       enemy.update(timeDiff);
     });
+
+    //moving background frame
+    if (this.bg_y_pos > -250)
+    {
+      this.bg_y_pos = -1000;
+    }
+
+    this.bg_y_pos = this.bg_y_pos + timeDiff * 0.2;
+    console.log(this.bg_y_pos);
+    this.bg.style.top = `${this.bg_y_pos}px`;
+    console.log(this.bg.style.top);
+
 
     // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
     // We use filter to accomplish this.

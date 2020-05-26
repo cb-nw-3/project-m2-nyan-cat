@@ -40,15 +40,15 @@ const nextEnemySpot = (enemies) => {
 // The parameter represents the DOM node to which we will add the background
 const addBackground = (root) => {
   // We create a new img DOM node.
-  const bg = document.createElement('img');
+  // const bg = document.createElement('img');
 
-  // We set its src attribute and the height and width CSS attributes
-  bg.src = 'images/stars.png';
-  bg.style.height = `${GAME_HEIGHT}px`;
-  bg.style.width = `${GAME_WIDTH}px`;
+  // // We set its src attribute and the height and width CSS attributes
+  // bg.src = 'images/stars.png';
+  // bg.style.height = `${GAME_HEIGHT*3}px`;
+  // bg.style.width = `${GAME_WIDTH}px`;
 
-  // We add it to the root DOM node
-  root.append(bg);
+  // // We add it to the root DOM node
+  // root.append(bg);
 
   // We don't want the enemies to go beyond the lower edge of the image
   // so we place a white div to hide the enemies after they reach the bottom.
@@ -59,9 +59,10 @@ const addBackground = (root) => {
   whiteBox.style.zIndex = 100;
   whiteBox.style.position = 'absolute';
   whiteBox.style.top = `${GAME_HEIGHT}px`;
-  whiteBox.style.height = `${ENEMY_HEIGHT}px`;
+  whiteBox.style.height = `${1000}px`;
   whiteBox.style.width = `${GAME_WIDTH}px`;
   whiteBox.style.background = '#fff';
+
   root.append(whiteBox);
 
   // lets another whitebox to the upper part
