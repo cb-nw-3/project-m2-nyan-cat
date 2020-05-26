@@ -14,14 +14,26 @@ class Engine {
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
+    this.isPlayerDead = false;
+    this.gameSound = new Audio(
+      './sounds/gameSound.wav'
+     );
+
+  
+    
     // We add the background image to the game
     addBackground(this.root);
   }
+
 
   // The gameLoop will run every few milliseconds. It does several things
   //  - Updates the enemy positions
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
+  playSound = () => {
+    this.gameSound.play();
+  };
+
   gameLoop = () => {
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
@@ -56,8 +68,9 @@ class Engine {
 
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
-    if (this.isPlayerDead()) {
-      window.alert('Game over');
+    this.isPlayerDead = this.checkIfPlayerIsDead()
+    if (this.isPlayerDead) {
+      window.alert("Game over");
       return;
     }
 
@@ -67,7 +80,36 @@ class Engine {
 
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
-  isPlayerDead = () => {
-    return false;
+
+  checkIfPlayerIsDead = () => {
+    let dead = false;
+    console.log(this.enemies)
+    
+    this.enemies.forEach((ele) => {
+      console.log(
+        ele.y > this.player.y &&
+          ele.y < this.player.y + PLAYER_HEIGHT + 10 &&
+          ele.x > this.player.x - PLAYER_WIDTH
+      );
+      if (
+        ele.y > this.player.y &&
+        ele.y < this.player.y + PLAYER_HEIGHT + 10 &&
+        ele.x > this.player.x - PLAYER_WIDTH
+      ) {
+        let answer = window.confirm("Start New Game?");
+        if (answer == true) {
+          dead = false;
+        } else {
+          document.write("thank you for playing the game!");
+          
+          dead = true;
+        }
+      }
+    });
+    
+    return dead;
+    
   };
 }
+
+

@@ -1,3 +1,7 @@
+this.gameSound = new Audio(
+  './sounds/gameSound.wav'
+ );
+
 // We create an instance of the Engine class. Looking at our index.html,
 // we see that it has a div with an id of `"app"`
 const gameEngine = new Engine(document.getElementById('app'));
@@ -25,3 +29,6 @@ document.addEventListener('keydown', keydownHandler);
 
 // We call the gameLoop method to start the game
 gameEngine.gameLoop();
+
+
+
