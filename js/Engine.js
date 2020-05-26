@@ -126,7 +126,7 @@ class Engine {
     let dead = false;
     this.enemies.forEach((enemy, index) => {
       if (
-        enemy.y >= GAME_HEIGHT - PLAYER_HEIGHT * 4 &&
+        enemy.y >= GAME_HEIGHT - PLAYER_HEIGHT * 2 &&
         enemy.spot === this.player.position
       ) {
         this.enemies.splice(index, 1);

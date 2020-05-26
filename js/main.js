@@ -2,8 +2,8 @@
 // we see that it has a div with an id of `"app"`
 const app = document.querySelector("#app");
 const gameEngine = new Engine(app);
-let score = 0;
 
+let score = 0;
 const scoreTally = document.createElement("span");
 
 // keydownHandler is a variable that refers to a function. The function has one parameter
