@@ -101,6 +101,7 @@ class Enemy {
 
     //Update the Level based on the global levelCount variable
     level.innerText = `Level ${levelCount}`;
+
   }
 
 }

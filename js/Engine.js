@@ -27,6 +27,7 @@ class Engine {
         //######################### LEVEL SPEED ###################################
         //assigns a level based on how many enemies the player has successfully
         //dodged so far in the gameloop
+
         if(count <= 10) {
           levelCount = 1;
         } else if (count <=20) {
@@ -38,6 +39,7 @@ class Engine {
         } else if (count <=50) {
           levelCount = 5;
         }
+
     
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
@@ -106,7 +108,8 @@ class Engine {
 
       //pause the music
       document.getElementById("bg-music").pause();
-      
+      gameOver(); //play gameover sound
+
       //return to console the total number of nyan cats that passed
       //console.log("Number of fallen Nyans:", count);
       count = 0; 

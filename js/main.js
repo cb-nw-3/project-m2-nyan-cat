@@ -20,6 +20,27 @@ const keydownHandler = (event) => {
   }
 };
 
+// ################################ MUSIC ######################################
+
+const levelUpSound = document.getElementById("levelup-music");
+levelUpSound.loop = false;
+
+const gameOverSound = document.getElementById("gameover-music");
+gameOverSound.loop = false;
+
+function levelUp() {
+  levelUpSound.play();
+  setTimeout(function(){ levelUpSound.pause(); }, 1000);
+  // levelUpSound.pause();
+}
+
+function gameOver() {
+  gameOverSound.play();
+  setTimeout(function(){ gameOverSound.pause(); }, 1000);
+  // levelUpSound.pause();
+}
+
+
 // ################################ LEVELS #####################################
 
 const level = document.createElement("h2");
