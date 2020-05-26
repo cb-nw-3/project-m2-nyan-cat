@@ -43,7 +43,8 @@ class Engine {
     // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
     // Furthermore, if any enemy is below the bottom of our game, its destroyed property will be set. (See Enemy.js)
     this.enemies.forEach((enemy) => {
-      enemy.update(timeDiff);
+      // extra argument for the hamburger spawn
+      enemy.update(timeDiff, this.player);
     });
 
     // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
@@ -55,6 +56,7 @@ class Engine {
 
     // initialize the enemy speed
     let enemySpeed;
+    let randomNumberToCallBonus;
 
     // We need to perform the addition of enemies until we have enough enemies.
     while (this.enemies.length < MAX_ENEMIES) {
@@ -62,9 +64,17 @@ class Engine {
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
 
-      // formula to increase speed during game every 10000 points
+      randomNumberToCallBonus = Math.floor(Math.random() * 50);
+
       enemySpeed = (Math.random() / 2 + 0.15) + (Math.round(this.score / 10000) * 0.1);
-      this.enemies.push(new Enemy(this.root, spot, enemySpeed));
+
+      if (randomNumberToCallBonus === 17) {
+        this.enemies.push(new Hamburger(this.root, spot, enemySpeed, 'Hamburger'));
+      } else {
+        // formula to increase speed during game every 10000 points
+        this.enemies.push(new Enemy(this.root, spot, enemySpeed, 'Enemy'));
+      }
+      console.log(this.enemies)
     }
 
     // We check if the player is dead. If he is, we alert the user
@@ -86,11 +96,23 @@ class Engine {
       // game over when tip of cat is in hamburger area.
       // if the cat is out of game board but tail is still in 
       // doesn't count as death
-      if (
-        pos.x === this.player.x && 
-        pos.y > GAME_HEIGHT - PLAYER_HEIGHT - 10 - ENEMY_HEIGHT &&
-        pos.y < GAME_HEIGHT - 10 - ENEMY_HEIGHT + (ENEMY_HEIGHT / 2)) {
-        status = true
+      if (pos.name === 'Enemy') {
+        if (
+          pos.x === this.player.x && 
+          pos.y > GAME_HEIGHT - PLAYER_HEIGHT - 10 - ENEMY_HEIGHT &&
+          pos.y < GAME_HEIGHT - 10 - ENEMY_HEIGHT + (ENEMY_HEIGHT / 2)
+        ) {
+          status = true
+        }
+      } else if (pos.name === 'Hamburger') {
+        if (
+          pos.x === this.player.x && 
+          this.y > GAME_HEIGHT - (PLAYER_HEIGHT * 2) - 10 &&
+          this.y < GAME_HEIGHT - PLAYER_HEIGHT - 10
+        ) {
+          this.score += 100000;
+          console.log(this.score)
+        }
       }
     })
     return status;

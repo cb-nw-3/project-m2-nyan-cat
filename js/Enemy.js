@@ -10,7 +10,8 @@ class Enemy {
   // Since the constructor takes 3 parameters
   // and the 3 parameters provide important information, we must supply 3 arguments to "new" every time we
   // create an instance of this class.
-  constructor(theRoot, enemySpot, speed) {
+  constructor(theRoot, enemySpot, speed, name) {
+    this.name = name;
     // When we create an Enemy instance, for example, new Enemy(someRoot, 3)
     // A new object is created and the constructor of the Enemy class is called. The context (the \`this\` keyword) is going
     // to be the new object. In these lines of code we see how to add 2 properties to this object: spot, root and gameHeight.
@@ -47,11 +48,6 @@ class Enemy {
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     theRoot.appendChild(this.domElement);
 
-    let enemySpeed = Math.random() / 2 + 0.15;
-    console.log(Engine.score)
-    if (Engine.score / 10000 >= 0) {
-      enemySpeed += 0.5;
-    }
     this.speed = speed;
   }
 
