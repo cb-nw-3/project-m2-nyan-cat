@@ -21,6 +21,24 @@ const keydownHandler = (event) => {
 };
 
 
+const scoreboard = document.createElement("h2");
+scoreboard.innerText = count;
+scoreboard.id = "score";
+scoreboard.classList.add("msg");
+scoreboard.style.left = "15px"; //looks centered enough
+scoreboard.style.top = `0px`;
+document.getElementById('app').appendChild(scoreboard);
+
+
+const scoreMsg = document.createElement("h2");
+scoreMsg.innerText = `Score: ${count}`;
+scoreMsg.id = "totalscore";
+scoreMsg.classList.add("msg");
+scoreMsg.classList.toggle("visible");
+scoreMsg.style.left = "15px"; //looks centered enough
+scoreMsg.style.top = `${GAME_HEIGHT*0.70}px`;
+document.getElementById('app').appendChild(scoreMsg);
+
 //create a start button that will initiate the gameLoop method, instead of it being
 //started onload.
 const startBtn = document.createElement("button")
@@ -32,6 +50,7 @@ startBtn.style.top = `${GAME_HEIGHT/2}px`;
 document.getElementById('app').appendChild(startBtn);
 
 
+//create a text element that will appear hidden when the game starts
 const startMsg = document.createElement("h2");
 startMsg.innerText = "Ready to Play?";
 startMsg.id = "start-msg";
@@ -71,6 +90,8 @@ restartBtn.style.left = "70px"; //looks centered enough
 restartBtn.style.top = `${GAME_HEIGHT/2}px`;
 document.getElementById('app').appendChild(restartBtn);
 
+
+//create a text element that will appear hidden when the game restarts
 const endMsg = document.createElement("h2");
 endMsg.innerText = "You Lost!";
 endMsg.id = "end-msg";
@@ -85,7 +106,9 @@ document.getElementById("restart").addEventListener("click", function() {
 
   //the button and end message will disappear
   restartBtn.classList.toggle("visible");
-  document.getElementById("end-msg").classList.toggle("visible");
+  endMsg.classList.toggle("visible");
+  score.classList.toggle("visible");
+  document.getElementById("totalscore").classList.toggle("visible");
 
   //the left and right arrow keys will be re-enabled, previously removed
   //when the first game loop finished
@@ -96,8 +119,10 @@ document.getElementById("restart").addEventListener("click", function() {
 
   //restart the game loop
   gameEngine.gameLoop();
-});
 
+  //restart the score
+  count = 0;
+});
 
 
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.

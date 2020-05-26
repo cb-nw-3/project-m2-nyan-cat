@@ -1,7 +1,12 @@
 // The Enemy class will contain information about the enemy such as
 // its position on screen. It will also provide methods for updating
 // and destroying the enemy.
+
+//Create a global count variable that will track the number of times the enemies have been destroyed
+let count = 0;
+
 class Enemy {
+
   // The constructor takes 2 arguments.
   // - theRoot refers to the parent DOM element.
   //   We need a way to add the DOM element we create in this constructor to our DOM.
@@ -18,7 +23,7 @@ class Enemy {
     // - We need to keep track of the enemy spot so that we don't place two enemies in the same spot.
     this.root = theRoot;
     this.spot = enemySpot;
-
+    this.count = 0;
     // The x position of the enemy is determined by its width and its spot. We need this information for the lifetime
     // of the instance, so we make it a property of the instance. (Why is this information needed for the lifetime of the instance?)
     this.x = enemySpot * ENEMY_WIDTH;
@@ -46,6 +51,7 @@ class Enemy {
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     theRoot.appendChild(this.domElement);
     this.speed = Math.random() / 2 + 0.25;
+
   }
 
   // We set the speed property of the enemy. This determines how fast it moves down the screen.
@@ -58,14 +64,20 @@ class Enemy {
     // is updated on screen
     this.y = this.y + timeDiff * this.speed;
     this.domElement.style.top = `${this.y}px`;
-
     // If the y position of the DOM element is greater than the GAME_HEIGHT then the enemy is at the bottom
     // of the screen and should be removed. We remove the DOM element from the root DOM element and we set
     // the destroyed property to indicate that the enemy should no longer be in play
     if (this.y > GAME_HEIGHT) {
       this.root.removeChild(this.domElement);
-
       this.destroyed = true;
+
+      //When an enemy reaches the destroyed state, counter goes up
+      count++;
+
+      //Update the score on screen, each enemy is worth 500 pts
+      scoreboard.innerText = count*500;
+      scoreMsg.innerText = `Score: ${count*500}`;
     }
   }
+
 }

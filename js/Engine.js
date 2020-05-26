@@ -61,6 +61,8 @@ class Engine {
       //togle the visible class so that the restart button can appear
       document.getElementById("restart").classList.toggle("visible");
       document.getElementById("end-msg").classList.toggle("visible");
+      document.getElementById("score").classList.toggle("visible");
+      document.getElementById("totalscore").classList.toggle("visible");
 
       //remove the players ability to move
       document.removeEventListener('keydown', keydownHandler);
@@ -68,6 +70,10 @@ class Engine {
 
       //pause the music
       document.getElementById("bg-music").pause();
+      
+      //return to console the total number of nyan cats that passed
+      //console.log("Number of fallen Nyans:", count);
+      count = 0; 
       
       //window.alert('Game over');
       return;

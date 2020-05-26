@@ -30,4 +30,5 @@
   position:  absolute;
   z-index: 1000;
   color: white;
+  user-select: none; /* Standard */
 }
