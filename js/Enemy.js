@@ -42,6 +42,7 @@ class Enemy {
 
     // We give it a src attribute to specify which image to display.
     this.domElement.src = './images/enemy.png';
+    //this.domElement.src = 'assets/Nyan_cat.gif';
     // We modify the CSS style of the DOM node.
     this.domElement.style.position = 'absolute';
     this.domElement.style.left = `${this.x}px`;
@@ -75,9 +76,10 @@ class Enemy {
       count++;
 
       //Update the score on screen, each enemy is worth 500 pts
-      scoreboard.innerText = count*500;
-      scoreMsg.innerText = `Score: ${count*500}`;
+
     }
+    scoreboard.innerText = count*500;
+    scoreMsg.innerText = `Score: ${count*500}`;
   }
 
 }
