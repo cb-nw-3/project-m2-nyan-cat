@@ -13,15 +13,6 @@ class Player {
     this.lives = PLAYER_LIVES;
     this.livesArray = [];
 
-    const showLives = () => {
-      for (let i = 0; i < PLAYER_LIVES; i++) {
-        let newLifeIcon = document.createElement("img");
-        newLifeIcon.src = "images/player.png";
-        document.querySelector(".lives").appendChild(newLifeIcon);
-        this.livesArray.push(newLifeIcon);
-      }
-    };
-
     //adding a spot property, to have lane comparison between the enemies and player
     this.spot = 2;
     // add the score element to the player
@@ -30,6 +21,15 @@ class Player {
       document.getElementById("app"),
       GAME_WIDTH - 125,
       0
+    );
+
+    // add the multiplier element under the score
+    this.streak = 0;
+    this.currentMultiplier = 1;
+    this.currentMultiplierText = new Text(
+      document.getElementById("app"),
+      GAME_WIDTH - 125,
+      30
     );
 
     // The y position never changes, so we don't need to store it in a property. It represents the y position of the top of the
@@ -79,6 +79,7 @@ class Player {
     this.lives--;
     this.livesArray[this.lives].remove();
     this.livesArray.pop();
+    this.streak = 0;
   };
 
   showLives = () => {
@@ -94,8 +95,22 @@ class Player {
     if (scoreWipe) {
       this.score = 0;
       this.scoreText.update(this.score);
+      this.currentMultiplierText.update(`x${this.currentMultiplier}`);
     }
-    this.score += points;
+    this.score += points * this.currentMultiplier;
     this.scoreText.update(this.score);
+  };
+
+  scoreMultiplier = (reset) => {
+    if (reset) {
+      this.currentMultiplier = 1;
+      this.streak = 0;
+      this.currentMultiplierText.update(`x${this.currentMultiplier}`);
+    }
+    this.streak++;
+    if (this.streak % STREAK_TRESHOLD === 0) {
+      this.currentMultiplier++;
+      this.currentMultiplierText.update(`x${this.currentMultiplier}`);
+    }
   };
 }

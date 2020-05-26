@@ -14,6 +14,9 @@ class Engine {
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
+    this.currentMaxEnemies = INITIAL_MAX_ENEMIES;
+    //initial speed of the enemies will be modified by difficulty * SPEED_INCREASE
+    this.difficulty = 0;
     // We add the background image to the game
     addBackground(this.root);
     //we add the background musique to the game (code in the engine utilities)
@@ -35,7 +38,6 @@ class Engine {
     }
 
     let timeDiff = new Date().getTime() - this.lastFrame;
-
     this.lastFrame = new Date().getTime();
     // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
     // Furthermore, if any enemy is below the bottom of our game, its destroyed property will be set. (See Enemy.js)
@@ -51,7 +53,7 @@ class Engine {
     });
 
     // We need to perform the addition of enemies until we have enough enemies.
-    while (this.enemies.length < MAX_ENEMIES) {
+    while (this.enemies.length < this.currentMaxEnemies) {
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
@@ -79,7 +81,7 @@ class Engine {
         enemy.y >= GAME_HEIGHT - PLAYER_HEIGHT * 3.5 &&
         enemy.spot === this.player.spot
       ) {
-        //don't collide if it's only the tail end of the rainbow
+        //don't collide if it's only the tail end of the rainbow (i mean come on)
         if (enemy.y <= 430) {
           isColliding = true;
           enemyCollider = enemy;
@@ -87,8 +89,8 @@ class Engine {
       }
     });
     if (isColliding) {
-      enemyCollider.y = GAME_HEIGHT;
-      this.player.loseLife();
+      //flagging it with touchedPlayer so it get deleted without adding points
+      enemyCollider.touchedPlayer = true;
     }
 
     if (this.player.lives === 0) {
@@ -96,5 +98,14 @@ class Engine {
     }
 
     return false;
+  };
+
+  //this is called when difficulty is increased
+  difficultyIncrease = () => {
+    gameEngine.difficulty++;
+    this.currentMaxEnemies++;
+    if (this.currentMaxEnemies >= 5) {
+      this.currentMaxEnemies = 5;
+    }
   };
 }

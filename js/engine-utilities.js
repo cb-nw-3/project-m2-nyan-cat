@@ -87,8 +87,6 @@ const addStartBtn = (root, text) => {
 const resetGame = () => {
   //called when player is dead resets all the components and calls a new start button toallow players to restart
   gameEngine.player.lives = 3;
-  gameEngine.player.updateScore(0, true);
-
   gameEngine.enemies.forEach((enemy) => {
     enemy.root.removeChild(enemy.domElement);
   });
@@ -99,7 +97,17 @@ const resetGame = () => {
 
 const triggerGameStart = (event) => {
   event.target.remove();
+  gameEngine.player.streak = 0;
+  gameEngine.difficulty = 0;
+  gameEngine.currentMaxEnemies = INITIAL_MAX_ENEMIES;
+
   gameEngine.bgmElement.play();
   gameEngine.player.showLives();
   gameEngine.gameLoop();
+  gameEngine.player.updateScore(0, true);
 };
+
+//Every TIME_FOR_INCREASE milliseconds, we increment this.difficulty so that new enemies are faster
+setInterval(() => {
+  gameEngine.difficultyIncrease();
+}, TIME_FOR_INCREASE);
