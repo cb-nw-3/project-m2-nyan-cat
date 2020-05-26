@@ -29,3 +29,7 @@ document.addEventListener('keydown', keydownHandler);
 gameEngine.addLives();
 
 gameEngine.gameLoop();
+
+
+
+

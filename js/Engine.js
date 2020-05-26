@@ -21,8 +21,46 @@ class Engine {
 
     this.livesIconsBottom = 0;
 
+    //this.button1 =  document.createElement('button');
+    
+    this.button1 = new ResetButton(this.root, 0);
+
+
+
     // We add the background image to the game
     addBackground(this.root);
+
+    this.messageText = new Text(this.root, (GAME_WIDTH-150), this.livesIconsBottom, true)
+    this.messageText.update("Blank Text");
+    this.messageText.domElement.style.opacity = '0.0';
+
+    this.root.appendChild(this.messageText.domElement);
+
+
+    this.gameOverText  = new Text(this.root, (20), GAME_HEIGHT*0.5-80, true, "80", 400, "red", "gameovertext")
+    this.gameOverText.update("GAME OVER");
+    this.gameOverText.domElement.style.visibility = "hidden";
+
+
+    let newYpos = this.gameOverText.bottom;
+
+    this.button1.internalButton.style.top = `${newYpos+20}px`;
+    this.button1.internalButton.addEventListener('click', ()=> {this.resetGame()});
+
+    this.root.appendChild(this.gameOverText.domElement);
+
+    this.addResetButton()
+
+
+    
+
+    console.log(this)
+    // let textGo2 = setTimeout( () => {
+    //         this.root.removeChild(newText.domElement);
+    //         clearTimeout(textGo2);
+    //   }, 2000
+    // );  
+
 
     
   }
@@ -32,20 +70,96 @@ class Engine {
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
 
-  addLives = () => {
 
+  addResetButton = () => {
+
+
+    // this.button1.innerText = "Click to Play Again!";
+    // this.button1.style.backgroundColor = "hotPink";
+    // this.button1.style.color = "white";
+
+    // this.button1.style.position = 'absolute';
+    // this.button1.style.left = `${GAME_WIDTH/2-75}px`;
+    
+    // let newYpos = this.gameOverText.bottom;
+
+    // this.button1.style.top = `${newYpos+20}px`;
+    // this.button1.style.font = `bold 20px Impact`;
+    // this.button1.style.padding = '10px';
+    // this.button1.style.borderRadius =  "9px";
+    // this.button1.style.border =  "0px";
+
+    // this.button1.style.zIndex = '40';
+    // this.button1.id = 'helloDave';
+    // this.button1.addEventListener('click', ()=> {this.resetGame()});
+    // this.button1.style.visibility = 'hidden';
+    // this.root.appendChild(this.button1);
+
+    this.gameOverState = true;
+
+  }
+
+  
+
+  addLives = () => {
     let i;
+
     
     for (i=0; i < LIVES_START; i++)
     {         
       this.lives.push(new Life(this.root, i));
     }
     this.livesIconsBottom = this.lives[0].bottom;
+
+    this.messageText.domElement.style.top = this.lives[0].bottom;
+
+
   }
 
+
+  resetGame = () =>  { 
+     console.log("clickedddd");
+
+    this.enemies.map( (enemyElement) =>
+    {
+      enemyElement.destroyed = true;
+      this.root.removeChild(enemyElement.domElement)
+    }
+    );
+
+    // this.lives.map( (lifeElement) =>
+    // {
+    //   this.root.removeChild(lifeElement.domElement)
+    // }
+    // );
+    
+
+    
+
+
+    this.enemies = [];
+
+    this.lives = [];
+
+    this.isOneUpInSystem = false;
+
+    this.livesIconsBottom = 0;
+    
+    this.player.flash();
+
+    this.addLives();
+
+    this.gameLoop();
+    this.gameOverText.domElement.style.visibility = "hidden";
+    this.button1.internalButton.style.visibility = 'hidden';
+
+    this.player.gameStillOn = true;
+  }
+
+
+
+
   gameLoop = () => {
-
-
 
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
@@ -72,6 +186,7 @@ class Engine {
 
     // We need to perform the addition of enemies until we have enough enemies.
     while (this.enemies.length < MAX_ENEMIES) {
+      console.log(this.enemies.length);
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
@@ -111,20 +226,26 @@ class Engine {
 
     
 
-
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
 
-      let newText = new Text(this.root, (20), GAME_HEIGHT*0.5-80, true, "80px", 500)
-      newText.update("GAME OVER");
-      this.root.appendChild(newText.domElement);
+      this.messageText.domElement.style.opacity = '0.0';
+
+      this.button1.internalButton.style.visibility = 'visible';
+
+      this.gameOverText.domElement.style.visibility = "visible";
+
+
+      this.player.gameStillOn = false;
      //window.alert('Game over');
       return;
     }
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
     setTimeout(this.gameLoop, 20);
   };
+
+
 
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
@@ -144,15 +265,15 @@ class Engine {
                 enemyElement.destroyed = true;
                 this.isOneUpInSystem = false;
                 
-                let newText = new Text(this.root, (GAME_WIDTH-70), this.lives[0].bottom, true)
-                newText.update("1 Up!!!");
-                this.root.appendChild(newText.domElement);
+                this.messageText.update("ONE UP!");
+                this.messageText.domElement.style.opacity = '1.0';
             
-                let textGo = setTimeout( () => {
-                        this.root.removeChild(newText.domElement);
-                        clearTimeout(textGo);
-                  }, 1000
-                );  
+                let textGo1Up = setTimeout( () => {
+                  if (this.messageText.domElement.innerText === "ONE UP!")
+                  {
+                    this.messageText.domElement.style.opacity = '0.0';
+                  }
+                }, 2000);
 
               }
 
@@ -172,14 +293,19 @@ class Engine {
 
                   if (this.lives.length === 0)
                   {
-                    let newText = new Text(this.root, (GAME_WIDTH-150), this.livesIconsBottom, true)
-                    newText.update("LAST LIFE!!!!");
-                    this.root.appendChild(newText.domElement);
+                    this.messageText.update("LAST LIFE!!!!");
+                    this.messageText.domElement.style.opacity = '1.0';
+
+                    // let newText = new Text(this.root, (GAME_WIDTH-150), this.livesIconsBottom, true)
+                    // newText.update("LAST LIFE!!!!");
+                    // this.root.appendChild(newText.domElement);
                 
-                    let textGo2 = setTimeout( () => {
-                            this.root.removeChild(newText.domElement);
-                            clearTimeout(textGo2);
-                      }, 2000
+                    let lastLifeTimeout = setTimeout( () => {
+                      if (this.messageText.domElement.innerText === "LAST LIFE!!!!")
+                      {
+                        this.messageText.domElement.style.opacity = '0.0';
+                      }
+                    }, 2000
                     );  
     
                   }
@@ -195,4 +321,6 @@ class Engine {
     // should loop over all the enemies, see if it intersects with the player.
     return isDead;
   };
+
+ 
 }

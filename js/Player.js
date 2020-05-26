@@ -17,6 +17,7 @@ class Player {
 
     this.rightEdge = this.x + PLAYER_WIDTH;
 
+    this.gameStillOn = true;
 
     // We create a DOM node. We will be updating the DOM node every time we move the player, so we store a reference to the
     // DOM node in a property.
@@ -56,21 +57,32 @@ class Player {
   // This method will be called when the user presses the left key. See in Engine.js
   // how we relate the key presses to this method
   moveLeft() {
-    if (this.x > 0) {
-      this.x = this.x - PLAYER_WIDTH;
-    }
-    this.rightEdge = this.x + PLAYER_WIDTH;
 
-    this.domElement.style.left = `${this.x}px`;
+
+    if (this.gameStillOn)
+    {
+      if (this.x > 0) {
+        this.x = this.x - PLAYER_WIDTH;
+      }
+      this.rightEdge = this.x + PLAYER_WIDTH;
+  
+      this.domElement.style.left = `${this.x}px`;
+
+    }
+
   }
 
   // We do the same thing for the right key. See Engine.js to see when this happens.
   moveRight() {
-    if (this.x + PLAYER_WIDTH < GAME_WIDTH) {
-      this.x = this.x + PLAYER_WIDTH;
-    }
-    this.rightEdge = this.x + PLAYER_WIDTH;
+    if (this.gameStillOn)
+    {
 
-    this.domElement.style.left = `${this.x}px`;
-  }
+      if (this.x + PLAYER_WIDTH < GAME_WIDTH) {
+        this.x = this.x + PLAYER_WIDTH;
+      }
+      this.rightEdge = this.x + PLAYER_WIDTH;
+
+      this.domElement.style.left = `${this.x}px`;
+    }
+  } 
 }

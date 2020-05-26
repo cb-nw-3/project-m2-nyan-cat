@@ -64,3 +64,5 @@ const addBackground = (root) => {
   whiteBox.style.background = '#fff';
   root.append(whiteBox);
 };
+
+
