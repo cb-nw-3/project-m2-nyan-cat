@@ -67,6 +67,7 @@ LEFTARROW.addEventListener("click", mouseHandlerL);
 document.body.appendChild(LEFTARROW);
 
 function gameInit() {
+  this.innerText = "...PLAYING";
   noMovement = false;
   if (gameEngine.player.lifes <= 0) {
     scorePoints = 0;

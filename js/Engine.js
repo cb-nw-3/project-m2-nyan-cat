@@ -70,6 +70,7 @@ class Engine {
       if (this.player.lifes <= 0) {
         this.player.domElement[0].src = "images/deadplayer.png";
         this.text.update("Game Over");
+        document.querySelector("button").innerHTML = "PLAY AGAIN";
       }
       return;
     }
@@ -100,6 +101,7 @@ class Engine {
         ATOM.id = "crash";
         document.querySelector("#wrapper").appendChild(ATOM);
         this.player.domElement[0].src = "images/sadplayer.png";
+        document.querySelector("button").innerHTML = "CONTINUE";
       }
     }
     return isPlayerDead;
