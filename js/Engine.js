@@ -104,7 +104,7 @@ class Engine {
           this.player.lives--;
           pos.update(1, true);
           livesContainer.removeChild(livesContainer.lastElementChild);
-          if (this.player.lives === 4) {
+          if (this.player.lives >= 4) {
             death4.play();
           } else if (this.player.lives === 3) {
             death5.play();
