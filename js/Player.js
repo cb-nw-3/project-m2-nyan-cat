@@ -20,8 +20,9 @@ class Player {
     this.domElement.src = "images/rocket.png";
     this.domElement.style.position = "absolute";
     this.domElement.style.left = `${this.x}px`;
-    this.domElement.style.top = ` ${y}px`;
+    this.domElement.style.top = ` ${y + 20}px`;
     this.domElement.style.zIndex = "10";
+    this.domElement.style.width = "70px";
     root.appendChild(this.domElement);
   }
 
