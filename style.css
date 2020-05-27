@@ -27,3 +27,31 @@ body {
   width: 40px;
   padding: 2px;
 }
+
+.player-flicker {
+  animation: flicker 400ms linear;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 1;
+  }
+  17% {
+    opacity: 0;
+  }
+  34% {
+    opacity: 1;
+  }
+  51% {
+    opacity: 0;
+  }
+  68% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

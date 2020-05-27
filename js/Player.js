@@ -13,6 +13,9 @@ class Player {
     this.lives = PLAYER_LIVES;
     this.livesArray = [];
 
+    //I add an "isInvincible" property to make the player invincible for a little time after being hit (eventually powerups?)
+    this.isInvincible = false;
+
     //adding a spot property, to have lane comparison between the enemies and player
     this.spot = 2;
     // add the score element to the player
@@ -80,6 +83,7 @@ class Player {
     this.livesArray[this.lives].remove();
     this.livesArray.pop();
     this.streak = 0;
+    this.invincibilityFrames();
   };
 
   showLives = () => {
@@ -109,7 +113,6 @@ class Player {
         this.currentMultiplierText.update(`x${this.currentMultiplier}`);
         break;
       default:
-        console.log("incraesed streak");
         this.streak++;
         if (this.streak % STREAK_TRESHOLD === 0) {
           this.currentMultiplier++;
@@ -129,5 +132,13 @@ class Player {
       default:
         this.currentMultiplierText.domElement.style.color = "gold";
     }
+  };
+  invincibilityFrames = () => {
+    this.isInvincible = true;
+    this.domElement.classList.add("player-flicker");
+    setTimeout(() => {
+      this.isInvincible = false;
+      this.domElement.classList.remove("player-flicker");
+    }, 500);
   };
 }

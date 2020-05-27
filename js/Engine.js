@@ -81,8 +81,8 @@ class Engine {
         enemy.y >= GAME_HEIGHT - PLAYER_HEIGHT * 3.5 &&
         enemy.spot === this.player.spot
       ) {
-        //don't collide if it's only the tail end of the rainbow (i mean come on)
-        if (enemy.y <= 430) {
+        //only collide if it's touching more than the tail end of the rainbow (i mean come on)
+        if (enemy.y <= 420 && gameEngine.player.isInvincible === false) {
           isColliding = true;
           enemyCollider = enemy;
         }

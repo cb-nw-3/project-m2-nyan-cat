@@ -107,7 +107,7 @@ const triggerGameStart = (event) => {
   gameEngine.player.updateScore(0, true);
 };
 
-//Every TIME_FOR_INCREASE milliseconds, we increment this.difficulty so that new enemies are faster
+//Every TIME_FOR_INCREASE milliseconds, we increment gameEngine.difficulty so that new enemies are faster
 setInterval(() => {
   gameEngine.difficultyIncrease();
 }, TIME_FOR_INCREASE);

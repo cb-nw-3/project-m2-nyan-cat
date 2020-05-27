@@ -19,6 +19,10 @@ const keydownHandler = (event) => {
   if (event.code === "ArrowRight") {
     gameEngine.player.moveRight();
   }
+  // for testing only, dont cheat and play with invincibility frames activatable!
+  // if (event.code === "Space") {
+  //   gameEngine.player.invincibilityFrames();
+  // }
 };
 
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
