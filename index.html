@@ -4,7 +4,26 @@
 		<link rel="stylesheet" type="text/css" href="style.css" />
 	</head>
 	<body>
-		<div id="app" class="hello1"></div>
+		<div class="container">
+			<div id="app"></div>
+			<div class="startGameCont" id="startBtnCont">
+				<button class="startGame" id="startBtn" onclick="gameEngine.gameLoop()">
+					Start Game
+				</button>
+
+				<div class="instructions">
+					<h1>Instructions</h1>
+					<p>
+						1. Hit <em><strong>Start Game</strong></em>
+					</p>
+					<p>
+						2. Use <- and -> Keys to move the spaceship <br />
+						left and right respectively.
+					</p>
+					<p>3. Dodge the Nyan Kats!</p>
+				</div>
+			</div>
+		</div>
 		<script src="js/data.js"></script>
 		<script src="js/Enemy.js"></script>
 		<script src="js/engine-utilities.js"></script>

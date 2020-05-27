@@ -16,7 +16,7 @@ class Engine {
 		this.enemies = [];
 		// We add the background image to the game
 		addBackground(this.root);
-		console.log(this.player);
+		// console.log(this.player);
 	}
 
 	// The gameLoop will run every few milliseconds. It does several things
@@ -79,6 +79,7 @@ class Engine {
 				this.enemies[i].x === this.player.x &&
 				this.enemies[i].y + ENEMY_HEIGHT >= this.player.y
 			) {
+				// Sound method here?
 				return true;
 			}
 		}

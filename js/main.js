@@ -24,7 +24,7 @@ const keydownHandler = (event) => {
 document.addEventListener('keydown', keydownHandler);
 
 // We call the gameLoop method to start the game
-gameEngine.gameLoop();
+// gameEngine.gameLoop();
 
 // console.log(this.player);
 // console.log(this.enemies);
