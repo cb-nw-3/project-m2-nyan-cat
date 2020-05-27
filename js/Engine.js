@@ -24,6 +24,8 @@ class Engine {
 
     this.highScore = 0;
 
+    this.loop = 0;
+
     // We add the background image to the game
     addBackground(this.root);
   }
@@ -36,6 +38,8 @@ class Engine {
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
+    scoreDOM.innerText = `${this.score}`
+    highScoreDOM.innerText = `${this.highScore}` 
     if (this.lastFrame === undefined) {
       this.lastFrame = new Date().getTime();
     }
@@ -53,8 +57,20 @@ class Engine {
       if (enemy.destroyed === true) {
         this.deadEnemies.push(enemy);
         this.score = this.deadEnemies.length;
+        scoreDOM.innerText = `${this.score}`
       }
     });
+
+    if(this.score % 50  === 0  && this.score != 0 && this.loop < 1)
+      {
+      this.lives += 1
+      }
+    if(this.score % 50 === 0){
+      this.loop = 1;
+    }else{
+      this.loop = 0;
+    }
+    
 
     // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
     // We use filter to accomplish this.
@@ -76,7 +92,7 @@ class Engine {
       this.gameOver();
 
       let handleClick = () => {
-        console.log("click button");
+        scoreDOM.innerText = `${this.score}`
         this.enemies.forEach((item) => {
           item.destroyed = true;
           item.y = 500;
@@ -129,27 +145,24 @@ class Engine {
   };
 
   gameOver = () => {
-    console.log("game Over", this.lives);
     this.lives -= 1;
     if (this.score > this.highScore) {
       this.highScore = this.score;
     }
-    console.log("highscore", this.highScore);
     this.score = 0;
     this.deadEnemies = [];
-    console.log("score", this.score);
-    console.log("deadEnemies array", this.deadEnemies);
+    
+    highScoreDOM.innerText = `${this.highScore}`
+
 
     if (this.lives > 0) {
       dialogueBox.setAttribute("style", "display:flex;");
-      title.innerText = "Would you like to continue ?";
+      title.innerText = "CONTINUE ?";
       livesDOM.innerText = `You have ${this.lives} lives left`;
-      console.log(`You have ${this.lives} lives left`);
     } else if (this.lives === 0) {
       dialogueBox.setAttribute("style", "display:flex;");
       title.innerText = "GAME OVER";
       livesDOM.innerText = `You have ${this.lives} lives left`;
-      console.log(`You have ${this.lives} lives left`);
       button.setAttribute("style", "display:none;");
     }
   };
@@ -160,3 +173,5 @@ let title = document.querySelector("#title");
 let livesDOM = document.querySelector("#lives");
 let button = document.querySelector("#continueButton");
 let reset = document.querySelector("#restartButton");
+let scoreDOM = document.querySelector("#score");
+let highScoreDOM = document.querySelector("#highScore");
