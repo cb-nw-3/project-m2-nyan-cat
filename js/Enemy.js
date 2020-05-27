@@ -68,4 +68,9 @@ class Enemy {
       this.destroyed = true;
     }
   }
+
+  destroyEnemy() {
+    this.root.removeChild(this.domElement);
+    this.destroyed = true;
+  }
 }

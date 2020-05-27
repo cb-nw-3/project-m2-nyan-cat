@@ -32,5 +32,7 @@ retryBtn.addEventListener("click", () => {
   // Hide the gameover display
   let gameOver = document.querySelector(".game-over-container");
   gameOver.style.display = "none";
+  // Reset Game Data and restart loop
+  gameEngine.player.lives = 3;
   gameEngine.gameLoop();
 });
