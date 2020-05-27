@@ -14,16 +14,14 @@
 //   const GAME_WIDTH = screen.width;
 // }
 
+const GAME_HEIGHT = window.innerHeight;
 let GAME_WIDTH = 900;
-alert(screen.width, typeof screen.width);
 if (screen.width > 900) {
   GAME_WIDTH = 900;
-  console.log("hi", GAME_WIDTH);
 } else {
-  GAME_WIDTH = screen.width;
+  GAME_WIDTH = window.innerWidth - 25;
 }
 
-const GAME_HEIGHT = 650;
 document.documentElement.style.setProperty("--totalHeight", `${GAME_HEIGHT}px`);
 
 // These constants represent the width and height of an enemy in pixels
