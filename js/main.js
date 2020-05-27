@@ -30,6 +30,7 @@ const PRESS_START = new Audio("/gamestart.mp3");
 const GAME_OVER = new Audio("/gameover.mp3");
 const LIFE = new Text(document.querySelector("#app"), 750, 10);
 const BG_MUSIC2 = new Audio("/IWantToBreakFree.mp3");
+const BG_MUSIC3 = new Audio("/Circles.mp3");
 
 function scoreCounter() {
   scoreCount++;

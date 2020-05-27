@@ -56,6 +56,7 @@ class Engine {
       this.enemies.push(new Enemy(this.root, spot));
     }
     //Game Difficulty increases here :)
+    //LEVEL 1
     if (scoreCount === 35) {
       MAX_ENEMIES = 6;
     }
@@ -88,7 +89,7 @@ class Engine {
       Good luck on Level 2 >.<`);
       BG_MUSIC1.pause();
     }
-    //Level 2
+    //LEVEL 2
     if (scoreCount === 210) {
       BG_MUSIC2.play();
       MAX_ENEMIES = 5;
@@ -106,7 +107,7 @@ class Engine {
       MAX_ENEMIES = 8;
     }
     if (scoreCount === 330) {
-      MAX_ENEMIES = 10;
+      MAX_ENEMIES = 11;
     }
     if (scoreCount === 350) {
       MAX_ENEMIES = 5;
@@ -125,7 +126,60 @@ class Engine {
       Good luck!`);
       BG_MUSIC2.pause();
     }
-
+    //LEVEL 3 (FINAL)
+    if (scoreCount === 405) {
+      BG_MUSIC3.play();
+      MAX_ENEMIES = 3;
+    }
+    if (scoreCount === 420) {
+      MAX_ENEMIES = 8;
+    }
+    if (scoreCount === 435) {
+      MAX_ENEMIES = 5;
+    }
+    if (scoreCount === 453) {
+      MAX_ENEMIES = 7;
+    }
+    if (scoreCount === 465) {
+      MAX_ENEMIES = 10;
+    }
+    if (scoreCount === 500) {
+      MAX_ENEMIES = 6;
+    }
+    if (scoreCount === 525) {
+      MAX_ENEMIES = 7;
+    }
+    if (scoreCount === 533) {
+      MAX_ENEMIES = 9;
+    }
+    if (scoreCount === 550) {
+      MAX_ENEMIES = 11;
+    }
+    if (scoreCount === 565) {
+      MAX_ENEMIES = 9;
+    }
+    if (scoreCount === 580) {
+      MAX_ENEMIES = 11;
+    }
+    if (scoreCount === 605) {
+      MAX_ENEMIES = 8;
+    }
+    if (scoreCount === 610) {
+      MAX_ENEMIES = 3;
+    }
+    if (scoreCount === 613) {
+      MAX_ENEMIES = 0;
+    }
+    if (scoreCount === 615) {
+      window.alert(`
+      You did it!!!
+      Music by Post Malone - Circles
+      What can I tell you, you got to the end!
+      Congratulations, you've survived all those countless Katz
+      Give yourself a pat on your shoulders, you deserve it!
+      See you next time !(^_^)!`);
+      BG_MUSIC3.pause();
+    }
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?) - because if not it keeps popping!
     if (this.isPlayerHurt()) {
