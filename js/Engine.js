@@ -77,6 +77,54 @@ class Engine {
     if (scoreCount === 165) {
       MAX_ENEMIES = 11;
     }
+    if (scoreCount === 205) {
+      MAX_ENEMIES = 0;
+    }
+    if (scoreCount === 207) {
+      window.alert(`
+      You did it! I hope you had a good time ;) 
+      Music by Queen - Don't Stop Me Now
+      If you want to keep playing, just press OK and it will keep going!
+      Good luck on Level 2 >.<`);
+      BG_MUSIC1.pause();
+    }
+    //Level 2
+    if (scoreCount === 210) {
+      BG_MUSIC2.play();
+      MAX_ENEMIES = 5;
+    }
+    if (scoreCount === 220) {
+      MAX_ENEMIES = 8;
+    }
+    if (scoreCount === 250) {
+      MAX_ENEMIES = 6;
+    }
+    if (scoreCount === 275) {
+      MAX_ENEMIES = 10;
+    }
+    if (scoreCount === 300) {
+      MAX_ENEMIES = 8;
+    }
+    if (scoreCount === 330) {
+      MAX_ENEMIES = 10;
+    }
+    if (scoreCount === 350) {
+      MAX_ENEMIES = 5;
+    }
+    if (scoreCount === 390) {
+      MAX_ENEMIES = 10;
+    }
+    if (scoreCount === 400) {
+      MAX_ENEMIES = 0;
+    }
+    if (scoreCount === 403) {
+      window.alert(`
+      Wow, you survived Level 2! 
+      Music by Queen - I Want To Break Free
+      Level 3 is waiting for you if this was too easy!
+      Good luck!`);
+      BG_MUSIC2.pause();
+    }
 
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?) - because if not it keeps popping!

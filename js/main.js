@@ -25,10 +25,11 @@ let score;
 //let lifeCount = 100;
 let life;
 const SCORE = new Text(document.querySelector("#app"), 10, 10);
-const BG_MUSIC = new Audio("/DontStopMeNow.mp3");
+const BG_MUSIC1 = new Audio("/DontStopMeNow.mp3");
 const PRESS_START = new Audio("/gamestart.mp3");
 const GAME_OVER = new Audio("/gameover.mp3");
 const LIFE = new Text(document.querySelector("#app"), 750, 10);
+const BG_MUSIC2 = new Audio("/IWantToBreakFree.mp3");
 
 function scoreCounter() {
   scoreCount++;
@@ -67,9 +68,9 @@ function initGame() {
   score = setInterval(scoreCounter, 1000);
   life = setInterval(showLife, 1000);
   setTimeout(function () {
-    BG_MUSIC.play();
+    BG_MUSIC1.play();
   }, 500);
-  BG_MUSIC.loop = true;
+  //BG_MUSIC.loop = true;
   START.removeEventListener("click", initGame);
 }
 
