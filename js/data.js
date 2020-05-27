@@ -5,7 +5,24 @@
 
 // The GAME_WIDTH and GAME_HEIGHT constants denote the size
 // of the game area in pixels and is used in engine-utilities.js.
-const GAME_WIDTH = 700;
+
+// console.log(screen.width, typeof screen.width);
+// if (screen.width > 900) {
+//   const GAME_WIDTH = 900;
+//   console.log("hi", GAME_WIDTH);
+// } else {
+//   const GAME_WIDTH = screen.width;
+// }
+
+let GAME_WIDTH = 900;
+console.log(screen.width, typeof screen.width);
+if (screen.width > 900) {
+  GAME_WIDTH = 900;
+  console.log("hi", GAME_WIDTH);
+} else {
+  GAME_WIDTH = screen.width;
+}
+
 const GAME_HEIGHT = 650;
 document.documentElement.style.setProperty("--totalHeight", `${GAME_HEIGHT}px`);
 
