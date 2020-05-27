@@ -103,12 +103,22 @@ class Engine {
         ) {
           this.player.lives--;
           pos.update(1, true);
-          livesContainer.removeChild(livesContainer.lastElementChild)
+          livesContainer.removeChild(livesContainer.lastElementChild);
+          if (this.player.lives === 4) {
+            death4.play();
+          } else if (this.player.lives === 3) {
+            death5.play();
+          } else if (this.player.lives === 2) {
+            death3.play();
+          } else if (this.player.lives === 1) {
+            death2.play();
+          }
         } else if (
           pos.x === this.player.x && 
           pos.y > GAME_HEIGHT - PLAYER_HEIGHT - 10 - ENEMY_HEIGHT &&
           pos.y < GAME_HEIGHT - 10 - ENEMY_HEIGHT + (ENEMY_HEIGHT / 2)
         ) {
+          death1.play();
           status = true
         }
       } else if (pos.name === 'Hamburger') {
@@ -121,6 +131,7 @@ class Engine {
           this.player.lives++;
           pos.update(1, true);
           addLive();
+          eatingNoise.play();
         }
       }
     })
