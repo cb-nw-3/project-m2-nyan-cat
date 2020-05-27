@@ -18,10 +18,14 @@ class Engine {
 
     this.lives = 4;
 
+    this.deadEnemies = [];
+
+    this.score = 0;
+
+    this.highScore = 0;
+
     // We add the background image to the game
     addBackground(this.root);
-
-    button.addEventListener("click", this.handleContinue);
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -29,7 +33,6 @@ class Engine {
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
   gameLoop = () => {
-    console.log("gameloop function", Date.now());
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
@@ -44,6 +47,13 @@ class Engine {
     // Furthermore, if any enemy is below the bottom of our game, its destroyed property will be set. (See Enemy.js)
     this.enemies.forEach((enemy) => {
       enemy.update(timeDiff);
+    });
+
+    this.enemies.forEach((enemy) => {
+      if (enemy.destroyed === true) {
+        this.deadEnemies.push(enemy);
+        this.score = this.deadEnemies.length;
+      }
     });
 
     // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
@@ -64,7 +74,6 @@ class Engine {
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
       this.gameOver();
-      console.log("Popping modal", this.lives);
 
       let handleClick = () => {
         console.log("click button");
@@ -122,6 +131,15 @@ class Engine {
   gameOver = () => {
     console.log("game Over", this.lives);
     this.lives -= 1;
+    if (this.score > this.highScore) {
+      this.highScore = this.score;
+    }
+    console.log("highscore", this.highScore);
+    this.score = 0;
+    this.deadEnemies = [];
+    console.log("score", this.score);
+    console.log("deadEnemies array", this.deadEnemies);
+
     if (this.lives > 0) {
       dialogueBox.setAttribute("style", "display:flex;");
       title.innerText = "Would you like to continue ?";
@@ -136,29 +154,6 @@ class Engine {
     }
   };
 }
-
-// let dialogueBox = document.querySelector('#continue');
-// let title = document.querySelector('#title');
-// let livesDOM = document.querySelector('#lives');
-// let button = document.querySelector('#continueButton');
-// let reset = document.querySelector('#restartButton')
-// let lives = 4
-
-// function gameOver(){
-//   lives -= 1
-//   if(lives > 0){
-//       dialogueBox.setAttribute('style', 'display:flex;');
-//       title.innerText = "Would you like to continue ?";
-//       livesDOM.innerText = `You have ${lives} lives left`;
-//       console.log(`You have ${lives} lives left`);
-//   }else{
-//     dialogueBox.setAttribute('style', 'display:flex;');
-//     title.innerText = "GAME OVER";
-//     livesDOM.innerText = `You have ${lives} lives left`;
-//     console.log(`You have ${lives} lives left`);
-//     button.setAttribute('style', 'display:none;');
-//   };
-// }
 
 let dialogueBox = document.querySelector("#continue");
 let title = document.querySelector("#title");
