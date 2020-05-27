@@ -1,6 +1,6 @@
 const app = document.querySelector("#app");
 const gameEngine = new Engine(app);
-const laser = new Laser(app, gameEngine.player.position);
+const laser = new Laser(app, gameEngine.player.x, gameEngine.player.position);
 
 let score = 0;
 const scoreTally = document.createElement("span");
@@ -34,5 +34,4 @@ const keydownHandler = (event) => {
   }
 };
 
-// We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
 document.addEventListener("keydown", keydownHandler);
