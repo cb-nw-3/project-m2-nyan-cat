@@ -25,3 +25,10 @@ document.addEventListener('keydown', keydownHandler);
 
 // We call the gameLoop method to start the game
 gameEngine.gameLoop();
+
+const audio = new Audio('./js/TechMusic.mp3');
+audio.play();
+
+document.documentElement.addEventListener('click', () => {
+  audio.play()
+});

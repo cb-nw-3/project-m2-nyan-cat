@@ -47,9 +47,7 @@ class Enemy {
     theRoot.appendChild(this.domElement);
     this.speed = Math.random() / 2 + 0.25;
 
-    console.log('enemies initial X axis is ' + this.x);// enemies X axis
-    console.log('enemies initial Y axis is ' + this.y);// enemies Y axis
-    console.log(this);// Enemy class, shows all cats that appeared
+   
   }
 
   // We set the speed property of the enemy. This determines how fast it moves down the screen.

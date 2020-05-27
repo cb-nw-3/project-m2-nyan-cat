@@ -23,9 +23,7 @@ class Player {
     this.domElement.style.zIndex = '10';
     root.appendChild(this.domElement);
 
-    //coordinates /(x, y)
-    console.log('player initial x axis is between ' + this.x, this.x + PLAYER_WIDTH);//150 + 225
-    console.log('player y axis ' + y);//436
+    
   }
 
   // This method will be called when the user presses the left key. See in Engine.js

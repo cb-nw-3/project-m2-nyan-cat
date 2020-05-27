@@ -11,6 +11,8 @@ class Engine {
     // We create our hamburger.
     // Please refer to Player.js for more information about what happens when you create a player
     this.player = new Player(this.root);
+    //lives
+    this.lives = 3;
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
