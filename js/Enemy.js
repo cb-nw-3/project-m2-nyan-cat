@@ -55,7 +55,7 @@ class Enemy {
   // To make sure that every enemy has a different speed, we use Math.random()
   // this method will be called on the enemy instance every few milliseconds. The parameter
   // timeDiff refers to the number of milliseconds since the last update was called.
-  update(timeDiff) {
+  update(timeDiff, condition) {
     // We update the y property of the instance in proportion of the amount of time
     // since the last call to update. We also update the top css property so that the image
     // is updated on screen
@@ -65,7 +65,7 @@ class Enemy {
     // If the y position of the DOM element is greater than the GAME_HEIGHT then the enemy is at the bottom
     // of the screen and should be removed. We remove the DOM element from the root DOM element and we set
     // the destroyed property to indicate that the enemy should no longer be in play
-    if (this.y > GAME_HEIGHT) {
+    if (this.y > GAME_HEIGHT || condition) {
       this.root.removeChild(this.domElement);
 
       this.destroyed = true;

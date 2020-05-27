@@ -78,7 +78,7 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert(`Game Over - Score: ${this.score}`);
+      window.alert(`Game Over\nScore: ${this.score}\nBonus: ${this.bonusScore}\nTotal: ${this.score + this.bonusScore}`);
       return;
     }
 
@@ -98,6 +98,15 @@ class Engine {
         if (
           pos.x === this.player.x && 
           pos.y > GAME_HEIGHT - PLAYER_HEIGHT - 10 - ENEMY_HEIGHT &&
+          pos.y < GAME_HEIGHT - 10 - ENEMY_HEIGHT + (ENEMY_HEIGHT / 2) &&
+          this.player.lives !== 1
+        ) {
+          this.player.lives--;
+          pos.update(1, true);
+          livesContainer.removeChild(livesContainer.lastElementChild)
+        } else if (
+          pos.x === this.player.x && 
+          pos.y > GAME_HEIGHT - PLAYER_HEIGHT - 10 - ENEMY_HEIGHT &&
           pos.y < GAME_HEIGHT - 10 - ENEMY_HEIGHT + (ENEMY_HEIGHT / 2)
         ) {
           status = true
@@ -109,7 +118,9 @@ class Engine {
           pos.y < GAME_HEIGHT - PLAYER_HEIGHT - 10
         ) {
           this.bonusScore += 2500;
+          this.player.lives++;
           pos.update(1, true);
+          addLive();
         }
       }
     })
