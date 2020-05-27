@@ -15,11 +15,11 @@ class Hamburger {
     theRoot.appendChild(this.domElement);
     this.speed = speed;
   }
-  update(timeDiff) {
+  update(timeDiff, condition) {
     this.y = this.y + timeDiff * this.speed;
     this.domElement.style.top = `${this.y}px`;
 
-    if (this.y > GAME_HEIGHT) {
+    if (this.y > GAME_HEIGHT || condition) {
       this.root.removeChild(this.domElement);
       this.destroyed = true;
     }

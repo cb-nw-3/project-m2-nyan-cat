@@ -16,6 +16,7 @@ class Engine {
     this.enemies = [];
     // initialize player score
     this.score = 0;
+    this.bonusScore = 0;
     // We add the background image to the game
     addBackground(this.root);
   }
@@ -36,7 +37,7 @@ class Engine {
     // update score property
     this.score += timeDiff
     // update innerText property
-    score.update(this.score);
+    score.update(this.score + this.bonusScore);
 
     this.lastFrame = new Date().getTime();
     // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
@@ -64,13 +65,14 @@ class Engine {
       randomNumberToCallBonus = Math.floor(Math.random() * 50);
 
       enemySpeed = (Math.random() / 2 + 0.15) + (Math.round(this.score / 10000) * 0.1);
-      console.log(enemySpeed)
+      console.log(randomNumberToCallBonus)
       if (randomNumberToCallBonus === 17) {
         this.enemies.push(new Hamburger(this.root, spot, enemySpeed, 'Hamburger'));
       } else {
         // formula to increase speed during game every 10000 points
         this.enemies.push(new Enemy(this.root, spot, enemySpeed, 'Enemy'));
       }
+      console.log(this.enemies)
     }
 
     // We check if the player is dead. If he is, we alert the user
@@ -106,7 +108,8 @@ class Engine {
           pos.y > GAME_HEIGHT - (PLAYER_HEIGHT * 2) - 10 &&
           pos.y < GAME_HEIGHT - PLAYER_HEIGHT - 10
         ) {
-          this.score += 1000;
+          this.bonusScore += 2500;
+          pos.update(1, true);
         }
       }
     })

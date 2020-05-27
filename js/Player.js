@@ -9,6 +9,8 @@ class Player {
     // the leftmost x position of the image.
     this.x = 2 * PLAYER_WIDTH;
 
+    this.lives = PLAYER_LIVES;
+
     // The y position never changes, so we don't need to store it in a property. It represents the y position of the top of the
     // hamburger. The y position is the distance from the top margin of the browsing area.
     const y = GAME_HEIGHT - PLAYER_HEIGHT - 10;

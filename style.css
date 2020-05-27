@@ -25,3 +25,15 @@ button:focus {
   opacity: 1;
   font-size: 2.2rem;
 }
+
+#lives {
+  height: 54px;
+  width: 200px;
+  position: absolute;
+  top: 0;
+  left: 325px;
+  z-index: 500;
+  background: transparent;
+  display: flex;
+  justify-content: flex-end;
+}

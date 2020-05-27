@@ -2,6 +2,18 @@
 // we see that it has a div with an id of `"app"`
 const gameEngine = new Engine(document.getElementById('app'));
 
+const livesContainer = document.querySelector('#lives');
+
+let liveDiv;
+for (let i = 0; i < PLAYER_LIVES; i++) {
+  liveDiv = document.createElement('img');
+  liveDiv.id = 'playerLives';
+  liveDiv.setAttribute('src','images/player.png');
+  liveDiv.style.height = '27px';
+  liveDiv.style.width = '37px';
+  livesContainer.appendChild(liveDiv);
+}
+
 // add score div in the app
 const score = new Text(gameEngine.root, 0, -5);
 
