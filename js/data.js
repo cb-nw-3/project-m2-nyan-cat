@@ -15,7 +15,7 @@
 // }
 
 let GAME_WIDTH = 900;
-console.log(screen.width, typeof screen.width);
+alert(screen.width, typeof screen.width);
 if (screen.width > 900) {
   GAME_WIDTH = 900;
   console.log("hi", GAME_WIDTH);
