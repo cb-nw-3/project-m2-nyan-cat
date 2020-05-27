@@ -16,6 +16,9 @@ class Engine {
     this.enemies = [];
     // We add the background image to the game
     addBackground(this.root);
+    // Score counter
+    this.score = 0;
+    this.scoreDisplay = new Text(this.root, 15, 15);
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -57,7 +60,7 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      window.alert("Game over");
       return;
     }
 
@@ -68,6 +71,16 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    return false;
+    let result = false;
+
+    this.enemies.forEach((enemy) => {
+      if (
+        enemy.x === this.player.x &&
+        enemy.y - (GAME_HEIGHT - PLAYER_HEIGHT - 10) >= 0
+      ) {
+        return (result = true);
+      }
+    });
+    return result;
   };
 }
