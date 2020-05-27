@@ -11,12 +11,18 @@ const keydownHandler = (event) => {
   // key is left, then we call the moveLeft method of gameEngine.player (where is this method defined?)
   if (event.code === 'ArrowLeft') {
     gameEngine.player.moveLeft();
+    console.log('left was pressed');
+    audio.currentTime = 0;
+    audio.play(); // Added sound each time the button right was pressed
   }
 
   // If `event.code` is the string that represents a right arrow keypress,
   // then move our hamburger to the right
   if (event.code === 'ArrowRight') {
     gameEngine.player.moveRight();
+    console.log('right was pressed');
+    audio.currentTime = 0;
+    audio.play(); // Added sound each time the button right was pressed
   }
 };
 
