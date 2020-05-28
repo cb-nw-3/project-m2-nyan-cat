@@ -135,9 +135,6 @@ class Engine {
     let enemyDead = false;
     this.lasers.forEach((laser) => {
       this.enemies.filter((enemy, index) => {
-        console.log("laserY", laser.y);
-        console.log("enemyY", Math.round(enemy.y));
-
         if (
           laser.position === enemy.spot &&
           Math.round(laser.y) === Math.round(enemy.y)
