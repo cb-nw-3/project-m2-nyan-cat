@@ -1,6 +1,6 @@
 // We create an instance of the Engine class. Looking at our index.html,
 // we see that it has a div with an id of `"app"`
-console.log(document.querySelector("#wrapper"));
+// console.log(document.querySelector("#wrapper"));
 const gameEngine = new Engine(document.querySelector("#app"));
 
 // keydownHandler is a variable that refers to a function. The function has one parameter
@@ -44,18 +44,31 @@ function scoreScreen() {
       case 50:
         MAX_ENEMIES = 4;
         gameEngine.player.level = 2;
+        gameEngine.enemySpeed();
         break;
       case 100:
-        MAX_ENEMIES = 5;
         gameEngine.player.level = 3;
+        gameEngine.dificulty = 0.25;
         break;
       case 150:
-        MAX_ENEMIES = 6;
+        MAX_ENEMIES = 5;
         gameEngine.player.level = 4;
         break;
       case 200:
-        MAX_ENEMIES = 7;
         gameEngine.player.level = 5;
+        gameEngine.dificulty = 0.35;
+        break;
+      case 250:
+        gameEngine.player.level = "CAT";
+        MAX_ENEMIES = 6;
+        break;
+      case 300:
+        gameEngine.player.level = "SUPERCAT";
+        MAX_ENEMIES = 7;
+        break;
+      case 350:
+        gameEngine.player.level = "THUNDERCAT";
+        gameEngine.dificulty = 0.65;
         break;
     }
   }

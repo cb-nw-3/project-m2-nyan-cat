@@ -9,7 +9,7 @@ class Enemy {
   // Since the constructor takes 2 parameters
   // and the 2 parameters provide important information, we must supply 2 arguments to "new" every time we
   // create an instance of this class.
-  constructor(theRoot, enemySpot) {
+  constructor(theRoot, enemySpot, dificulty) {
     // When we create an Enemy instance, for example, new Enemy(someRoot, 3)
     // A new object is created and the constructor of the Enemy class is called. The context (the \`this\` keyword) is going
     // to be the new object. In these lines of code we see how to add 2 properties to this object: spot, root and gameHeight.
@@ -45,7 +45,7 @@ class Enemy {
 
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     bg.appendChild(this.domElement);
-    this.speed = Math.random() / 2 + 0.25;
+    this.speed = Math.random() / 2 + 0.25 + dificulty;
   }
 
   // We set the speed property of the enemy. This determines how fast it moves down the screen.

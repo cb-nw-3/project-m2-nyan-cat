@@ -17,11 +17,15 @@ class Engine {
     this.enemies = [];
     // We add the background image to the game
     this.score = "";
+    this.dificulty = 0;
     addBackground(this.root);
     this.text = new Text(this.root, GAME_WIDTH / 2 - 65, GAME_HEIGHT / 2);
     this.start = false;
   }
 
+  enemySpeed() {
+    console.log(this.enemies);
+  }
   // The gameLoop will run every few milliseconds. It does several things
   //  - Updates the enemy positions
   //  - Detects a collision between the player and any enemy
@@ -59,7 +63,7 @@ class Engine {
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
-      this.enemies.push(new Enemy(this.root, spot));
+      this.enemies.push(new Enemy(this.root, spot, this.dificulty));
     }
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
