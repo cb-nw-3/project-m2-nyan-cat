@@ -59,7 +59,10 @@ class Engine {
 		// We check if the player is dead. If he is, we alert the user
 		// and return from the method (Why is the return statement important?)
 		if (this.isPlayerDead()) {
+			document.getElementById("crash").volume = 0.2;
+			document.getElementById("crash").play();
 			window.alert("Game over");
+
 			return;
 		}
 
@@ -79,7 +82,7 @@ class Engine {
 				this.enemies[i].x === this.player.x &&
 				this.enemies[i].y + ENEMY_HEIGHT >= this.player.y
 			) {
-				// Sound method here?
+				// Sound method here
 				return true;
 			}
 		}

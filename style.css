@@ -1,48 +1,48 @@
 html {
-    background: linear-gradient(to right, #4568dc, #b06ab3);
+	background: linear-gradient(to right, #4568dc, #b06ab3);
 }
 
 body {
-    /* margin-top: 50px; */
-    position: relative;
-    padding-top: 0;
-    /* margin-left: 35%; */
+	/* margin-top: 50px; */
+	position: relative;
+	padding-top: 0;
+	margin-left: 30%;
+	margin-top: 150px;
 }
 
 .container {
-    display: flex;
+	display: flex;
 }
 
 .startGameCont {
-    /* text-align: center */
-    margin-top: 125px;
-    margin-left: 75px;
-    /* float: right; */
+	/* text-align: center */
+	margin-top: 125px;
+	margin-left: 75px;
+	/* float: right; */
 }
 
 .startGame {
-    font-size: 45px;
-    background-color: rgb(70, 20, 70);
-    color: ghostwhite;
-    border-radius: 5px; 
-    z-index: 50;
-    box-shadow: 5px 5px ghostwhite;
-    /* position: absolute; */
-    /* top: 30%; */
+	font-size: 45px;
+	background-color: rgb(70, 20, 70);
+	color: ghostwhite;
+	border-radius: 5px;
+	z-index: 50;
+	box-shadow: 5px 5px ghostwhite;
+	/* position: absolute; */
+	/* top: 30%; */
 }
 
 .startGame:active {
-    background-color: ghostwhite;
-    color: rgb(70, 20, 70);
-    box-shadow: 5px 5px black;
+	background-color: ghostwhite;
+	color: rgb(70, 20, 70);
+	box-shadow: 5px 5px black;
 }
 
 .instructions {
-    color: ghostwhite;
-    font-size: 20px;
+	color: ghostwhite;
+	font-size: 20px;
 }
 
 .instructions h1 {
-    text-decoration: underline;
+	text-decoration: underline;
 }
-
