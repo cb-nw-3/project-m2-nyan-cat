@@ -19,12 +19,12 @@ class Engine {
     // Score counter
     this.score = 0;
     this.scoreDisplay = new Text(this.root, 15, 15);
-    // // Lives counter
-    // this.lives = 3;
-    // this.livesDisplay = new Text(this.root, 275, 15);
+    // Lives counter
+    this.lives = 3;
+    this.livesDisplay = new Text(this.root, 265, 15);
     // Level counter
     this.level = 0;
-    this.levelDisplay = new Text(this.root, 275, 45);
+    this.levelDisplay = new Text(this.root, 265, 45);
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -66,6 +66,7 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
+      this.livesDisplay.update("Lives: " + this.lives);
       window.alert("Game over");
       return;
     }
@@ -73,11 +74,11 @@ class Engine {
     // Display the updated score
     this.scoreDisplay.update("Score: " + this.score * 10);
 
-    // // Display the lives score
-    // this.livesDisplay.update("Lives: " + this.lives);
+    // Display the lives score
+    this.livesDisplay.update("Lives: " + this.lives);
 
     // Update and Display the Level
-    this.level = this.score / 10;
+    this.level = Math.floor(this.score / 10);
     this.levelDisplay.update("Level: " + this.level);
 
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
@@ -88,16 +89,18 @@ class Engine {
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
     let result = false;
-
-    this.enemies.forEach((enemy) => {
-      if (
-        enemy.x === this.player.x &&
-        enemy.y - (GAME_HEIGHT - PLAYER_HEIGHT - 10) >= 0
-      ) {
-        return (result = true);
-        // this.player.lives--;
-      }
-    });
+    // this.enemies.forEach((enemy) => {
+    //   if (
+    //     enemy.x === this.player.x &&
+    //     enemy.y - (GAME_HEIGHT - PLAYER_HEIGHT - 10) >= 0
+    //   ) {
+    //     this.lives--;
+    //     enemy.destroy();
+    //   }
+    // });
+    if (this.lives === 0) {
+      result = true;
+    }
     return result;
   };
 }
