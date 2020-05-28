@@ -37,3 +37,14 @@ button:focus {
   display: flex;
   justify-content: flex-end;
 }
+#bullets {
+  height: 54px;
+  width: 200px;
+  position: absolute;
+  top: 30px;
+  left: 325px;
+  z-index: 500;
+  background: transparent;
+  display: flex;
+  justify-content: flex-end;
+}

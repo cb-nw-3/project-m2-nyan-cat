@@ -20,6 +20,8 @@ class Engine {
     this.bonusScore = 0;
     // bullet initialization
     this.bullet = [];
+    // amonut of bullets
+    this.amountOfBullets = AMOUNT_OF_BULLETS;
     // speed
     this.speed = 0;
     // We add the background image to the game
@@ -74,6 +76,8 @@ class Engine {
       if (randomNumberToCallBonus === 17) {
         // create burger instead of nyan cat
         this.enemies.push(new Hamburger(this.root, spot, this.speed, 'Hamburger'));
+      } else if (randomNumberToCallBonus === 34) {
+        this.enemies.push(new BonusBullet(this.root, spot,this.speed, 'BonusBullet'));
       } else {
         this.enemies.push(new Enemy(this.root, spot, this.speed, 'Enemy'));
       }
@@ -181,6 +185,35 @@ class Engine {
           pos.y < this.bullet[0].y - PLAYER_HEIGHT + 50
         ) {
           // remove bonus burger
+          pos.update(1, true);
+          // remove bullet
+          this.bullet[0].update(1, true);
+          // play explosion sound
+          explosion.play();
+        }
+      // check if bonus bullet
+      } else if (pos.name === 'BonusBullet') {
+        // check if player enters in contact with bonus bullet
+        if (
+          pos.x === this.player.x && 
+          pos.y > this.player.y - PLAYER_HEIGHT &&
+          pos.y < this.player.y
+        ) {
+          this.amountOfBullets++;
+          // remove bonus bullet
+          pos.update(1, true);
+          // add live to board
+          addBullet();
+          // play some sound
+          bell.play();
+        // check if bullet enters in contact with bonus burger
+        } else if (
+          this.bullet.length === 1 && 
+          pos.x === this.bullet[0].x - (PLAYER_WIDTH - 7) / 2 &&
+          pos.y > this.bullet[0].y - PLAYER_HEIGHT - 11 &&
+          pos.y < this.bullet[0].y - PLAYER_HEIGHT + 50
+        ) {
+          // remove bonus bullet
           pos.update(1, true);
           // remove bullet
           this.bullet[0].update(1, true);

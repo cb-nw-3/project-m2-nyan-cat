@@ -19,6 +19,10 @@ const PLAYER_WIDTH = 75;
 const PLAYER_HEIGHT = 54;
 const PLAYER_LIVES = 5;
 
+const BONUS_BULLET_HEIGHT = 75;
+const BONUS_BULLET_WIDTH = 75;
+const AMOUNT_OF_BULLETS = 5;
+
 // audio files https://www.findsounds.com/
 let death1 = new Audio('sounds/death1.wav');
 let death2 = new Audio('sounds/death2.mp3');
@@ -28,4 +32,5 @@ let death5 = new Audio('sounds/death5.mp3');
 let eatingNoise = new Audio('sounds/eating noise.wav');
 let laserSound = new Audio('sounds/GUN_SHOT.wav');
 let explosion = new Audio('sounds/explosion.wav');
+let bell = new Audio('sounds/bell.wav');
 let backgroundSound = new Audio('sounds/brasil_la_la_la_la_la_la_la_la_canzone.mp3');

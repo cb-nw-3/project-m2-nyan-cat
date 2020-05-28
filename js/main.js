@@ -1,12 +1,14 @@
 // We create an instance of the Engine class. Looking at our index.html,
 // we see that it has a div with an id of `"app"`
 const gameEngine = new Engine(document.getElementById('app'));
-// select html div for player lives
+// select html div for player lives and bonus bullets
 const livesContainer = document.querySelector('#lives');
+const bulletContainer = document.querySelector('#bullets');
 // start the background music
 backgroundSound.play();
 // initialize live variable
 let liveDiv;
+let bonusBulletImg;
 // function called addLive to add lives to html
 const addLive = () => {
   // create, modify and append images to parent
@@ -17,9 +19,20 @@ const addLive = () => {
   liveDiv.style.width = '37px';
   livesContainer.appendChild(liveDiv);
 }
+const addBullet = () => {
+  bonusBulletImg = document.createElement('img');
+  bonusBulletImg.id = 'bonusBullet';
+  bonusBulletImg.setAttribute('src','images/gem.png');
+  bonusBulletImg.style.height = '27px';
+  bonusBulletImg.style.width = '37px';
+  bulletContainer.appendChild(bonusBulletImg);
+}
 // do this loop for initial amount of lives
 for (let i = 0; i < PLAYER_LIVES; i++) {
   addLive();
+}
+for (let i = 0; i < AMOUNT_OF_BULLETS; i++) {
+  addBullet();
 }
 
 // add score div in the app
@@ -60,9 +73,13 @@ const keydownHandler = (event) => {
   }
 
   // shoot bullet if no other bullet and space press
-  if (event.code === 'Space' && gameEngine.bullet.length === 0) {
+  if (event.code === 'Space' && gameEngine.bullet.length === 0 && gameEngine.amountOfBullets > 0) {
     // initialize bullet object
     gameEngine.bullet.push(new Projectile(gameEngine.root, gameEngine.player.y, gameEngine.player.x, gameEngine.speed));
+    // remove one bullet
+    gameEngine.amountOfBullets--;
+    // remove bullet image when using a bullet
+    bulletContainer.removeChild(bulletContainer.lastElementChild);
     // play laser sound
     laserSound.play();
   }
