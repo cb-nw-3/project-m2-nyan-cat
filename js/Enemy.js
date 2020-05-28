@@ -9,7 +9,7 @@ class Enemy {
   // Since the constructor takes 2 parameters
   // and the 2 parameters provide important information, we must supply 2 arguments to "new" every time we
   // create an instance of this class.
-  constructor(theRoot, enemySpot) {
+  constructor(theRoot, enemySpot, dificulty) {
     // When we create an Enemy instance, for example, new Enemy(someRoot, 3)
     // A new object is created and the constructor of the Enemy class is called. The context (the \`this\` keyword) is going
     // to be the new object. In these lines of code we see how to add 2 properties to this object: spot, root and gameHeight.
@@ -21,7 +21,7 @@ class Enemy {
 
     // The x position of the enemy is determined by its width and its spot. We need this information for the lifetime
     // of the instance, so we make it a property of the instance. (Why is this information needed for the lifetime of the instance?)
-    this.x = enemySpot * ENEMY_WIDTH;
+    this.x = enemySpot * ENEMY_WIDTH - 25;
 
     // The y position is initially less than 0 so that the enemies fall from the top. This data is stored as a property
     // of the instance since it is needed throughout its lifetime. The destroyed property will indicate whether this enemy
@@ -33,19 +33,19 @@ class Enemy {
     // We create a new DOM element. The tag of this DOM element is img. It is the DOM node that will display the enemy image
     // to the user. When the enemy is no longer needed, we will use a reference to this DOM node to remove it from the game. This
     // is why we create a property that refers to it.
-    this.domElement = document.createElement('img');
+    this.domElement = document.createElement("img");
 
     // We give it a src attribute to specify which image to display.
-    this.domElement.src = './images/enemy.png';
+    this.domElement.src = "./images/cat.gif";
     // We modify the CSS style of the DOM node.
-    this.domElement.style.position = 'absolute';
+    this.domElement.style.position = "absolute";
     this.domElement.style.left = `${this.x}px`;
     this.domElement.style.top = `${this.y}px`;
     this.domElement.style.zIndex = 5;
 
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
-    theRoot.appendChild(this.domElement);
-    this.speed = Math.random() / 2 + 0.25;
+    bg.appendChild(this.domElement);
+    this.speed = Math.random() / 2 + 0.25 + dificulty;
   }
 
   // We set the speed property of the enemy. This determines how fast it moves down the screen.
@@ -63,7 +63,7 @@ class Enemy {
     // of the screen and should be removed. We remove the DOM element from the root DOM element and we set
     // the destroyed property to indicate that the enemy should no longer be in play
     if (this.y > GAME_HEIGHT) {
-      this.root.removeChild(this.domElement);
+      bg.removeChild(this.domElement);
 
       this.destroyed = true;
     }

@@ -1,6 +1,7 @@
 // The engine class will only be instantiated once. It contains all the logic
 // of the game relating to the interactions between the player and the
 // enemy and also relating to how our enemies are created and evolve over time
+
 class Engine {
   // The constructor has one parameter. It will refer to the DOM node that we will be adding everything to.
   // You need to provide the DOM node when you create an instance of the class
@@ -15,14 +16,26 @@ class Engine {
     // that contains instances of the Enemy class
     this.enemies = [];
     // We add the background image to the game
+    this.score = "";
+    this.dificulty = 0;
     addBackground(this.root);
+    this.text = new Text(this.root, GAME_WIDTH / 2 - 65, GAME_HEIGHT / 2);
+    this.start = false;
   }
 
+  enemySpeed() {
+    console.log(this.enemies);
+  }
   // The gameLoop will run every few milliseconds. It does several things
   //  - Updates the enemy positions
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
+
   gameLoop = () => {
+    if (this.start) {
+      this.text.update("");
+    }
+    this.start = true;
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
@@ -31,7 +44,6 @@ class Engine {
     }
 
     let timeDiff = new Date().getTime() - this.lastFrame;
-
     this.lastFrame = new Date().getTime();
     // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
     // Furthermore, if any enemy is below the bottom of our game, its destroyed property will be set. (See Enemy.js)
@@ -51,13 +63,19 @@ class Engine {
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
-      this.enemies.push(new Enemy(this.root, spot));
+      this.enemies.push(new Enemy(this.root, spot, this.dificulty));
     }
-
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      this.player.lessLife();
+      this.text.update("Try again");
+      noMovement = true;
+      if (this.player.lifes <= 0) {
+        this.player.domElement[0].src = "images/deadplayer.png";
+        this.text.update("Game Over");
+        document.querySelector("button").innerHTML = "PLAY AGAIN";
+      }
       return;
     }
 
@@ -67,7 +85,30 @@ class Engine {
 
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
+
   isPlayerDead = () => {
-    return false;
+    let isPlayerDead = false;
+    for (let enemy of this.enemies) {
+      if (
+        enemy.y + ENEMY_HEIGHT - 4 >= this.player.playerY() &&
+        enemy.x === this.player.x - 25 &&
+        this.player.lifes >= 0
+      ) {
+        isPlayerDead = true;
+        clearTimeout(score);
+        START.addEventListener("click", gameInit);
+        AUDIO.pause();
+        const ATOM = document.createElement("img");
+        ATOM.classList.add("atom");
+        ATOM.src = "images/atom.gif";
+        ATOM.style.top = `${this.player.playerY() - 65}px`;
+        ATOM.style.left = `${this.player.x - PLAYER_WIDTH / 2 + 15}px`;
+        ATOM.id = "crash";
+        document.querySelector("#wrapper").appendChild(ATOM);
+        this.player.domElement[0].src = "images/sadplayer.png";
+        document.querySelector("button").innerHTML = "CONTINUE";
+      }
+    }
+    return isPlayerDead;
   };
 }

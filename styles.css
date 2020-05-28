@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+:root {
+  --totalWidth: 0;
+  --totalHeight: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  font-family: "Bebas Neue", cursive;
+  font-size: 2.5rem;
+  box-sizing: border-box;
+}
+
+#app > div {
+  overflow: hidden;
+}
+
+button {
+  font-family: "Bebas Neue", cursive;
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  font-size: 2rem;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+  appearance: none;
+  background: rgb(223, 188, 52);
+  border: none;
+  color: white;
+  border-radius: 2em;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 4px 4px 6px rgba(233, 202, 228, 0.9);
+  outline: none;
+  width: 180px;
+}
+#right {
+  position: absolute;
+  z-index: 100;
+  width: 120px;
+}
+
+#left {
+  position: absolute;
+  z-index: 100;
+  width: 120px;
+  transform: rotate(180deg);
+}
+
+#frame {
+  position: relative;
+}
+
+#wrapper {
+  position: absolute;
+  background-color: #302244;
+  border: 12px solid transparent;
+  border-image: linear-gradient(
+    to bottom right,
+    #b827fc 0%,
+    #2c90fc 25%,
+    #b8fd33 50%,
+    #fec837 75%,
+    #fd1892 100%
+  );
+  border-image-slice: 1;
+  overflow: hidden;
+}
+
+#text-1 {
+  position: absolute;
+  top: calc(var(--totalHeight) / 2);
+  left: calc(var(--totalWidth) / 2);
+  transform: translateX(-50%);
+  color: white;
+}
+
+#text-2 {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: white;
+}
+
+#text-3 {
+  position: absolute;
+  top: 55px;
+  right: 10px;
+  color: white;
+}
+
+.lifes {
+  transition: all 1s ease-in-out;
+}
+.hiddenlifes {
+  opacity: 0;
+}
+
+.atom {
+  position: absolute;
+  width: 100px;
+  z-index: 200;
+}
