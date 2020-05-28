@@ -130,6 +130,7 @@ class Engine {
           pos.y < this.player.y - (PLAYER_HEIGHT / 2)
         ) {
           death1.play();
+          backgroundSound.pause();
           status = true
         } else if (
           this.bullet.length === 1 && 
@@ -139,6 +140,7 @@ class Engine {
         ) {
           pos.update(1, true);
           this.bullet[0].update(1, true);
+          explosion.play();
         }
       } else if (pos.name === 'Hamburger') {
         if (

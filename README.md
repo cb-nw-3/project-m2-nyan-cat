@@ -53,13 +53,13 @@ _HINT:_ Try calling `console.log` on the player. You might notice that you don't
 Having completed the basic section of this project is already great! However, next up is the fun part: customizing and evolving the game. Since this is an open-ended activity, we will give you some suggestions. Feel free to use them or not.
 
 <!-- - Instead of completely stopping the game when it's over, allow the player to start a new game -->
- - Add a sound track and <!-- sound effects to the game -->
+ <!-- - Add a sound track and sound effects to the game -->
 <!-- // Add the possibility of having lives -->
 <!-- - Increase the difficulty level of the game as time passes by making the enemies go faster -->
 - Allow the enemies and player to have animated sprites instead of the current static ones. You could do this by defining a sprite as an array of images and setting a speed at which these images should switch. This could be implemented in the `render` method.
-- Allow the player to shoot bullets at the Nyan Cats
+<!-- - Allow the player to shoot bullets at the Nyan Cats -->
 <!-- - Add another type of entity called `Bonus` that will also fall from the sky and add points to the score -->
-- Make the game more hardcore by allowing the player to also move up/down and making Nyan Cats also shoot from the left of the screen
+<!-- - Make the game more hardcore by allowing the player to also move up/down --> and making Nyan Cats also shoot from the left of the screen 
 - **Don't stop!** These suggestions are only here to get you started :)
 
 ## Project Success guidelines
