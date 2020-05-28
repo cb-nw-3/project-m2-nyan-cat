@@ -68,6 +68,7 @@ class Enemy {
       this.root.removeChild(this.domElement);
 
       this.destroyed = true;
+      score = score + 10;
     }
   }
 }

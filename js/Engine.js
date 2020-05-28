@@ -18,7 +18,23 @@ class Engine {
     this.enemies = [];
     // We add the background image to the game
     addBackground(this.root);
-    this.score = "";
+    //score
+    // this.scoreNumber = 0;
+    // this.scoreTxt = new Text(this.root, 15, 15);
+
+    // const score = document.createElement("span");
+    // score.innerText = `SCORE: ${this.scoreNumber}`;
+    // score.style.position = "absolute";
+    // score.style.color = "white";
+    // score.style.top = `20px`;
+    // score.style.left = `20px`;
+    // app.appendChild(score);
+
+    this.score = 0;
+    const scoreTally = document.createElement("span");
+
+
+
 
   
   }
@@ -36,12 +52,13 @@ class Engine {
     }
 
     let timeDiff = new Date().getTime() - this.lastFrame;
-
+    
     this.lastFrame = new Date().getTime();
     // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
     // Furthermore, if any enemy is below the bottom of our game, its destroyed property will be set. (See Enemy.js)
     this.enemies.forEach((enemy) => {
       enemy.update(timeDiff);
+      
     });
 
     // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
@@ -49,14 +66,27 @@ class Engine {
     // Remember: this.enemies only contains instances of the Enemy class.
     this.enemies = this.enemies.filter((enemy) => {
       return !enemy.destroyed;
+      
     });
+
+    
 
     // We need to perform the addition of enemies until we have enough enemies.
     while (this.enemies.length < MAX_ENEMIES) {
+      
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
+
+     // Rendering the score
+     scoreTxt.innerText = `Score: ${score}`;
+     scoreTxt.style.position = "absolute";
+     scoreTxt.style.left = "20px";
+     scoreTxt.style.top = "20px";
+     scoreTxt.style.color = "white";
+     this.root.appendChild(scoreTxt);
+   
   
     }
     
@@ -94,5 +124,5 @@ class Engine {
 
 
   }
-  
+
 }

@@ -5,12 +5,17 @@ const app = document.querySelector("#app");
 const gameEngine = new Engine(app);
 
 const start = document.createElement("span");
-start.innerText = "Press 'Space' to begin";
+start.innerText = "Press 'Spacebar' to START";
 start.style.position = "absolute";
 start.style.color = "white";
 start.style.top = `100px`;
 start.style.left = `120px`;
 app.appendChild(start);
+
+let score = 0;
+const scoreTxt = document.createElement("span");
+
+
 
 // keydownHandler is a variable that refers to a function. The function has one parameter
 // (does the parameter name matter?) which is called event. As we will see below, this function
