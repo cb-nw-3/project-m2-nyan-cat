@@ -18,13 +18,6 @@ const addBackground = (root) => {
   // bg.src = "images/background.jpg";
   // bg.style.height = `${GAME_HEIGHT}px`;
   // bg.style.width = `${GAME_WIDTH}px`;
-  // // root.append(bg);
+  // root.append(bg);
   // const whiteBox = document.createElement("div");
-  // whiteBox.style.zIndex = 100;
-  // whiteBox.style.position = "absolute";
-  // whiteBox.style.top = `${GAME_HEIGHT + 10}px`;
-  // whiteBox.style.height = `${ENEMY_HEIGHT}px`;
-  // whiteBox.style.width = `${GAME_WIDTH}px`;
-  // whiteBox.style.background = "#fff";
-  // root.append(whiteBox);
 };
