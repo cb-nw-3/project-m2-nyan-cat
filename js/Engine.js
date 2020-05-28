@@ -42,6 +42,8 @@ class Engine {
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
     scoreDOM.innerText = `${this.score}`
     highScoreDOM.innerText = `${this.highScore}` 
+    lifeCounterDOM.innerText = `${this.lives}`
+
     if (this.lastFrame === undefined) {
       this.lastFrame = new Date().getTime();
     }
@@ -68,6 +70,7 @@ class Engine {
       {
       this.lives += 1;
       this.level += 1;
+      oneUP.play()
       }
     if(this.score % 25 === 0){
       this.loop = 1;
@@ -150,6 +153,7 @@ class Engine {
   };
 
   gameOver = () => {
+    boom.play()
     this.lives -= 1;
     this.level = 0;
     if (this.score > this.highScore) {
@@ -159,13 +163,20 @@ class Engine {
     this.deadEnemies = [];
     
     highScoreDOM.innerText = `${this.highScore}`
+    lifeCounterDOM.innerText = `${this.lives}`
 
 
-    if (this.lives > 0) {
+    if (this.lives > 1) {
       dialogueBox.setAttribute("style", "display:flex;");
       title.innerText = "CONTINUE ?";
       livesDOM.innerText = `You have ${this.lives} lives left`;
-    } else if (this.lives === 0) {
+    }
+    if(this.lives === 1){
+      dialogueBox.setAttribute("style", "display:flex;");
+      title.innerText = "CONTINUE ?";
+      livesDOM.innerText = `BE CAREFUL, you have ${this.lives} life left`;
+    }
+    if (this.lives === 0) {
       dialogueBox.setAttribute("style", "display:flex;");
       title.innerText = "GAME OVER";
       livesDOM.innerText = `You have ${this.lives} lives left`;
@@ -181,3 +192,7 @@ let button = document.querySelector("#continueButton");
 let reset = document.querySelector("#restartButton");
 let scoreDOM = document.querySelector("#score");
 let highScoreDOM = document.querySelector("#highScore");
+let lifeCounterDOM = document.querySelector('#lifeCounter')
+const oneUP = new Audio('1up.mp3');
+const boom = new Audio('boom.mp3')
+const jump = new Audio('jump.mp3')
