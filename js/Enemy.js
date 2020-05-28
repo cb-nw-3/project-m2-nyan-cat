@@ -69,8 +69,6 @@ class Enemy {
 
     //I add this bit in case the enemy is to be destroyed because he touched the player. Here we remove a life, reset streak and not give points
     if (this.touchedPlayer) {
-      gameEngine.player.loseLife();
-      gameEngine.player.scoreMultiplier(true);
       this.root.removeChild(this.domElement);
       this.destroyed = true;
     } else if (this.y > GAME_HEIGHT) {

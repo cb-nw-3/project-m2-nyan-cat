@@ -64,7 +64,7 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      resetGame();
+      gameOver();
       return;
     }
 
@@ -83,6 +83,8 @@ class Engine {
         //only collide if it's touching more than the tail end of the rainbow (i mean come on)
         if (enemy.y <= 420 && gameEngine.player.isInvincible === false) {
           enemy.touchedPlayer = true;
+          this.player.loseLife();
+          this.player.scoreMultiplier(true);
         }
       }
     });

@@ -84,7 +84,7 @@ const addStartBtn = (root, text) => {
   root.append(startBtn);
 };
 
-const resetGame = () => {
+const gameOver = () => {
   //called when player is dead resets all the components and calls a new start button toallow players to restart
   gameEngine.player.lives = 3;
   gameEngine.enemies.forEach((enemy) => {
