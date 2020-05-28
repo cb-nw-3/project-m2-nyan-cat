@@ -95,8 +95,8 @@ const resetGame = () => {
   addStartBtn(gameEngine.root, "Game Over!!\nRestart");
 };
 
-const triggerGameStart = (event) => {
-  event.target.remove();
+const triggerGameStart = () => {
+  document.querySelector(".startButton").remove();
   gameEngine.player.streak = 0;
   gameEngine.difficulty = 0;
   gameEngine.currentMaxEnemies = INITIAL_MAX_ENEMIES;

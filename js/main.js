@@ -26,6 +26,10 @@ const keydownHandler = (event) => {
   // if (event.code === "Space") {
   //   gameEngine.player.invincibilityFrames();
   // }
+
+  if (event.code === "Space") {
+    triggerGameStart();
+  }
 };
 
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
