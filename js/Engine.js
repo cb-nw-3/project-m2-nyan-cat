@@ -43,7 +43,6 @@ class Engine {
     scoreDOM.innerText = `${this.score}`
     highScoreDOM.innerText = `${this.highScore}` 
     lifeCounterDOM.innerText = `${this.lives}`
-    console.log('start level', this.level)
     levelCounter.innerText = `${this.level + 1}`
 
     if (this.lastFrame === undefined) {
@@ -56,10 +55,12 @@ class Engine {
     // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
     // Furthermore, if any enemy is below the bottom of our game, its destroyed property will be set. (See Enemy.js)
     this.enemies.forEach((enemy) => {
-      // enemy.speed += this.speedModifier
       enemy.update(timeDiff);
     });
 
+
+    //this code is used to determine the score. It is the amound of dead enemies. It is also used to set the level.
+    //every 15 points, the level is increased
     this.enemies.forEach((enemy) => {
       if (enemy.destroyed === true) {
         this.deadEnemies.push(enemy);
@@ -70,6 +71,9 @@ class Engine {
     });
 
 
+    //this is used to update the lives. Every 50 points, you get a life. this.loop is used to make sure
+    //the inside of the first if condition isn't seen more than once. Since it loops every 20milisecs, we don't want
+    //it to ran many times and add many lives. So this.loop makes sure it runs only once.
     if(this.score % 50  === 0  && this.score != 0 && this.loop < 1)
       {
       this.lives += 1;
@@ -102,7 +106,10 @@ class Engine {
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
       this.gameOver();
-
+      //the game over function decreases the lives, sets the high score and makes the right pop up window appear.
+      //on click, you reset the score on the DOM elements, clean up the enemies so they don't register as dead twice
+      //and call the gameLoop function again, after a timeOut of 20 milisecs. NB. The remove Event listener is important, we don't want
+      //duplicate event listeners on the same button. If the player isn't dead, it goes in the else statement and runs the loop again.
       let handleClick = () => {
         scoreDOM.innerText = `${this.score}`
         levelCounter.innerText = `${this.level + 1}`
