@@ -24,12 +24,12 @@ const keydownHandler = (event) => {
 let score;
 //let lifeCount = 100;
 let life;
-const SCORE = new Text(document.querySelector("#app"), 10, 10);
+const SCORE = new Text(document.querySelector("#app"), 15, 10);
 const BG_MUSIC1 = new Audio("/DontStopMeNow.mp3");
 const PRESS_START = new Audio("/gamestart.mp3");
 const GAME_OVER = new Audio("/gameover.mp3");
-const LIFE = new Text(document.querySelector("#app"), 750, 10);
-const BG_MUSIC2 = new Audio("/IWantToBreakFree.mp3");
+const LIFE = new Text(document.querySelector("#app"), 730, 10);
+const BG_MUSIC2 = new Audio("/GeorgyPorgy.mp3");
 const BG_MUSIC3 = new Audio("/Circles.mp3");
 
 function scoreCounter() {
@@ -63,7 +63,7 @@ document.body.appendChild(START);
 //Initializing the game with all the trinkets :)
 function initGame() {
   scoreCount = 0;
-  lifeCount = 100;
+  lifeCount = 333;
   PRESS_START.play();
   gameEngine.gameLoop();
   score = setInterval(scoreCounter, 1000);
@@ -71,6 +71,9 @@ function initGame() {
   setTimeout(function () {
     BG_MUSIC1.play();
   }, 500);
+  window.alert(
+    `Enjoy the game and the music, 3 levels and 100 HP for each so you will start with 300 HP, don't get eaten!`
+  );
   //BG_MUSIC.loop = true;
   START.removeEventListener("click", initGame);
 }

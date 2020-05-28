@@ -58,7 +58,7 @@ class Engine {
     //Game Difficulty increases here :)
     //LEVEL 1
     if (scoreCount === 35) {
-      MAX_ENEMIES = 6;
+      MAX_ENEMIES = 5;
     }
     if (scoreCount === 65) {
       MAX_ENEMIES = 7;
@@ -81,7 +81,7 @@ class Engine {
     if (scoreCount === 205) {
       MAX_ENEMIES = 0;
     }
-    if (scoreCount === 207) {
+    if (scoreCount === 208) {
       window.alert(`
       You did it! I hope you had a good time ;) 
       Music by Queen - Don't Stop Me Now
@@ -94,83 +94,101 @@ class Engine {
       BG_MUSIC2.play();
       MAX_ENEMIES = 5;
     }
-    if (scoreCount === 220) {
-      MAX_ENEMIES = 8;
+    if (scoreCount === 219) {
+      MAX_ENEMIES = 7;
     }
-    if (scoreCount === 250) {
-      MAX_ENEMIES = 6;
+    if (scoreCount === 238) {
+      MAX_ENEMIES = 9;
     }
-    if (scoreCount === 275) {
-      MAX_ENEMIES = 10;
+    if (scoreCount === 258) {
+      MAX_ENEMIES = 7;
     }
-    if (scoreCount === 300) {
-      MAX_ENEMIES = 8;
+    if (scoreCount === 278) {
+      MAX_ENEMIES = 9;
     }
-    if (scoreCount === 330) {
+    if (scoreCount === 298) {
       MAX_ENEMIES = 11;
     }
-    if (scoreCount === 350) {
-      MAX_ENEMIES = 5;
+    if (scoreCount === 319) {
+      MAX_ENEMIES = 8;
     }
-    if (scoreCount === 390) {
+    if (scoreCount === 328) {
       MAX_ENEMIES = 10;
     }
-    if (scoreCount === 400) {
+    if (scoreCount === 348) {
+      MAX_ENEMIES = 7;
+    }
+    if (scoreCount === 370) {
+      MAX_ENEMIES = 8;
+    }
+    if (scoreCount === 387) {
+      MAX_ENEMIES = 6;
+    }
+    if (scoreCount === 410) {
+      MAX_ENEMIES = 7;
+    }
+    if (scoreCount === 425) {
+      MAX_ENEMIES = 8;
+    }
+    if (scoreCount === 440) {
+      MAX_ENEMIES = 10;
+    }
+    if (scoreCount === 454) {
       MAX_ENEMIES = 0;
     }
-    if (scoreCount === 403) {
+    if (scoreCount === 457) {
       window.alert(`
       Wow, you survived Level 2! 
       Music by Queen - I Want To Break Free
       Level 3 is waiting for you if this was too easy!
-      Good luck!`);
+      Good luck! !<('.')>!`);
       BG_MUSIC2.pause();
     }
     //LEVEL 3 (FINAL)
-    if (scoreCount === 405) {
+    if (scoreCount === 460) {
       BG_MUSIC3.play();
       MAX_ENEMIES = 3;
     }
-    if (scoreCount === 420) {
+    if (scoreCount === 475) {
       MAX_ENEMIES = 8;
     }
-    if (scoreCount === 435) {
+    if (scoreCount === 490) {
       MAX_ENEMIES = 5;
     }
-    if (scoreCount === 453) {
+    if (scoreCount === 508) {
       MAX_ENEMIES = 7;
     }
-    if (scoreCount === 465) {
+    if (scoreCount === 520) {
       MAX_ENEMIES = 10;
     }
-    if (scoreCount === 500) {
+    if (scoreCount === 555) {
       MAX_ENEMIES = 6;
     }
-    if (scoreCount === 525) {
+    if (scoreCount === 580) {
       MAX_ENEMIES = 7;
     }
-    if (scoreCount === 533) {
+    if (scoreCount === 588) {
       MAX_ENEMIES = 9;
-    }
-    if (scoreCount === 550) {
-      MAX_ENEMIES = 11;
-    }
-    if (scoreCount === 565) {
-      MAX_ENEMIES = 9;
-    }
-    if (scoreCount === 580) {
-      MAX_ENEMIES = 11;
     }
     if (scoreCount === 605) {
+      MAX_ENEMIES = 11;
+    }
+    if (scoreCount === 620) {
+      MAX_ENEMIES = 9;
+    }
+    if (scoreCount === 635) {
+      MAX_ENEMIES = 11;
+    }
+    if (scoreCount === 660) {
       MAX_ENEMIES = 8;
     }
-    if (scoreCount === 610) {
+    if (scoreCount === 665) {
       MAX_ENEMIES = 3;
     }
-    if (scoreCount === 613) {
+    if (scoreCount === 670) {
       MAX_ENEMIES = 0;
     }
-    if (scoreCount === 615) {
+    if (scoreCount === 675) {
       window.alert(`
       You did it!!!
       Music by Post Malone - Circles
@@ -179,6 +197,7 @@ class Engine {
       Give yourself a pat on your shoulders, you deserve it!
       See you next time !(^_^)!`);
       BG_MUSIC3.pause();
+      location.reload();
     }
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?) - because if not it keeps popping!
@@ -193,7 +212,6 @@ class Engine {
       );
       location.reload();
     }
-
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
     setTimeout(this.gameLoop, 20);
   };
@@ -227,7 +245,8 @@ class Engine {
       const collision = sameSpot && enemyHeightGreater && lifeCount === 0;
       if (collision) {
         isPlayerHit = true;
-        BG_MUSIC.pause();
+        BG_MUSIC1.pause() || BG_MUSIC2.pause() || BG_MUSIC3.pause();
+
         //location.reload();
       }
     });
