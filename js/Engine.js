@@ -75,24 +75,17 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    let isColliding = false;
-    let enemyCollider = null;
-    this.enemies.forEach((enemy) => {
+    this.enemies.find((enemy) => {
       if (
         enemy.y >= GAME_HEIGHT - PLAYER_HEIGHT * 3.5 &&
         enemy.spot === this.player.spot
       ) {
         //only collide if it's touching more than the tail end of the rainbow (i mean come on)
         if (enemy.y <= 420 && gameEngine.player.isInvincible === false) {
-          isColliding = true;
-          enemyCollider = enemy;
+          enemy.touchedPlayer = true;
         }
       }
     });
-    if (isColliding) {
-      //flagging it with touchedPlayer so it get deleted without adding points
-      enemyCollider.touchedPlayer = true;
-    }
 
     if (this.player.lives === 0) {
       return true;
