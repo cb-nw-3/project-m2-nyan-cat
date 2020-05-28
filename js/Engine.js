@@ -19,6 +19,10 @@ class Engine {
     // Score Tracker
     this.score = 0;
     this.scoreInterval = undefined;
+
+    // Main Background Audio
+    this.mainAudio = undefined;
+    this.oneDownAudio = undefined;
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -64,6 +68,7 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
+      // Persist the high score in local storage
       if (this.scoreInterval) {
         clearInterval(this.scoreInterval);
         let highscore = localStorage.getItem("highScore");
@@ -75,6 +80,11 @@ class Engine {
           }
         }
       }
+
+      // Play Game Over sound
+      this.mainAudio.pause();
+      let gameOverAudio = new Audio("../sounds/gameover.mp3");
+      gameOverAudio.play();
       return;
     }
 
@@ -96,6 +106,14 @@ class Engine {
     }, 500);
   }
 
+  // bacground Music
+  playBackgroundMusic() {
+    this.mainAudio = new Audio("../sounds/mariotheme.mp3");
+    this.mainAudio.play();
+    console.log(this.mainAudio);
+    this.mainAudio.loop = true;
+  }
+
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
@@ -107,6 +125,10 @@ class Engine {
     );
 
     if (enemyHit) {
+      this.mainAudio.pause();
+      this.oneDownAudio = new Audio("../sounds/onedown.mp3");
+      this.oneDownAudio.play();
+
       // Remove the enemy from display after hitting the player
       enemyHit.destroyEnemy();
       // Remove the enemy that hits the player from the enemies array
@@ -116,6 +138,14 @@ class Engine {
       );
       // Reduce the player lives by 1
       this.player.reducePlayerLife();
+
+      // If gameover stop the main background music
+      setTimeout(() => {
+        if (this.player.lives > 0 && this.oneDownAudio.paused) {
+          this.mainAudio.play();
+        }
+      }, 3000);
+
       // Check if player life reaches 0, game over if it does
       if (this.player.lives === 0) {
         let gameOver = document.querySelector(".game-over-container");
