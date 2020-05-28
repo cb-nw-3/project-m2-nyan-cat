@@ -17,6 +17,22 @@
     
 }
 
+#continueButton{
+    background-color: mediumseagreen;
+    border:none;
+    border-radius:5px;
+    font-family: 'Press Start 2P', cursive;
+    cursor:pointer;
+}
+
+#restartButton{
+    background-color: mediumvioletred;
+    border:none;
+    border-radius:5px;
+    font-family: 'Press Start 2P', cursive;
+    cursor:pointer;
+}
+
 .buttonField{
     display:flex;
     width:80%;
