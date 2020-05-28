@@ -28,9 +28,13 @@ levelUpSound.loop = false;
 const gameOverSound = document.getElementById("gameover-music");
 gameOverSound.loop = false;
 
+
+const deathSound = document.getElementById("death-music");
+deathSound.loop = false;
+
 function levelUp() {
   levelUpSound.play();
-  setTimeout(function(){ levelUpSound.pause(); }, 1000);
+  setTimeout(function(){ levelUpSound.pause(); }, 500);
   // levelUpSound.pause();
 }
 
@@ -40,6 +44,11 @@ function gameOver() {
   // levelUpSound.pause();
 }
 
+function died() {
+  deathSound.play();
+  setTimeout(function(){ deathSound.pause(); }, 500);
+  // levelUpSound.pause();
+}
 
 // ################################ LEVELS #####################################
 
@@ -50,6 +59,29 @@ level.classList.add("msg");
 level.style.left = "200px"; //looks centered enough
 level.style.top = `0px`;
 document.getElementById('app').appendChild(level);
+
+// ############################### LIVES ######################################
+
+const lives = document.createElement("div");
+lives.id = "lives";
+document.getElementById('app').appendChild(lives);
+
+function createLives() {
+  for(let i=0; i < 3; i++) {
+    let life = document.createElement("img");
+    life.src = "images/player.png";
+    life.id = `life-${i+1}`;
+    life.classList.add("lives");
+    // life.width = "50px";
+    // life.height = "50px";
+    life.style.left = "200px"; //looks centered enough
+    life.style.top = `0px`;
+    document.getElementById('lives').appendChild(life);
+  }
+  livesCount = 3;
+}
+createLives();
+
 
 // ################################ SCOREBOARD ################################
 
@@ -99,6 +131,7 @@ document.getElementById('app').appendChild(startMsg);
 //Add functionality to the start button, when clicked.
 document.getElementById("start").addEventListener("click", function() {
 
+
   //the button and start message will disappear
   startBtn.classList.toggle("visible");
   startMsg.classList.toggle("visible");
@@ -140,6 +173,8 @@ document.getElementById('app').appendChild(endMsg);
 //Add functionality to the restart button, when clicked.
 document.getElementById("restart").addEventListener("click", function() {
 
+  createLives();
+
   //the button and end message will disappear
   restartBtn.classList.toggle("visible");
   endMsg.classList.toggle("visible");
@@ -153,11 +188,14 @@ document.getElementById("restart").addEventListener("click", function() {
   //reenable the music loop to play;
   document.getElementById("bg-music").play();
 
+
+
   //restart the game loop
   gameEngine.gameLoop();
-
   //restart the score
+
   count = 0;
+  console.log("i have this many lives left:",livesCount);
 });
 
 

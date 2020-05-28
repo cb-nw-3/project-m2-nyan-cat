@@ -1,6 +1,8 @@
 // The engine class will only be instantiated once. It contains all the logic
 // of the game relating to the interactions between the player and the
 // enemy and also relating to how our enemies are created and evolve over time
+
+
 class Engine {
   // The constructor has one parameter. It will refer to the DOM node that we will be adding everything to.
   // You need to provide the DOM node when you create an instance of the class
@@ -18,27 +20,12 @@ class Engine {
     addBackground(this.root);
   }
 
+  
   // The gameLoop will run every few milliseconds. It does several things
   //  - Updates the enemy positions
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
   gameLoop = () => {
-    
-        //######################### LEVEL SPEED ###################################
-        //assigns a level based on how many enemies the player has successfully
-        //dodged so far in the gameloop
-
-        if(count <= 10) {
-          levelCount = 1;
-        } else if (count <=20) {
-          levelCount = 2;
-        } else if (count <=30) {
-          levelCount = 3;
-        } else if (count <=40) {
-          levelCount = 4;
-        } else if (count <=50) {
-          levelCount = 5;
-        }
 
     
     // This code is to see how much time, in milliseconds, has elapsed since the last
@@ -72,30 +59,14 @@ class Engine {
       this.enemies.push(new Enemy(this.root, spot));
       
     }
-
-    // this.enemies.forEach(enemy => { 
-    //   if(levelCount == 2) {
-    //     enemy.speed = Math.random() / 2 + 0.20;
-    //     console.log(enemy.speed);
-    //   } else if (levelCount == 3) {
-    //     enemy.speed = Math.random() / 2 + 0.30;
-    //   } else if (levelCount == 4) {
-    //     enemy.speed = Math.random() / 2 + 0.40;
-    //   } else if (levelCount == 5) {
-    //     enemy.speed = Math.random() / 2 + 0.50;
-    //   } 
-    // })
-
-
-    
-
   
-
 
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
 
+      //if the lives counter is at 0, the game is over
+      if(livesCount == 0) {
       //togle the visible class so that the restart button can appear
       document.getElementById("restart").classList.toggle("visible");
       document.getElementById("end-msg").classList.toggle("visible");
@@ -105,17 +76,19 @@ class Engine {
       //remove the players ability to move
       document.removeEventListener('keydown', keydownHandler);
 
-
       //pause the music
       document.getElementById("bg-music").pause();
       gameOver(); //play gameover sound
 
       //return to console the total number of nyan cats that passed
       //console.log("Number of fallen Nyans:", count);
+
+      //reset the count and lives for the next game.
       count = 0; 
-      
+      livesCount = 3;
       //window.alert('Game over');
       return;
+      }
     }
 
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
@@ -131,9 +104,7 @@ class Engine {
     //A collision can only occur when the enemy position has reached the beginning of the player's burger image
     let collisionY = GAME_HEIGHT - PLAYER_HEIGHT - 10;
 
-    //let distDiff = enemy.y - playerY;
-    //console.log(this.enemies[0].y);
-    //console.log("Player is at",gameEngine.player.x);
+    //console.log('checking player death')
 
     //Loop through each enemy class and verify that a collision occurs.
     this.enemies.forEach(enemy => {
@@ -142,14 +113,13 @@ class Engine {
       //collision can only occur if the player is in the same lane as an enemy
       //AND that the distance between the enemy and player is less than 0.
       if(enemy.x === gameEngine.player.x && (enemy.y + ENEMY_HEIGHT) > collisionY ) {
-        
-        //console.log("we're aligned!");
-        //console.log(`${enemy.y+ENEMY_HEIGHT} and ${playerY}`);
-        //console.log(enemy.y,playerY);
         //console.log("CRASSSH");
 
+        //call the kill method on enemy objects to remove them from the game
+        enemy.kill();
         //once that happens, set the indicator to true
         crash = true;
+
       }
     });
 
@@ -163,4 +133,5 @@ class Engine {
     }
     //return false;
   };
+
 }

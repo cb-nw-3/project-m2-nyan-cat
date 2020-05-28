@@ -2,12 +2,6 @@
 // its position on screen. It will also provide methods for updating
 // and destroying the enemy.
 
-//Create a global count variable that will track the number of times the enemies have been destroyed
-let count = 0;
-
-//this will track the current level the player is at, which will modify the speed
-//of the enemies
-let levelCount = 1;
 
 class Enemy {
 
@@ -27,7 +21,7 @@ class Enemy {
     // - We need to keep track of the enemy spot so that we don't place two enemies in the same spot.
     this.root = theRoot;
     this.spot = enemySpot;
-    this.count = 0;
+    //this.count = 0;
     // The x position of the enemy is determined by its width and its spot. We need this information for the lifetime
     // of the instance, so we make it a property of the instance. (Why is this information needed for the lifetime of the instance?)
     this.x = enemySpot * ENEMY_WIDTH;
@@ -70,7 +64,23 @@ class Enemy {
     } else if (levelCount == 5) {
       this.speed = Math.random() / 2 + 0.50;
     } 
+
+    //depending on how many enemies were dodged by the player (destroyed), the
+    //level is set.
+    if(count <= 10) {
+      levelCount = 1;
+    } else if (count <=20) {
+      levelCount = 2;
+    } else if (count <=30) {
+      levelCount = 3;
+    } else if (count <=40) {
+      levelCount = 4;
+    } else if (count <=50) {
+      levelCount = 5;
+    }
+
   }
+
 
   // We set the speed property of the enemy. This determines how fast it moves down the screen.
   // To make sure that every enemy has a different speed, we use Math.random()
@@ -88,13 +98,10 @@ class Enemy {
     if (this.y > GAME_HEIGHT) {
       this.root.removeChild(this.domElement);
       this.destroyed = true;
-
-      //When an enemy reaches the destroyed state, counter goes up
       count++;
-
-
-
+      scoreboard.innerText = count*500;
     }
+    
     //Update the score on screen, each enemy is worth 500 pts
     scoreboard.innerText = count*500;
     scoreMsg.innerText = `Score: ${count*500}`;
@@ -104,4 +111,25 @@ class Enemy {
 
   }
 
+
+  //method gets called whenever an enemy collides with the player
+  kill = () => {
+    //a single life from the life bar gets removed
+    let life = document.getElementById(`life-${livesCount}`);
+    //console.log(life);
+    lives.removeChild(life);
+
+    //the life counter goes down by 1
+    livesCount--;
+
+    //to avoid crashing the game whenever a restart is initiated, should not
+    //remove more enemies than needed when the game condition ends.
+    if(livesCount != 0) {
+      this.root.removeChild(this.domElement);
+      this.destroyed = true;
+      //console.log(livesCount);
+    } else {
+      return;
+    }
+  }
 }

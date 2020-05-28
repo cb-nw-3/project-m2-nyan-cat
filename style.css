@@ -32,3 +32,23 @@
   color: white;
   user-select: none; /* Standard */
 }
+
+#lives {
+  position: absolute;
+  top: 50px;
+  left: 250px;
+  z-index: 1000;
+}
+
+.lives {
+  opacity: 0.8;
+  width: 40px;
+}
+
+.disappear {
+  opacity: 0;
+}
+
+.dead {
+  visibility: hidden;
+}

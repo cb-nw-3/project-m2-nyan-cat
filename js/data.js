@@ -17,3 +17,13 @@ const MAX_ENEMIES = 3;
 // These constants represent the player width and height.
 const PLAYER_WIDTH = 75;
 const PLAYER_HEIGHT = 54;
+
+//Create a global count variable that will track the number of times the enemies have been destroyed
+let count = 0;
+
+//this will track the current level the player is at, which will modify the speed
+//of the enemies
+let levelCount = 1;
+
+//this will track the number of lives the player has, by default it will be 3
+let livesCount = 3;
