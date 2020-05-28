@@ -7,8 +7,6 @@ class Engine {
     this.enemies = [];
     this.lasers = [];
     this.timesDead = 0;
-    // We add the background image to the game
-    addBackground(this.root);
 
     // Rendering lives
     this.life1 = document.createElement("img");
@@ -83,6 +81,7 @@ class Engine {
     }
 
     if (this.isPlayerDead()) {
+      addBackground(this.root);
       this.timesDead++;
 
       if (this.timesDead === 1) {

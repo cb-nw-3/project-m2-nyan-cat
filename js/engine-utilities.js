@@ -14,10 +14,13 @@ const nextEnemySpot = (enemies) => {
 };
 
 const addBackground = (root) => {
-  // const bg = document.createElement("img");
-  // bg.src = "images/background.jpg";
-  // bg.style.height = `${GAME_HEIGHT}px`;
-  // bg.style.width = `${GAME_WIDTH}px`;
-  // root.append(bg);
-  // const whiteBox = document.createElement("div");
+  const bg = document.createElement("div");
+  bg.style.height = `${GAME_HEIGHT}px`;
+  bg.style.width = `${GAME_WIDTH}px`;
+  bg.style.backgroundColor = "rgb(255, 0, 0, 0.3)";
+  root.appendChild(bg);
+
+  setTimeout(() => {
+    root.removeChild(bg);
+  }, 100);
 };
