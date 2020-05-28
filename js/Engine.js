@@ -18,14 +18,15 @@ class Engine {
     this.gameSound = new Audio(
       './sounds/gameSound.wav'
      );
-
-  
-    
+     this.pacMan = new Audio(
+      './sounds/pacMan.wav'
+     );
+     this.dead = new Audio(
+      './sounds/dead.wav'
+     )
     // We add the background image to the game
     addBackground(this.root);
   }
-
-
   // The gameLoop will run every few milliseconds. It does several things
   //  - Updates the enemy positions
   //  - Detects a collision between the player and any enemy
@@ -34,12 +35,30 @@ class Engine {
     this.gameSound.play();
   };
 
+  playPacMan = () =>{
+    this.pacMan.play();
+  };
+
   gameLoop = () => {
+    
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
     if (this.lastFrame === undefined) {
       this.lastFrame = new Date().getTime();
+      
+    }
+
+    if(!this.fall){
+      this.enemies.forEach((enemy) => {
+        if(enemy.x < GAME_WIDTH){
+          enemy.x = Math.random() * 100;
+        }else{
+          enemy.x= GAME_WIDTH;
+        }
+        
+        console.log(enemy.y);
+      })
     }
 
     let timeDiff = new Date().getTime() - this.lastFrame;
@@ -91,11 +110,23 @@ class Engine {
           ele.y < this.player.y + PLAYER_HEIGHT + 10 &&
           ele.x > this.player.x - PLAYER_WIDTH
       );
+      const enemyBottom = ele.y + ENEMY_HEIGHT;
+      const playerTop = this.player.y;
+      const playerBottom = playerTop + PLAYER_HEIGHT;
+      const enemyRight = ele.x + ENEMY_WIDTH;
+      const playerRight = this.player.x + PLAYER_WIDTH;
+      const playerLeft = this.player.x;
+      const enemyLeft = ele.x;
+      const enemyTop = ele.y
+
       if (
-        ele.y > this.player.y &&
-        ele.y < this.player.y + PLAYER_HEIGHT + 10 &&
-        ele.x > this.player.x - PLAYER_WIDTH
+        enemyBottom > playerTop &&
+        enemyTop < playerBottom &&
+        enemyRight > playerLeft &&
+        enemyLeft < playerRight
+        
       ) {
+        this.dead.play();
         let answer = window.confirm("Start New Game?");
         if (answer == true) {
           dead = false;

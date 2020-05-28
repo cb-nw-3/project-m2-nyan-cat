@@ -22,6 +22,14 @@ const keydownHandler = (event) => {
   if (event.code === 'ArrowRight') {
     gameEngine.player.moveRight();
   }
+
+  if (event.code === 'ArrowUp') {
+    gameEngine.player.moveUp();
+  }
+
+  if (event.code === 'ArrowDown') {
+    gameEngine.player.moveDown();
+  }
 };
 
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.

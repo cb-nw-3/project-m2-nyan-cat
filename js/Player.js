@@ -46,4 +46,24 @@ class Player {
     this.domElement.style.left = `${this.x}px`;
     
   }
+
+  moveUp() {
+    if (this.y > 10) {
+      this.y = this.y - PLAYER_HEIGHT;
+      gameSound.play();
+    }
+
+    this.domElement.style.top = `${this.y}px`;
+  }
+
+  moveDown() {
+    if (this.y > 0 && this.y < GAME_HEIGHT-PLAYER_HEIGHT - 10) {
+      this.y = this.y + 50;
+      gameSound.play();
+    }else{
+      this.y=436;
+    }
+
+    this.domElement.style.top = `${this.y}px`;
+  }
 }
