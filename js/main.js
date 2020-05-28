@@ -32,12 +32,32 @@ const mouseHandlerL = () => {
 let scorePoints = 0;
 let score;
 const SCORE = new Text(document.querySelector("#wrapper"), GAME_WIDTH - 20, 10);
+const LEVEL = new Text(document.querySelector("#wrapper"), GAME_WIDTH - 20, 10);
 const AUDIO = new Audio("sounds/Nyanyanyanyanyanyanya.mp3"); // The Music theme was a contribution of Roger Lam
 
 function scoreScreen() {
   if (!noMovement) {
     scorePoints++;
     SCORE.update(scorePoints);
+    LEVEL.update(`LEVEL: ${gameEngine.player.level}`);
+    switch (scorePoints) {
+      case 50:
+        MAX_ENEMIES = 4;
+        gameEngine.player.level = 2;
+        break;
+      case 100:
+        MAX_ENEMIES = 5;
+        gameEngine.player.level = 3;
+        break;
+      case 150:
+        MAX_ENEMIES = 6;
+        gameEngine.player.level = 4;
+        break;
+      case 200:
+        MAX_ENEMIES = 7;
+        gameEngine.player.level = 5;
+        break;
+    }
   }
 }
 
@@ -74,6 +94,8 @@ function gameInit() {
     scorePoints = 0;
     AUDIO.currentTime = 0;
     gameEngine.player.lifes = 3;
+    gameEngine.player.level = 1;
+    MAX_ENEMIES = 3;
     gameEngine.player.fullLife();
   }
   const CRASH = document.querySelector("#crash") !== null;

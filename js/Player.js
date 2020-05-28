@@ -13,6 +13,7 @@ class Player {
     this.x = 2 * PLAYER_WIDTH;
     const y = GAME_HEIGHT - PLAYER_HEIGHT - 10;
     this.y = y;
+    this.level = 1;
     // The y position never changes, so we don't need to store it in a property. It represents the y position of the top of the
     // hamburger. The y position is the distance from the top margin of the browsing area.
 
@@ -105,5 +106,7 @@ class Player {
     this.domElement[2].classList.remove("hiddenlifes");
     this.domElement[3].classList.remove("hiddenlifes");
   }
+
+  level() {}
   playerY = () => this.y;
 }

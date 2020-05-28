@@ -35,7 +35,7 @@ button {
   border-radius: 2em;
   overflow: hidden;
   cursor: pointer;
-  z-index: 1;
+  z-index: 1000;
   box-shadow: 4px 4px 6px rgba(233, 202, 228, 0.9);
   outline: none;
   width: 180px;
@@ -58,7 +58,7 @@ button {
 }
 
 #wrapper {
-  position: relative;
+  position: absolute;
   background-color: #302244;
   border: 12px solid transparent;
   border-image: linear-gradient(
@@ -84,6 +84,13 @@ button {
 #text-2 {
   position: absolute;
   top: 5px;
+  right: 10px;
+  color: white;
+}
+
+#text-3 {
+  position: absolute;
+  top: 55px;
   right: 10px;
   color: white;
 }

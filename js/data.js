@@ -14,21 +14,21 @@
 //   const GAME_WIDTH = screen.width;
 // }
 
+const ENEMY_WIDTH = 75;
+const ENEMY_HEIGHT = 156;
 const GAME_HEIGHT = window.innerHeight;
 let GAME_WIDTH = 900;
-if (screen.width > 900) {
-  GAME_WIDTH = 900;
+if (window.innerWidth > 700) {
+  GAME_WIDTH = 700;
 } else {
-  GAME_WIDTH = window.innerWidth - 25;
+  GAME_WIDTH = window.innerWidth - (ENEMY_WIDTH / 2 + 4);
 }
 
 document.documentElement.style.setProperty("--totalHeight", `${GAME_HEIGHT}px`);
 
 // These constants represent the width and height of an enemy in pixels
 // as well as the maximum number of enemies on screen at any given time.
-const ENEMY_WIDTH = 75;
-const ENEMY_HEIGHT = 156;
-const MAX_ENEMIES = 3;
+let MAX_ENEMIES = 3;
 
 document.documentElement.style.setProperty(
   "--totalWidth",
