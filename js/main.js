@@ -19,7 +19,6 @@ for (let i = 0; i < PLAYER_LIVES; i++) {
   addLive();
 }
 
-
 // add score div in the app
 const score = new Text(gameEngine.root, 0, -5);
 
@@ -45,6 +44,12 @@ const keydownHandler = (event) => {
   // then move our hamburger to the right
   if (event.code === 'ArrowRight') {
     gameEngine.player.moveRight();
+  }
+  if (event.code === 'ArrowUp') {
+    gameEngine.player.moveUp();
+  }
+  if (event.code === 'ArrowDown') {
+    gameEngine.player.moveDown();
   }
 };
 

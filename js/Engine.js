@@ -16,6 +16,7 @@ class Engine {
     this.enemies = [];
     // initialize player score
     this.score = 0;
+    // initialize bonus score
     this.bonusScore = 0;
     // We add the background image to the game
     addBackground(this.root);
@@ -65,14 +66,13 @@ class Engine {
       randomNumberToCallBonus = Math.floor(Math.random() * 50);
 
       enemySpeed = (Math.random() / 2 + 0.15) + (Math.round(this.score / 10000) * 0.1);
-      console.log(randomNumberToCallBonus)
+
       if (randomNumberToCallBonus === 17) {
         this.enemies.push(new Hamburger(this.root, spot, enemySpeed, 'Hamburger'));
       } else {
         // formula to increase speed during game every 10000 points
         this.enemies.push(new Enemy(this.root, spot, enemySpeed, 'Enemy'));
       }
-      console.log(this.enemies)
     }
 
     // We check if the player is dead. If he is, we alert the user
@@ -81,7 +81,6 @@ class Engine {
       window.alert(`Game Over\nScore: ${this.score}\nBonus: ${this.bonusScore}\nTotal: ${this.score + this.bonusScore}`);
       return;
     }
-
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
     setTimeout(this.gameLoop, 20);
   };
@@ -97,8 +96,8 @@ class Engine {
       if (pos.name === 'Enemy') {
         if (
           pos.x === this.player.x && 
-          pos.y > GAME_HEIGHT - PLAYER_HEIGHT - 10 - ENEMY_HEIGHT &&
-          pos.y < GAME_HEIGHT - 10 - ENEMY_HEIGHT + (ENEMY_HEIGHT / 2) &&
+          pos.y > this.player.y - ENEMY_HEIGHT &&
+          pos.y < this.player.y - (PLAYER_HEIGHT / 2) &&
           this.player.lives !== 1
         ) {
           this.player.lives--;
@@ -115,17 +114,23 @@ class Engine {
           }
         } else if (
           pos.x === this.player.x && 
-          pos.y > GAME_HEIGHT - PLAYER_HEIGHT - 10 - ENEMY_HEIGHT &&
-          pos.y < GAME_HEIGHT - 10 - ENEMY_HEIGHT + (ENEMY_HEIGHT / 2)
+          pos.y > this.player.y - ENEMY_HEIGHT &&
+          pos.y < this.player.y - (PLAYER_HEIGHT / 2)
         ) {
           death1.play();
           status = true
-        }
+        } 
+        // PROJECTILE TO BE COMPLETED
+        // else if (
+        //   pos.x === 1
+        // ) {
+        //   pos.update(1, true);
+        // }
       } else if (pos.name === 'Hamburger') {
         if (
           pos.x === this.player.x && 
-          pos.y > GAME_HEIGHT - (PLAYER_HEIGHT * 2) - 10 &&
-          pos.y < GAME_HEIGHT - PLAYER_HEIGHT - 10
+          pos.y > this.player.y - PLAYER_HEIGHT &&
+          pos.y < this.player.y
         ) {
           this.bonusScore += 2500;
           this.player.lives++;
@@ -137,4 +142,10 @@ class Engine {
     })
     return status;
   };
+  // PROJECTILE TO BE COMPLETED
+  // isEnemyDead = () => {
+  //   let status = false;
+  //   this
+  //   return status
+  // }
 }

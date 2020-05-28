@@ -10,16 +10,16 @@ button {
   position: absolute;
   border: none;
   color: #eeeeee;
-  top: 760px;
+  top: 680px;
   width: 525px;
-  height: 50px;
+  height: 150px;
   font-family: impact;
-  font-size: 2rem;
-  transition: all 0.2s linear;
+  font-size: 3rem;
+  transition: all 0.1s linear;
 }
 button:hover {
   opacity: 1;
-  font-size: 2.2rem;
+  font-size: 4.2rem;
 }
 button:focus {
   opacity: 1;

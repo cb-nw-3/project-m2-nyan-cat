@@ -6,6 +6,7 @@ class Hamburger {
     this.x = enemySpot * ENEMY_WIDTH;
     this.y = -PLAYER_HEIGHT;
     this.destroyed = false;
+    
     this.domElement = document.createElement('img');
     this.domElement.src = './images/player.png';
     this.domElement.style.position = 'absolute';
