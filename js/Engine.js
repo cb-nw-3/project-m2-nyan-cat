@@ -43,6 +43,8 @@ class Engine {
     scoreDOM.innerText = `${this.score}`
     highScoreDOM.innerText = `${this.highScore}` 
     lifeCounterDOM.innerText = `${this.lives}`
+    console.log('start level', this.level)
+    levelCounter.innerText = `${this.level + 1}`
 
     if (this.lastFrame === undefined) {
       this.lastFrame = new Date().getTime();
@@ -62,23 +64,25 @@ class Engine {
       if (enemy.destroyed === true) {
         this.deadEnemies.push(enemy);
         this.score = this.deadEnemies.length;
+        this.level = Math.floor(this.score/15)
         scoreDOM.innerText = `${this.score}`
       }
     });
 
-    if(this.score % 25  === 0  && this.score != 0 && this.loop < 1)
+
+    if(this.score % 50  === 0  && this.score != 0 && this.loop < 1)
       {
       this.lives += 1;
-      this.level += 1;
       oneUP.play()
       }
-    if(this.score % 25 === 0){
+    if(this.score % 50  === 0){
       this.loop = 1;
     }else{
       this.loop = 0;
     }
     
     console.log("thisLevel", this.level)
+    
 
     // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
     // We use filter to accomplish this.
@@ -101,6 +105,7 @@ class Engine {
 
       let handleClick = () => {
         scoreDOM.innerText = `${this.score}`
+        levelCounter.innerText = `${this.level + 1}`
         this.enemies.forEach((item) => {
           item.destroyed = true;
           item.y = 500;
@@ -164,6 +169,7 @@ class Engine {
     
     highScoreDOM.innerText = `${this.highScore}`
     lifeCounterDOM.innerText = `${this.lives}`
+    
 
 
     if (this.lives > 1) {
@@ -192,7 +198,8 @@ let button = document.querySelector("#continueButton");
 let reset = document.querySelector("#restartButton");
 let scoreDOM = document.querySelector("#score");
 let highScoreDOM = document.querySelector("#highScore");
-let lifeCounterDOM = document.querySelector('#lifeCounter')
+let lifeCounterDOM = document.querySelector('#lifeCounter');
+let levelCounter = document.querySelector('#levelCounter');
 const oneUP = new Audio('1up.mp3');
 const boom = new Audio('boom.mp3')
 const jump = new Audio('jump.mp3')
