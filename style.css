@@ -57,3 +57,15 @@
 #scoreBoard > div > p{
     margin:0;
 }
+
+#oneUpAnimation{
+    color:greenyellow;
+    z-index:10;
+    position:absolute;
+    top:130px;
+    left:80px;
+    font-size:70px;
+    font-family: 'Press Start 2P', cursive;
+    transition: 0.5s;
+    opacity:0;
+}

@@ -74,15 +74,17 @@ class Engine {
     //this is used to update the lives. Every 50 points, you get a life. this.loop is used to make sure
     //the inside of the first if condition isn't seen more than once. Since it loops every 20milisecs, we don't want
     //it to ran many times and add many lives. So this.loop makes sure it runs only once.
-    if(this.score % 50  === 0  && this.score != 0 && this.loop < 1)
+    if(this.score % 30  === 0  && this.score != 0 && this.loop < 1)
       {
       this.lives += 1;
       oneUP.play()
+      OneUpDOM.setAttribute('style', 'opacity: 1;')
       }
-    if(this.score % 50  === 0){
+    if(this.score % 30  === 0){
       this.loop = 1;
     }else{
       this.loop = 0;
+      OneUpDOM.setAttribute('style', 'opacity: 0;')
     }
     
     console.log("thisLevel", this.level)
@@ -207,6 +209,7 @@ let scoreDOM = document.querySelector("#score");
 let highScoreDOM = document.querySelector("#highScore");
 let lifeCounterDOM = document.querySelector('#lifeCounter');
 let levelCounter = document.querySelector('#levelCounter');
+let OneUpDOM = document.querySelector('#oneUpAnimation')
 const oneUP = new Audio('1up.mp3');
 const boom = new Audio('boom.mp3')
 const jump = new Audio('jump.mp3')
