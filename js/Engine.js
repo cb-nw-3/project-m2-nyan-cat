@@ -206,6 +206,8 @@ class Engine {
           addBullet();
           // play some sound
           bell.play();
+          // bonus bullet score
+          this.bonusScore += 1000;
         // check if bullet enters in contact with bonus burger
         } else if (
           this.bullet.length === 1 && 
