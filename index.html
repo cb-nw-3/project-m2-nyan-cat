@@ -1,8 +1,28 @@
 <html>
 <head>    
     <title>Nyan Kat</title> 
+    <link rel="stylesheet" href="style.css">
+      <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/9231a7364b.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="#">
+
 </head> 
-<body>    
+<body> 
+    <audio id="bg-music">
+      <source src="assets/theme.mp3" type="audio/mpeg">
+    </audio> 
+    <audio id="gameover-music">
+      <source src="assets/Down meow slow.wav" type="audio/wav">
+    </audio> 
+    <audio id="levelup-music" loop="false">
+      <source src="assets/Up meow.wav" type="audio/wav">
+    </audio> 
+    <audio id="death-music" loop="false">
+      <source src="assets/Submit beenz.wav" type="audio/wav">
+    </audio> 
     <div id="app"></div> 
     <script src="js/data.js"></script> 
     <script src="js/Enemy.js"></script> 

@@ -1,0 +1,54 @@
+.start-btn, .restart-btn {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2rem;
+  position:  absolute;
+  z-index: 1000;
+  width: 250px;
+  height: 80px;
+  background-color: rgb(70, 170, 70);
+  border-radius: 5px;
+  /* border: 2px solid black; */
+  margin: 0;
+  padding: 5px;
+}
+
+.restart-btn {
+  background-color: #ff4c68;
+}
+
+.start-btn:hover, .restart-btn:hover {
+  color: white;
+}
+
+
+.visible {
+  display: none;
+}
+
+.msg {
+  font-family: 'Press Start 2P', cursive;
+  position:  absolute;
+  z-index: 1000;
+  color: white;
+  user-select: none; /* Standard */
+}
+
+#lives {
+  position: absolute;
+  top: 50px;
+  left: 250px;
+  z-index: 1000;
+}
+
+.lives {
+  opacity: 0.8;
+  width: 40px;
+}
+
+.disappear {
+  opacity: 0;
+}
+
+.dead {
+  visibility: hidden;
+}

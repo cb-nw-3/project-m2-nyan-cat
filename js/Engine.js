@@ -1,6 +1,8 @@
 // The engine class will only be instantiated once. It contains all the logic
 // of the game relating to the interactions between the player and the
 // enemy and also relating to how our enemies are created and evolve over time
+
+
 class Engine {
   // The constructor has one parameter. It will refer to the DOM node that we will be adding everything to.
   // You need to provide the DOM node when you create an instance of the class
@@ -18,11 +20,14 @@ class Engine {
     addBackground(this.root);
   }
 
+  
   // The gameLoop will run every few milliseconds. It does several things
   //  - Updates the enemy positions
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
   gameLoop = () => {
+
+    
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
@@ -52,13 +57,38 @@ class Engine {
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
+      
     }
+  
 
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+
+      //if the lives counter is at 0, the game is over
+      if(livesCount == 0) {
+      //togle the visible class so that the restart button can appear
+      document.getElementById("restart").classList.toggle("visible");
+      document.getElementById("end-msg").classList.toggle("visible");
+      document.getElementById("score").classList.toggle("visible");
+      document.getElementById("totalscore").classList.toggle("visible");
+
+      //remove the players ability to move
+      document.removeEventListener('keydown', keydownHandler);
+
+      //pause the music
+      document.getElementById("bg-music").pause();
+      gameOver(); //play gameover sound
+
+      //return to console the total number of nyan cats that passed
+      //console.log("Number of fallen Nyans:", count);
+
+      //reset the count and lives for the next game.
+      count = 0; 
+      livesCount = 3;
+      //window.alert('Game over');
       return;
+      }
     }
 
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
@@ -68,6 +98,40 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    return false;
+    //create a boolean indicator to show if a crash occurs
+    let crash = false;
+
+    //A collision can only occur when the enemy position has reached the beginning of the player's burger image
+    let collisionY = GAME_HEIGHT - PLAYER_HEIGHT - 10;
+
+    //console.log('checking player death')
+
+    //Loop through each enemy class and verify that a collision occurs.
+    this.enemies.forEach(enemy => {
+      //console.log(`Enemy at lane ${enemy.spot} is at `,enemy.x, enemy.y);
+
+      //collision can only occur if the player is in the same lane as an enemy
+      //AND that the distance between the enemy and player is less than 0.
+      if(enemy.x === gameEngine.player.x && (enemy.y + ENEMY_HEIGHT) > collisionY ) {
+        //console.log("CRASSSH");
+
+        //call the kill method on enemy objects to remove them from the game
+        enemy.kill();
+        //once that happens, set the indicator to true
+        crash = true;
+
+      }
+    });
+
+    //the global variable _crash_ is now set to true and the isPlayerDead function 
+    //can now return a boolean, which will trigger the gameLoop method's end
+    //condition that the player has died and will exit the gameloop.
+    if(crash) {
+      return true;
+    } else {
+      return false;
+    }
+    //return false;
   };
+
 }
