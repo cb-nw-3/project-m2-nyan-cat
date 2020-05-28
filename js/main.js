@@ -1,3 +1,4 @@
+alert('You have 5 lives and 5 bullets. \nPress space to use the bullets.\nYou can move up, down, left and right.\nMake sure to catch the bonuses!\nSound might be loud, be careful...')
 // We create an instance of the Engine class. Looking at our index.html,
 // we see that it has a div with an id of `"app"`
 const gameEngine = new Engine(document.getElementById('app'));
