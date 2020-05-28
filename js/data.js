@@ -16,12 +16,12 @@
 
 const ENEMY_WIDTH = 75;
 const ENEMY_HEIGHT = 156;
-const GAME_HEIGHT = window.innerHeight;
+const GAME_HEIGHT = window.innerHeight - 24;
 let GAME_WIDTH = 900;
 if (window.innerWidth > 700) {
   GAME_WIDTH = 700;
 } else {
-  GAME_WIDTH = window.innerWidth - (ENEMY_WIDTH / 2 + 4);
+  GAME_WIDTH = window.innerWidth;
 }
 
 document.documentElement.style.setProperty("--totalHeight", `${GAME_HEIGHT}px`);
