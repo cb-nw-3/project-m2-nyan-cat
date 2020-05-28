@@ -1,8 +1,11 @@
+let gameLoopOn = false;
+
 class Engine {
   constructor(theRoot) {
     this.root = theRoot;
     this.player = new Player(this.root);
     this.enemies = [];
+    this.lasers = [];
     this.timesDead = 0;
     // We add the background image to the game
     addBackground(this.root);
@@ -41,6 +44,7 @@ class Engine {
   }
 
   gameLoop = () => {
+    gameLoopOn = true;
     if (this.lastFrame === undefined) {
       this.lastFrame = new Date().getTime();
     }
@@ -53,11 +57,16 @@ class Engine {
       enemy.update(timeDiff);
     });
 
-    this.enemies = this.enemies.filter((enemy) => {
-      return !enemy.destroyed;
+    this.enemies = this.enemies.filter((enemy) => !enemy.destroyed);
+
+    this.lasers.forEach((laser) => {
+      laser.shoot(timeDiff);
     });
 
+    this.lasers = this.lasers.filter((laser) => !laser.destroyed);
+
     while (this.enemies.length < MAX_ENEMIES) {
+      // ENEMIES
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
 
@@ -92,12 +101,19 @@ class Engine {
         gameOverMessage.style.top = `${GAME_HEIGHT / 2}px`;
         gameOverMessage.style.left = `${GAME_WIDTH / 3}px`;
         this.root.appendChild(gameOverMessage);
-        // window.alert("Game over");
       }
       return;
     }
 
+    if (this.isEnemyDead()) {
+      score = score + 20;
+    }
+
     setTimeout(this.gameLoop, 20);
+  };
+
+  laserShot = () => {
+    this.lasers.push(new Laser(this.root, this.player.position));
   };
 
   isPlayerDead = () => {
@@ -113,5 +129,22 @@ class Engine {
       }
     });
     return dead;
+  };
+
+  isEnemyDead = () => {
+    let enemyDead = false;
+    this.lasers.forEach((laser) => {
+      this.enemies.filter((enemy, index) => {
+        if (
+          laser.position === enemy.spot &&
+          Math.round(laser.y) === Math.round(enemy.y)
+        ) {
+          this.enemies.splice(index, 1);
+          enemyDead = true;
+          this.root.removeChild(enemy.domElement);
+        }
+      });
+    });
+    return enemyDead;
   };
 }

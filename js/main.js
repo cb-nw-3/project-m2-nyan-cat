@@ -1,6 +1,5 @@
 const app = document.querySelector("#app");
 const gameEngine = new Engine(app);
-const laser = new Laser(app, gameEngine.player.x, gameEngine.player.position);
 
 let score = 0;
 const scoreTally = document.createElement("span");
@@ -14,8 +13,6 @@ startMessage.style.left = `${GAME_WIDTH / 5.5}px`;
 app.appendChild(startMessage);
 
 const keydownHandler = (event) => {
-  console.log(event.code);
-
   if (event.code === "ArrowLeft") {
     gameEngine.player.moveLeft();
   }
@@ -24,9 +21,9 @@ const keydownHandler = (event) => {
     gameEngine.player.moveRight();
   }
 
-  // if (event.code === "Space") {
-  //   laser.shoot();
-  // }
+  if (event.code === "Space" && !gameEngine.isPlayerDead() && gameLoopOn) {
+    gameEngine.laserShot();
+  }
 
   if (event.code === "Enter") {
     app.removeChild(startMessage);
