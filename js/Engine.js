@@ -57,9 +57,13 @@ class Engine {
       enemy.update(timeDiff);
     });
 
-    this.enemies = this.enemies.filter((enemy) => {
-      return !enemy.destroyed;
+    this.enemies = this.enemies.filter((enemy) => !enemy.destroyed);
+
+    this.lasers.forEach((laser) => {
+      laser.shoot(timeDiff);
     });
+
+    this.lasers = this.lasers.filter((laser) => !laser.destroyed);
 
     while (this.enemies.length < MAX_ENEMIES) {
       // ENEMIES
@@ -106,16 +110,6 @@ class Engine {
   };
 
   laserShot = () => {
-    let timeDiff = new Date().getTime() - this.lastFrame;
-
-    this.lasers.forEach((laser) => {
-      laser.shoot(timeDiff);
-    });
-
-    this.lasers = this.lasers.filter((laser) => {
-      return !laser.destroyed;
-    });
-
     this.lasers.push(new Laser(this.root, this.player.position));
   };
 

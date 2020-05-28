@@ -22,7 +22,7 @@ const keydownHandler = (event) => {
   if (event.code === "ArrowRight") {
     gameEngine.player.moveRight();
   }
-  // todo only allow once game is started
+
   if (event.code === "Space" && !gameEngine.isPlayerDead() && gameLoopOn) {
     gameEngine.laserShot();
   }
