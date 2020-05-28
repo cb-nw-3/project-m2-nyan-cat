@@ -13,8 +13,6 @@ startMessage.style.left = `${GAME_WIDTH / 5.5}px`;
 app.appendChild(startMessage);
 
 const keydownHandler = (event) => {
-  console.log(event.code);
-
   if (event.code === "ArrowLeft") {
     gameEngine.player.moveLeft();
   }

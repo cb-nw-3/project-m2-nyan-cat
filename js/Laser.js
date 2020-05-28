@@ -1,5 +1,6 @@
 class Laser {
   constructor(root, position) {
+    this.position = position;
     this.root = root;
     this.x = position * PLAYER_WIDTH + PLAYER_WIDTH / 2;
     this.y = GAME_HEIGHT - PLAYER_HEIGHT;

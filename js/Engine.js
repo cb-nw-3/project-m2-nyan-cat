@@ -101,9 +101,12 @@ class Engine {
         gameOverMessage.style.top = `${GAME_HEIGHT / 2}px`;
         gameOverMessage.style.left = `${GAME_WIDTH / 3}px`;
         this.root.appendChild(gameOverMessage);
-        // window.alert("Game over");
       }
       return;
+    }
+
+    if (this.isEnemyDead()) {
+      score = score + 20;
     }
 
     setTimeout(this.gameLoop, 20);
@@ -130,12 +133,20 @@ class Engine {
 
   isEnemyDead = () => {
     let enemyDead = false;
-    this.enemies.forEach((enemy, index) => {
-      if (enemy.spot === laser[index].position) {
-        this.enemies.splice(index, 1);
-        enemyDead = true;
-        this.root.removeChild(enemy.domElement);
-      }
+    this.lasers.forEach((laser) => {
+      this.enemies.filter((enemy, index) => {
+        console.log("laserY", laser.y);
+        console.log("enemyY", Math.round(enemy.y));
+
+        if (
+          laser.position === enemy.spot &&
+          Math.round(laser.y) === Math.round(enemy.y)
+        ) {
+          this.enemies.splice(index, 1);
+          enemyDead = true;
+          this.root.removeChild(enemy.domElement);
+        }
+      });
     });
     return enemyDead;
   };
