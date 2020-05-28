@@ -139,7 +139,7 @@ class Engine {
     if (scoreCount === 457) {
       window.alert(`
       Wow, you survived Level 2! 
-      Music by Queen - I Want To Break Free
+      Music by Toto - Georgy Porgy
       Level 3 is waiting for you if this was too easy!
       Good luck! !<('.')>!`);
       BG_MUSIC2.pause();

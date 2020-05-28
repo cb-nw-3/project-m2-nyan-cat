@@ -63,7 +63,7 @@ document.body.appendChild(START);
 //Initializing the game with all the trinkets :)
 function initGame() {
   scoreCount = 0;
-  lifeCount = 333;
+  lifeCount = 350;
   PRESS_START.play();
   gameEngine.gameLoop();
   score = setInterval(scoreCounter, 1000);
@@ -72,7 +72,10 @@ function initGame() {
     BG_MUSIC1.play();
   }, 500);
   window.alert(
-    `Enjoy the game and the music, 3 levels and 100 HP for each so you will start with 300 HP, don't get eaten!`
+    `Enjoy the game and the music!
+    3 levels and 100 HP for each level (+ extra ;) )
+    Press Left and Right Arrow keys to move the Hamburger horizontally
+    Don't get eaten!`
   );
   //BG_MUSIC.loop = true;
   START.removeEventListener("click", initGame);
