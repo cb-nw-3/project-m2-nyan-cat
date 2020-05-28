@@ -24,9 +24,9 @@ const keydownHandler = (event) => {
     gameEngine.player.moveRight();
   }
 
-  if (event.code === "Space") {
-    laser.shoot();
-  }
+  // if (event.code === "Space") {
+  //   laser.shoot();
+  // }
 
   if (event.code === "Enter") {
     app.removeChild(startMessage);
