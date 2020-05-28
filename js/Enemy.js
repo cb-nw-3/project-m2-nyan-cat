@@ -47,7 +47,7 @@ class Enemy {
 
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     theRoot.appendChild(this.domElement);
-    this.speed = Math.random() / 8 + 0.25;
+    this.speed = Math.random() / 5 + 0.25;
     if (gameEngine.difficulty !== 0) {
       for (let i = 1; i <= gameEngine.difficulty; i++) {
         this.speed *= SPEED_INCREASE_VALUE;
@@ -67,7 +67,7 @@ class Enemy {
     this.y = this.y + timeDiff * this.speed;
     this.domElement.style.top = `${this.y}px`;
 
-    //I add this bit in case the enemy is to be destroyed because he touched the player. Should reset score and not give points
+    //I add this bit in case the enemy is to be destroyed because he touched the player. Here we remove a life, reset streak and not give points
     if (this.touchedPlayer) {
       gameEngine.player.loseLife();
       gameEngine.player.scoreMultiplier(true);
