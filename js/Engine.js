@@ -1,8 +1,11 @@
+let gameLoopOn = false;
+
 class Engine {
   constructor(theRoot) {
     this.root = theRoot;
     this.player = new Player(this.root);
     this.enemies = [];
+    this.lasers = [];
     this.timesDead = 0;
     // We add the background image to the game
     addBackground(this.root);
@@ -41,6 +44,7 @@ class Engine {
   }
 
   gameLoop = () => {
+    gameLoopOn = true;
     if (this.lastFrame === undefined) {
       this.lastFrame = new Date().getTime();
     }
@@ -58,6 +62,7 @@ class Engine {
     });
 
     while (this.enemies.length < MAX_ENEMIES) {
+      // ENEMIES
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
 
@@ -100,6 +105,20 @@ class Engine {
     setTimeout(this.gameLoop, 20);
   };
 
+  laserShot = () => {
+    let timeDiff = new Date().getTime() - this.lastFrame;
+
+    this.lasers.forEach((laser) => {
+      laser.shoot(timeDiff);
+    });
+
+    this.lasers = this.lasers.filter((laser) => {
+      return !laser.destroyed;
+    });
+
+    this.lasers.push(new Laser(this.root, this.player.position));
+  };
+
   isPlayerDead = () => {
     let dead = false;
     this.enemies.forEach((enemy, index) => {
@@ -113,5 +132,17 @@ class Engine {
       }
     });
     return dead;
+  };
+
+  isEnemyDead = () => {
+    let enemyDead = false;
+    this.enemies.forEach((enemy, index) => {
+      if (enemy.spot === laser[index].position) {
+        this.enemies.splice(index, 1);
+        enemyDead = true;
+        this.root.removeChild(enemy.domElement);
+      }
+    });
+    return enemyDead;
   };
 }
