@@ -79,6 +79,8 @@ class Player {
   }
   //this is called by the game engine when a enemy/player collision is detected
   loseLife = () => {
+    //play one of the hit sounds
+    playRandomHitSound();
     this.lives--;
     this.livesArray[this.lives].remove();
     this.livesArray.pop();

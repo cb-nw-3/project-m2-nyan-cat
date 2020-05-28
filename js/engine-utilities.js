@@ -111,3 +111,27 @@ const triggerGameStart = (event) => {
 setInterval(() => {
   gameEngine.difficultyIncrease();
 }, TIME_FOR_INCREASE);
+
+const playRandomHitSound = () => {
+  let randomIndex = Math.floor(
+    Math.random() * Math.floor(hitElementsArray.length)
+  );
+  hitElementsArray[randomIndex].play();
+  //console.log(hitElementsArray[randomIndex].src);
+};
+
+//create an array of sound elements from the sound files
+let hitElementsArray = [
+  "./sounds/hit1.wav",
+  "./sounds/hit2.wav",
+  "./sounds/hit3.wav",
+  "./sounds/hit4.wav",
+  "./sounds/hit5.wav",
+  "./sounds/hit6.wav",
+  "./sounds/hit7.wav",
+].map((sound) => {
+  newsoundElement = document.createElement("audio");
+  newsoundElement.src = sound;
+  newsoundElement.volume = 1;
+  return newsoundElement;
+});
