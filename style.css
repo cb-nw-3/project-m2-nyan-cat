@@ -9,6 +9,31 @@ body {
   width: 375px;
 }
 
+/* Game Header (lives and score) */
+.lives {
+  position: absolute;
+  top: 5;
+  left: 5;
+  display: flex;
+}
+
+.lives img {
+  height: 20px;
+  margin-right: 5px;
+}
+
+.lives .life-count {
+  color: #ffffff;
+}
+
+.score {
+  color: #fff;
+  top: 5;
+  right: 5;
+  position: absolute;
+}
+/* End Game header */
+
 /* Game Over Start */
 .game-over-container {
   position: absolute;
@@ -42,7 +67,7 @@ body {
   transition: ease-in-out 0.5s;
 }
 
-/* The animation code */
+/* Game Over Animation code */
 @keyframes beat {
   0% {
     transform: scale(1);
@@ -57,5 +82,4 @@ body {
     transform: scale(1);
   }
 }
-
 /* Game Over End */

@@ -44,4 +44,11 @@ class Player {
     }
     this.domElement.style.left = `${this.x}px`;
   }
+
+  // Reduce Player Life
+  reducePlayerLife() {
+    this.lives--;
+    let lifeCountDisplay = document.querySelector(".life-count");
+    lifeCountDisplay.innerHTML = "X " + this.lives;
+  }
 }

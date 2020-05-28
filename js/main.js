@@ -25,6 +25,7 @@ document.addEventListener("keydown", keydownHandler);
 
 // We call the gameLoop method to start the game
 gameEngine.gameLoop();
+gameEngine.startScoreCounter();
 
 // Restarts the game if the user clicks try again button
 let retryBtn = document.querySelector(".game-over-btn");
@@ -34,5 +35,7 @@ retryBtn.addEventListener("click", () => {
   gameOver.style.display = "none";
   // Reset Game Data and restart loop
   gameEngine.player.lives = 3;
+  gameEngine.score = 0;
   gameEngine.gameLoop();
+  gameEngine.startScoreCounter();
 });

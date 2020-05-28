@@ -18,6 +18,7 @@ class Engine {
     addBackground(this.root);
     // Score Tracker
     this.score = 0;
+    this.scoreInterval = undefined;
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -25,6 +26,10 @@ class Engine {
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
   gameLoop = () => {
+    // Initialize player life display
+    let lifeCountDisplay = document.querySelector(".life-count");
+    lifeCountDisplay.innerHTML = "X " + this.player.lives;
+
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
@@ -59,12 +64,37 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
+      if (this.scoreInterval) {
+        clearInterval(this.scoreInterval);
+        let highscore = localStorage.getItem("highScore");
+        if (!highscore) {
+          localStorage.setItem("highScore", this.score);
+        } else {
+          if (parseInt(highscore) < this.score) {
+            localStorage.setItem("highScore", this.score);
+          }
+        }
+      }
       return;
     }
 
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
     setTimeout(this.gameLoop, 20);
   };
+
+  // Initializes the score counter
+  startScoreCounter() {
+    this.scoreInterval = setInterval(() => {
+      let highScoreDisplay = document.querySelector(".high-score");
+      let highScore = localStorage.getItem("highScore");
+      highScoreDisplay.innerHTML = highScore
+        ? "High Score: " + highScore
+        : "High Score: " + 0;
+      let scoreDisplay = document.querySelector(".your-score");
+      scoreDisplay.innerHTML = "Your Score: " + this.score;
+      this.score++;
+    }, 500);
+  }
 
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
@@ -85,7 +115,7 @@ class Engine {
         1
       );
       // Reduce the player lives by 1
-      this.player.lives--;
+      this.player.reducePlayerLife();
       // Check if player life reaches 0, game over if it does
       if (this.player.lives === 0) {
         let gameOver = document.querySelector(".game-over-container");
