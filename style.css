@@ -5,16 +5,35 @@ body {
 .app {
   position: relative;
 }
+
 .startButton {
   font-family: "Comic Neue";
-
   position: absolute;
   top: 150px;
   left: 95px;
   z-index: 10000;
   border: 2px red solid;
   padding: 30px 40px;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+}
+
+.sound-button {
+  position: absolute;
+  left: 400px;
+  width: 35px;
+  height: 38px;
+  padding: 10px 25px;
+  border-radius: 4px;
+  background-image: url(images/soundOn.png);
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgb(148, 147, 147);
+  outline: none;
+}
+
+.soundOff-Button {
+  background-image: url(images/soundOff.png);
 }
 
 .lives {

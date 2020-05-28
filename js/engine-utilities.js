@@ -113,11 +113,13 @@ setInterval(() => {
 }, TIME_FOR_INCREASE);
 
 const playRandomHitSound = () => {
-  let randomIndex = Math.floor(
-    Math.random() * Math.floor(hitElementsArray.length)
-  );
-  hitElementsArray[randomIndex].play();
-  //console.log(hitElementsArray[randomIndex].src);
+  if (soundOn) {
+    let randomIndex = Math.floor(
+      Math.random() * Math.floor(hitElementsArray.length)
+    );
+    hitElementsArray[randomIndex].play();
+    //console.log(hitElementsArray[randomIndex].src);
+  }
 };
 
 //create an array of sound elements from the sound files
@@ -135,3 +137,15 @@ let hitElementsArray = [
   newsoundElement.volume = 1;
   return newsoundElement;
 });
+
+const toggleSound = () => {
+  if (soundOn === true) {
+    gameEngine.bgmElement.volume = 0;
+    soundOn = false;
+    soundButton.classList.toggle("soundOff-Button");
+  } else {
+    gameEngine.bgmElement.volume = 0.6;
+    soundOn = true;
+    soundButton.classList.toggle("soundOff-Button");
+  }
+};

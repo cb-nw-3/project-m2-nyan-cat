@@ -21,7 +21,7 @@ class Engine {
     addBackground(this.root);
     //we add the background musique to the game (code in the engine utilities)
     this.bgmElement = addBackgroundMusic(this.root);
-    this.bgmElement.volume = 0.5;
+    this.bgmElement.volume = 0.6;
     //add and remove the start button at will (code in the engine utilities)
     addStartBtn(this.root, "Start Game");
   }
