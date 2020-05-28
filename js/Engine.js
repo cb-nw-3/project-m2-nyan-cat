@@ -49,17 +49,6 @@ class Engine {
       
     }
 
-    if(!this.fall){
-      this.enemies.forEach((enemy) => {
-        if(enemy.x < GAME_WIDTH){
-          enemy.x = Math.random() * 100;
-        }else{
-          enemy.x= GAME_WIDTH;
-        }
-        
-        console.log(enemy.y);
-      })
-    }
 
     let timeDiff = new Date().getTime() - this.lastFrame;
 
