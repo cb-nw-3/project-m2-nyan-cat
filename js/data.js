@@ -19,6 +19,8 @@ const PLAYER_WIDTH = 75;
 const PLAYER_HEIGHT = 54;
 const PLAYER_LIVES = 5;
 
+const MAX_BULLETS = 1;
+
 // audio files
 let death1 = new Audio('sounds/death1.wav');
 let death2 = new Audio('sounds/death2.mp3');
@@ -26,3 +28,4 @@ let death3 = new Audio('sounds/death3.wav');
 let death4 = new Audio('sounds/death4.wav');
 let death5 = new Audio('sounds/death5.mp3');
 let eatingNoise = new Audio('sounds/eating noise.wav');
+let backgroundSound = new Audio('sounds/brasil_la_la_la_la_la_la_la_la_canzone.mp3');

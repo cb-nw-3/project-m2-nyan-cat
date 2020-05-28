@@ -1,10 +1,12 @@
 class Projectile {
-  constructor(root) {
+  constructor(root, playerY, playerX, speed) {
     this.root = root;
     
-    this.x = Player.x + (PLAYER_WIDTH / 2 - 7);
+    this.x = playerX + (PLAYER_WIDTH - 7) / 2;
 
-    this.y = GAME_HEIGHT - PLAYER_HEIGHT - 10;
+    this.y = playerY;
+
+    this.speed = speed
 
     this.destroyed = false;
 
@@ -15,6 +17,7 @@ class Projectile {
     this.domElement.style.width = '7px';
     this.domElement.style.height = '7px';
     this.domElement.style.zIndex = '200';
+    this.domElement.style.background = 'red';
     root.appendChild(this.domElement);
   }
 
@@ -24,7 +27,7 @@ class Projectile {
 
     if (this.y < 0 || condition) {
       this.root.removeChild(this.domElement);
-
+      gameEngine.bullet = [];
       this.destroyed = true;
     }
   }

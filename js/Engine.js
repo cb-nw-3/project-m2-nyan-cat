@@ -18,6 +18,10 @@ class Engine {
     this.score = 0;
     // initialize bonus score
     this.bonusScore = 0;
+    // bullet initialization
+    this.bullet = [];
+    // speed
+    this.speed = 0;
     // We add the background image to the game
     addBackground(this.root);
   }
@@ -55,7 +59,6 @@ class Engine {
     });
 
     // initialize the enemy speed
-    let enemySpeed;
     let randomNumberToCallBonus;
 
     // We need to perform the addition of enemies until we have enough enemies.
@@ -65,20 +68,25 @@ class Engine {
       const spot = nextEnemySpot(this.enemies);
       randomNumberToCallBonus = Math.floor(Math.random() * 50);
 
-      enemySpeed = (Math.random() / 2 + 0.15) + (Math.round(this.score / 10000) * 0.1);
+      this.speed= (Math.random() / 2 + 0.15) + (Math.round(this.score / 10000) * 0.1);
 
       if (randomNumberToCallBonus === 17) {
-        this.enemies.push(new Hamburger(this.root, spot, enemySpeed, 'Hamburger'));
+        this.enemies.push(new Hamburger(this.root, spot, this.speed, 'Hamburger'));
       } else {
         // formula to increase speed during game every 10000 points
-        this.enemies.push(new Enemy(this.root, spot, enemySpeed, 'Enemy'));
+        this.enemies.push(new Enemy(this.root, spot, this.speed, 'Enemy'));
       }
+    }
+
+    if (this.bullet.length !== 0) {
+      this.bullet[0].update(timeDiff);
     }
 
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
       window.alert(`Game Over\nScore: ${this.score}\nBonus: ${this.bonusScore}\nTotal: ${this.score + this.bonusScore}`);
+      document.removeEventListener('keydown', keydownHandler);
       return;
     }
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
@@ -90,6 +98,10 @@ class Engine {
   isPlayerDead = () => {
     let status = false;
     this.enemies.forEach(pos => {
+      if (this.bullet.length === 1) {
+              console.log(pos.x, this.bullet[0].x)
+
+      }
       // game over when tip of cat is in hamburger area.
       // if the cat is out of game board but tail is still in 
       // doesn't count as death
@@ -119,13 +131,15 @@ class Engine {
         ) {
           death1.play();
           status = true
-        } 
-        // PROJECTILE TO BE COMPLETED
-        // else if (
-        //   pos.x === 1
-        // ) {
-        //   pos.update(1, true);
-        // }
+        } else if (
+          this.bullet.length === 1 && 
+          pos.x === this.bullet[0].x - (PLAYER_WIDTH - 7) / 2 &&
+          pos.y > this.bullet[0].y - ENEMY_HEIGHT - 11 &&
+          pos.y < this.bullet[0].y - ENEMY_HEIGHT + 50
+        ) {
+          pos.update(1, true);
+          this.bullet[0].update(1, true);
+        }
       } else if (pos.name === 'Hamburger') {
         if (
           pos.x === this.player.x && 
@@ -137,15 +151,21 @@ class Engine {
           pos.update(1, true);
           addLive();
           eatingNoise.play();
+        } else if (
+          this.bullet.length === 1 && 
+          pos.x === this.bullet[0].x - (PLAYER_WIDTH - 7) / 2 &&
+          pos.y > this.bullet[0].y - PLAYER_HEIGHT - 11 &&
+          pos.y < this.bullet[0].y - PLAYER_HEIGHT + 50
+        ) {
+          pos.update(1, true);
+          this.bullet[0].update(1, true);
         }
       }
     })
     return status;
   };
   // PROJECTILE TO BE COMPLETED
-  // isEnemyDead = () => {
-  //   let status = false;
-  //   this
-  //   return status
-  // }
+  isBulletShoot = () => {
+    
+  }
 }

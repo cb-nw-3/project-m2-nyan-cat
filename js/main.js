@@ -4,6 +4,8 @@ const gameEngine = new Engine(document.getElementById('app'));
 
 const livesContainer = document.querySelector('#lives');
 
+backgroundSound.play();
+
 let liveDiv;
 
 const addLive = () => {
@@ -50,6 +52,10 @@ const keydownHandler = (event) => {
   }
   if (event.code === 'ArrowDown') {
     gameEngine.player.moveDown();
+  }
+  if (event.code === 'Space' && gameEngine.bullet.length === 0) {
+    gameEngine.bullet.push(new Projectile(gameEngine.root, gameEngine.player.y, gameEngine.player.x, gameEngine.speed));
+    console.log(gameEngine.bullet[0].x)
   }
 };
 
