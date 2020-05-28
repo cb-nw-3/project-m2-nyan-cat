@@ -1,14 +1,15 @@
 // We create an instance of the Engine class. Looking at our index.html,
 // we see that it has a div with an id of `"app"`
 const gameEngine = new Engine(document.getElementById('app'));
-
+// select html div for player lives
 const livesContainer = document.querySelector('#lives');
-
+// start the background music
 backgroundSound.play();
-
+// initialize live variable
 let liveDiv;
-
+// function called addLive to add lives to html
 const addLive = () => {
+  // create, modify and append images to parent
   liveDiv = document.createElement('img');
   liveDiv.id = 'playerLives';
   liveDiv.setAttribute('src','images/player.png');
@@ -16,7 +17,7 @@ const addLive = () => {
   liveDiv.style.width = '37px';
   livesContainer.appendChild(liveDiv);
 }
-
+// do this loop for initial amount of lives
 for (let i = 0; i < PLAYER_LIVES; i++) {
   addLive();
 }
@@ -47,14 +48,22 @@ const keydownHandler = (event) => {
   if (event.code === 'ArrowRight') {
     gameEngine.player.moveRight();
   }
+
+  // move player up
   if (event.code === 'ArrowUp') {
     gameEngine.player.moveUp();
   }
+
+  // move player down
   if (event.code === 'ArrowDown') {
     gameEngine.player.moveDown();
   }
+
+  // shoot bullet if no other bullet and space press
   if (event.code === 'Space' && gameEngine.bullet.length === 0) {
+    // initialize bullet object
     gameEngine.bullet.push(new Projectile(gameEngine.root, gameEngine.player.y, gameEngine.player.x, gameEngine.speed));
+    // play laser sound
     laserSound.play();
   }
 };

@@ -8,7 +8,7 @@ class Player {
     // store the data in a property of the instance. It represents the distance from the left margin of the browsing area to
     // the leftmost x position of the image.
     this.x = 3 * PLAYER_WIDTH;
-
+    // amount of lives
     this.lives = PLAYER_LIVES;
 
     // The y position never changes, so we don't need to store it in a property. It represents the y position of the top of the
@@ -32,7 +32,6 @@ class Player {
     if (this.x > 0) {
       this.x = this.x - PLAYER_WIDTH;
     }
-
     this.domElement.style.left = `${this.x}px`;
   }
 
@@ -44,12 +43,15 @@ class Player {
     this.domElement.style.left = `${this.x}px`;
   }
 
+  // move up function
   moveUp() {
     if (this.y > 54) {
       this.y -= PLAYER_HEIGHT;
     }
     this.domElement.style.top = `${this.y}px`;
   }
+
+  // move down function
   moveDown() {
     if (this.y < GAME_HEIGHT - PLAYER_HEIGHT - 10) {
       this.y += PLAYER_HEIGHT;
