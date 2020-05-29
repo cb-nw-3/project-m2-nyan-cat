@@ -25,32 +25,6 @@ class Engine {
 
     this.score = 0;
 
-    this.gameOverState = true;
-
-
-//     window.AudioContext  = window.AudioContext || window.webkitAudioContext;
-// window.context = new AudioContext();
-
-
-
-// let fileInput = "/sounds/Flashpoint001a.flac");
-// bufferSource.gain.value = 1;
-// bufferSource.loop = true;
-// bufferSource.connect(oscillatorGain);
-// fileInput.addEventListener("change", () =>  {
-// 	var reader = new FileReader();
-// 	reader.onload = function(ev) {
-// 		context.decodeAudioData(ev.target.result, function(buffer) {
-// 			bufferSource.buffer = buffer;
-// 			bufferSource.noteOn(0);
-// 		});
-// 	};
-// 	reader.readAsArrayBuffer(this.files[0]);
-// }, false);
-
-
-
-
 
 
     // sound effects from https://opengameart.org/
@@ -62,8 +36,6 @@ class Engine {
     this.explosionSound = new Sound(this.root, ["/sounds/missile_explosion.ogg"]);
 
     this.oneUpSound = new Sound(this.root, ["/sounds/message1.wav"]);
-
-    // this.clickSound = new Sound(this.root, ["/sounds/click1.wav", "/sounds/click2.wav", "/sounds/click3.wav"]);
 
 
     // music from https://www.premiumbeat.com/blog/free-ambient-background-tracks/
@@ -99,6 +71,19 @@ class Engine {
     this.root.appendChild(this.scoreText.domElement);
 
 
+    this.gameTitleText = new Text(this.root, (50), GAME_HEIGHT * 0.5 - 80, false, "80", 400, "red", "gameovertext")
+    this.gameTitleText.update("Nyan Cat");
+    this.root.appendChild(this.gameTitleText.domElement);
+
+    this.startButton = new ResetButton(this.root, 0);
+    this.startButton.internalButton.innerText  = "Click to start!";
+
+    this.startButton.internalButton.style.top = `${newYpos + 20}px`;
+    this.startButton.internalButton.addEventListener('click', () => { this.startGame() });
+    this.startButton.internalButton.style.visibility = "visible";
+
+    this.player.gameStillOn = false;
+
     console.log(this)
     // let textGo2 = setTimeout( () => {
     //         this.root.removeChild(newText.domElement);
@@ -133,6 +118,13 @@ class Engine {
 
   }
 
+  startGame = () => {
+    this.startButton.internalButton.style.visibility = "hidden";
+    this.gameTitleText.domElement.style.visibility = "hidden";
+    this.player.gameStillOn = true;
+
+  }
+
 
   resetGame = () => {
 
@@ -163,6 +155,7 @@ class Engine {
     this.player.domElement.style.webkitFilter = "";
 
     this.music.play();
+
 
   }
 
@@ -215,14 +208,22 @@ class Engine {
     // }
 
     // We need to perform the addition of enemies until we have enough enemies.
-    while (this.enemies.length < MAX_ENEMIES) {
+
+// don't spawn enemies if gamestate 
+
+if     (this.player.gameStillOn)
+
+{    
+while (this.enemies.length < MAX_ENEMIES) {
       console.log(this.enemies.length);
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
       let new_enemy = new Enemy(this.root, spot);
       this.enemies.push(new_enemy);
-    }
+    }}
+
+
 
     if (this.lives.length === 1) {
       // I could do a search for "is the proto.contrustor name OneUp but that seems computationally expensive
@@ -257,6 +258,8 @@ class Engine {
       this.gameOverText.domElement.style.visibility = "visible";
       this.player.gameStillOn = false;
 
+
+      
       this.enemies.map((enemyElement) => {
         enemyElement.domElement.style.webkitFilter = "blur(2px)";
       }
