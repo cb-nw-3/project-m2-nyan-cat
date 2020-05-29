@@ -61,18 +61,17 @@ class Enemy {
 
     // the slower the NYANCAT goes, the higher framerate for animation, 
     // kind of looks like it's swimming harder
-    
+
     let randomSeed = Math.random();
     this.speed = randomSeed / 2 + 0.25;
     this.randomFrameRate = randomSeed * 200;
 
-//    this.domElement.style.webkitFilter = "blur(5px)";
+    //    this.domElement.style.webkitFilter = "blur(5px)";
 
     let speed = this.speed;
-    console.log({speed}); 
+    console.log({ speed });
 
-    if (this.speed > 0.6)
-    {
+    if (this.speed > 0.6) {
       this.domElement.style.webkitFilter = "blur(2px)";
     }
 

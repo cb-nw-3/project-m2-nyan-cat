@@ -21,7 +21,7 @@ class Engine {
 
     this.livesIconsBottom = 0;
 
-    this.resetbutton = new ResetButton(this.root, 0);
+    this.resetbutton = new GameButton(this.root, 0);
 
     this.score = 0;
 
@@ -31,7 +31,7 @@ class Engine {
 
     this.catHitSound = new Sound(this.root, ["/sounds/Flashpoint001a.flac", "/sounds/Flashpoint001b.flac", "/sounds/Flashpoint001c.flac", "/sounds/Flashpoint001d.flac"]);
 
-    this.punchSound = new Sound(this.root, ["/sounds/hit01.mp3.flac", "/sounds/hit02.mp3.flac", "/sounds/hit03.mp3.flac", "/sounds/hit04.mp3.flac", ]);
+    this.punchSound = new Sound(this.root, ["/sounds/hit01.mp3.flac", "/sounds/hit02.mp3.flac", "/sounds/hit03.mp3.flac", "/sounds/hit04.mp3.flac",]);
 
     this.explosionSound = new Sound(this.root, ["/sounds/missile_explosion.ogg"]);
 
@@ -75,8 +75,8 @@ class Engine {
     this.gameTitleText.update("Nyan Cat");
     this.root.appendChild(this.gameTitleText.domElement);
 
-    this.startButton = new ResetButton(this.root, 0);
-    this.startButton.internalButton.innerText  = "Click to start!";
+    this.startButton = new GameButton(this.root, 0);
+    this.startButton.internalButton.innerText = "Click to start!";
 
     this.startButton.internalButton.style.top = `${newYpos + 20}px`;
     this.startButton.internalButton.addEventListener('click', () => { this.startGame() });
@@ -93,7 +93,7 @@ class Engine {
 
 
 
-    
+
 
 
   }
@@ -173,7 +173,7 @@ class Engine {
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
     if (this.lastFrame === undefined) {
       this.lastFrame = new Date().getTime();
-  
+
     }
 
     let timeDiff = new Date().getTime() - this.lastFrame;
@@ -197,7 +197,7 @@ class Engine {
       return !enemy.destroyed;
     });
     enemy_count = enemy_count - this.enemies.length;
-    
+
     let score_to_add = enemy_count * 100;
     this.score = this.score + score_to_add;
     this.scoreText.update(`${this.score} pts`);
@@ -209,19 +209,18 @@ class Engine {
 
     // We need to perform the addition of enemies until we have enough enemies.
 
-// don't spawn enemies if gamestate 
+    // don't spawn enemies if gamestate 
 
-if     (this.player.gameStillOn)
-
-{    
-while (this.enemies.length < MAX_ENEMIES) {
-      console.log(this.enemies.length);
-      // We find the next available spot and, using this spot, we create an enemy.
-      // We add this enemy to the enemies array
-      const spot = nextEnemySpot(this.enemies);
-      let new_enemy = new Enemy(this.root, spot);
-      this.enemies.push(new_enemy);
-    }}
+    if (this.player.gameStillOn) {
+      while (this.enemies.length < MAX_ENEMIES) {
+        console.log(this.enemies.length);
+        // We find the next available spot and, using this spot, we create an enemy.
+        // We add this enemy to the enemies array
+        const spot = nextEnemySpot(this.enemies);
+        let new_enemy = new Enemy(this.root, spot);
+        this.enemies.push(new_enemy);
+      }
+    }
 
 
 
@@ -259,7 +258,7 @@ while (this.enemies.length < MAX_ENEMIES) {
       this.player.gameStillOn = false;
 
 
-      
+
       this.enemies.map((enemyElement) => {
         enemyElement.domElement.style.webkitFilter = "blur(2px)";
       }
@@ -303,14 +302,13 @@ while (this.enemies.length < MAX_ENEMIES) {
               }
             }, 2000);
 
-            if (this.lives.length === 2)
-            {
+            if (this.lives.length === 2) {
               this.music.setPlayBackSpeed(2.0);
 
               this.music.setVolume(0.1);
 
             }
-        }
+          }
 
           else {
             if (this.lives.length == 0) {
@@ -318,7 +316,7 @@ while (this.enemies.length < MAX_ENEMIES) {
             }
             else {
               var lifetoBlast = this.lives.pop()
-    
+
               //remove a life marker from the top of the screen, then remove the enemy
               this.root.removeChild(lifetoBlast.domElement);
               this.root.removeChild(enemyElement.domElement);
@@ -326,8 +324,7 @@ while (this.enemies.length < MAX_ENEMIES) {
               enemyElement.destroyed = true;
               this.player.flash();
 
-              if (this.lives.length === 1)
-              {
+              if (this.lives.length === 1) {
                 this.music.setVolume(0.1);
 
               }
@@ -348,8 +345,7 @@ while (this.enemies.length < MAX_ENEMIES) {
                 );
 
               }
-              else
-              {
+              else {
                 this.catHitSound.play();
 
               }
