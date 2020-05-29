@@ -109,8 +109,6 @@ class Engine {
     this.livesIconsBottom = this.lives[0].bottom;
     this.messageText.domElement.style.top = this.lives[0].bottom;
 
-    this.music.play();
-    this.music.setVolume(0.3);
 
     // this.clickSound.setVolume(0.2);
 
@@ -122,6 +120,8 @@ class Engine {
     this.startButton.internalButton.style.visibility = "hidden";
     this.gameTitleText.domElement.style.visibility = "hidden";
     this.player.gameStillOn = true;
+    this.music.play();
+    this.music.setVolume(0.3);
 
   }
 
