@@ -16,6 +16,9 @@ class Player {
     // Player lives
     this.lives = 3;
 
+    // powerup
+    this.invulnerable = false;
+
     // We create a DOM node. We will be updating the DOM node every time we move the player, so we store a reference to the
     // DOM node in a property.
     this.domElement = document.createElement("img");
@@ -46,8 +49,12 @@ class Player {
   }
 
   // Reduce Player Life
-  reducePlayerLife() {
-    this.lives--;
+  updatePlayerLife(direction) {
+    if (direction === "asc") {
+      this.lives++;
+    } else {
+      this.lives--;
+    }
     let lifeCountDisplay = document.querySelector(".life-count");
     lifeCountDisplay.innerHTML = "X " + this.lives;
   }

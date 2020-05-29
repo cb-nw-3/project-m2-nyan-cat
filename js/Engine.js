@@ -14,15 +14,19 @@ class Engine {
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
+    // Powerups
+    this.powerups = [];
     // We add the background image to the game
     addBackground(this.root);
     // Score Tracker
     this.score = 0;
     this.scoreInterval = undefined;
 
-    // Main Background Audio
+    // Audios
     this.mainAudio = undefined;
     this.oneDownAudio = undefined;
+    this.starAudio = undefined;
+    this.oneUpAudio = undefined;
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -50,11 +54,19 @@ class Engine {
       enemy.update(timeDiff);
     });
 
+    this.powerups.forEach((powerup) => {
+      powerup.update(timeDiff);
+    });
+
     // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
     // We use filter to accomplish this.
     // Remember: this.enemies only contains instances of the Enemy class.
     this.enemies = this.enemies.filter((enemy) => {
       return !enemy.destroyed;
+    });
+
+    this.powerups = this.powerups.filter((powerup) => {
+      return !powerup.destroyed;
     });
 
     // We need to perform the addition of enemies until we have enough enemies.
@@ -64,6 +76,16 @@ class Engine {
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
     }
+
+    let powerUpChance = Math.random();
+    if (powerUpChance > 0.999) {
+      while (this.powerups.length < 1) {
+        const spot = nextEnemySpot(this.enemies);
+        this.powerups.push(new PowerUp(this.root, spot));
+      }
+    }
+
+    this.isPoweredUp();
 
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
@@ -110,7 +132,6 @@ class Engine {
   playBackgroundMusic() {
     this.mainAudio = new Audio("../sounds/mariotheme.mp3");
     this.mainAudio.play();
-    console.log(this.mainAudio);
     this.mainAudio.loop = true;
   }
 
@@ -126,12 +147,6 @@ class Engine {
     );
 
     if (enemyHit) {
-      console.log(enemyHit);
-      console.log(this.player);
-      this.mainAudio.pause();
-      this.oneDownAudio = new Audio("../sounds/onedown.mp3");
-      this.oneDownAudio.play();
-
       // Remove the enemy from display after hitting the player
       enemyHit.destroyEnemy();
       // Remove the enemy that hits the player from the enemies array
@@ -139,15 +154,36 @@ class Engine {
         this.enemies.findIndex((enemy) => enemy.spot === enemyHit.spot),
         1
       );
-      // Reduce the player lives by 1
-      this.player.reducePlayerLife();
-
-      // If gameover stop the main background music
-      setTimeout(() => {
-        if (this.player.lives > 0 && this.oneDownAudio.paused) {
-          this.mainAudio.play();
-        }
-      }, 3000);
+      if (this.player.invulnerable) {
+        let bonusScore = document.createElement("span");
+        bonusScore.innerHTML = "+50";
+        bonusScore.style.position = "absolute";
+        bonusScore.style.left = `${enemyHit.x}px`;
+        bonusScore.style.top = `${enemyHit.y}px`;
+        bonusScore.style.color = "white";
+        bonusScore.style.zIndex = 5;
+        this.root.appendChild(bonusScore);
+        this.score += 50;
+        setTimeout(() => {
+          this.root.removeChild(bonusScore);
+        }, 1000);
+      } else {
+        this.mainAudio.pause();
+        this.oneDownAudio = new Audio("../sounds/onedown.mp3");
+        this.oneDownAudio.play();
+        // Reduce the player lives by 1
+        this.player.updatePlayerLife("desc");
+        // If gameover stop the main background music
+        setTimeout(() => {
+          if (
+            this.player.lives > 0 &&
+            this.oneDownAudio.paused &&
+            !this.player.invulnerable
+          ) {
+            this.mainAudio.play();
+          }
+        }, 3000);
+      }
 
       // Check if player life reaches 0, game over if it does
       if (this.player.lives === 0) {
@@ -158,4 +194,49 @@ class Engine {
     }
     return false;
   };
+
+  isPoweredUp() {
+    let powerUpHit = this.powerups.find(
+      (powerup) =>
+        powerup.y + POWERUP_HEIGHT + 50 >= GAME_HEIGHT - PLAYER_HEIGHT &&
+        powerup.y < GAME_HEIGHT - POWERUP_HEIGHT + 60 &&
+        powerup.x === this.player.x
+    );
+
+    if (powerUpHit) {
+      // Remove the powerup from display after hitting the player
+      powerUpHit.destroy();
+      // Remove the powerup that hits the player from the powerups array
+      this.powerups.splice(
+        this.powerups.findIndex((powerup) => powerup.spot === powerUpHit.spot),
+        1
+      );
+      // Determine which powerup is obtained
+      switch (powerUpHit.type) {
+        case "star": {
+          this.mainAudio.pause();
+          if (!this.starAudio) {
+            this.starAudio = new Audio("../sounds/star.mp3");
+          }
+          this.starAudio.play();
+          this.player.invulnerable = true;
+          this.player.domElement.src = "images/mariostar.png";
+          setTimeout(() => {
+            this.mainAudio.play();
+            this.player.invulnerable = false;
+            this.player.domElement.src = "images/mario3.png";
+          }, 10000);
+          break;
+        }
+        case "1up": {
+          if (!this.oneUpAudio) {
+            this.oneUpAudio = new Audio("../sounds/1up.mp3");
+          }
+          this.oneUpAudio.play();
+          this.player.updatePlayerLife("asc");
+          break;
+        }
+      }
+    }
+  }
 }
