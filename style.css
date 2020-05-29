@@ -1,5 +1,6 @@
 html {
 	background: linear-gradient(to right, #4568dc, #b06ab3);
+	font-family: 'Exo', sans-serif;
 }
 
 body {
@@ -45,4 +46,18 @@ body {
 
 .instructions h1 {
 	text-decoration: underline;
+}
+
+label {
+	color: ghostwhite;
+	font-size: 35px;
+}
+
+span {
+	color: ghostwhite;
+	font-size: 35px;
+}
+
+#timer {
+	color: ghostwhite;
 }

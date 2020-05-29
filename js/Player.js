@@ -16,12 +16,12 @@ class Player {
 		// We create a DOM node. We will be updating the DOM node every time we move the player, so we store a reference to the
 		// DOM node in a property.
 		this.domElement = document.createElement("img");
-		this.domElement.src = "images/ship.png";
+		this.domElement.src = "images/rocket.png";
 		this.domElement.style.position = "absolute";
 		this.domElement.style.left = `${this.x}px`;
 		this.domElement.style.top = ` ${this.y}px`;
 		this.domElement.style.zIndex = "10";
-		this.domElement.style.width = `95px`;
+		this.domElement.style.width = `65px`;
 		this.domElement.style.height = `75px`;
 		root.appendChild(this.domElement);
 	}

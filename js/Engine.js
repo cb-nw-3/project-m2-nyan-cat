@@ -1,10 +1,18 @@
 // The engine class will only be instantiated once. It contains all the logic
 // of the game relating to the interactions between the player and the
 // enemy and also relating to how our enemies are created and evolve over time
+
+
+	
+var gameTime = setInterval(this.timer, 1000);
+var loopCounter = 0;
+
 class Engine {
+	
 	// The constructor has one parameter. It will refer to the DOM node that we will be adding everything to.
 	// You need to provide the DOM node when you create an instance of the class
 	constructor(theRoot) {
+
 		// We need the DOM element every time we create a new enemy so we
 		// store a reference to it in a property of the instance.
 		this.root = theRoot;
@@ -17,13 +25,39 @@ class Engine {
 		// We add the background image to the game
 		addBackground(this.root);
 		// console.log(this.player);
+
 	}
+
+
 
 	// The gameLoop will run every few milliseconds. It does several things
 	//  - Updates the enemy positions
 	//  - Detects a collision between the player and any enemy
 	//  - Removes enemies that are too low from the enemies array
+	
+	timer = () => {
+	let time = document.getElementById("seconds");
+	time.innerText = parseInt(time.innerText);
+	time.innerText++;
+	localStorage.setItem("latestTime", time.innerText);
+	
+	if (localStorage.getItem("bestTime") === null) {
+		localStorage.setItem("bestTime", 0);
+	} else if (localStorage.getItem("bestTime") < localStorage.getItem("latestTime")) {
+		localStorage.setItem("bestTime", localStorage.getItem("latestTime"));
+
+	} 
+	
+	console.log(localStorage.getItem('bestTime'), localStorage.getItem('latestTime'));
+	
+};
+	
 	gameLoop = () => {
+
+		
+		if (loopCounter === 0) gameTime = setInterval(this.timer, 1000);
+		loopCounter++;
+
 		// This code is to see how much time, in milliseconds, has elapsed since the last
 		// time this method was called.
 		// (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
@@ -39,7 +73,7 @@ class Engine {
 		this.enemies.forEach((enemy) => {
 			enemy.update(timeDiff);
 		});
-
+		// }
 		// We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
 		// We use filter to accomplish this.
 		// Remember: this.enemies only contains instances of the Enemy class.
@@ -61,15 +95,20 @@ class Engine {
 		if (this.isPlayerDead()) {
 			document.getElementById("crash").volume = 0.2;
 			document.getElementById("crash").play();
+			loopCounter = 0;
+			clearInterval(gameTime);
 			window.alert("Game over");
-
+			document.getElementById('bestTime').innerText = localStorage.getItem('bestTime');
+			
+			document.getElementById('seconds').innerText = '0';
 			return;
 		}
-
+		
 		// If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
 		setTimeout(this.gameLoop, 20);
-	};
 
+	};
+	
 	// This method is not implemented correctly, which is why
 	// the burger never dies. In your exercises you will fix this method.
 	isPlayerDead = () => {
@@ -89,3 +128,5 @@ class Engine {
 		return false;
 	};
 }
+
+

@@ -36,12 +36,15 @@ class Enemy {
     this.domElement = document.createElement('img');
 
     // We give it a src attribute to specify which image to display.
-    this.domElement.src = './images/enemy.png'; // change this to change the enemy icon
+    this.domElement.src = './images/spaceinvaders.png'; // change this to change the enemy icon
     // We modify the CSS style of the DOM node.
     this.domElement.style.position = 'absolute';
     this.domElement.style.left = `${this.x}px`;
     this.domElement.style.top = `${this.y}px`;
     this.domElement.style.zIndex = 5;
+    this.domElement.style.width = `50px`;
+    this.domElement.style.height = `50px`;
+
 
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     theRoot.appendChild(this.domElement);
