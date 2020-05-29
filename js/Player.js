@@ -8,6 +8,7 @@ class Player {
     // store the data in a property of the instance. It represents the distance from the left margin of the browsing area to
     // the leftmost x position of the image.
     this.x = 2 * PLAYER_WIDTH;
+    this.lives = 3;
 
     // The y position never changes, so we don't need to store it in a property. It represents the y position of the top of the
     // hamburger. The y position is the distance from the top margin of the browsing area.
@@ -15,13 +16,36 @@ class Player {
 
     // We create a DOM node. We will be updating the DOM node every time we move the player, so we store a reference to the
     // DOM node in a property.
-    this.domElement = document.createElement('img');
-    this.domElement.src = 'images/player.png';
-    this.domElement.style.position = 'absolute';
+    this.domElement = document.createElement("img");
+    this.domElement.src = "images/player.png";
+    this.domElement.style.position = "absolute";
     this.domElement.style.left = `${this.x}px`;
     this.domElement.style.top = ` ${y}px`;
-    this.domElement.style.zIndex = '10';
+    this.domElement.style.zIndex = "10";
+    this.domElement.id = "nero";
+    this.domElement.setAttribute("opacity", "1");
     root.appendChild(this.domElement);
+
+    //render hearts
+    for (let i = 0; i < this.lives; i++) {
+      this.domElementHeart = document.createElement("img");
+      this.domElementHeart.src = "images/heart.png";
+      this.domElementHeart.style.position = "absolute";
+      this.domElementHeart.style.left = `${i * 50}px`;
+      this.domElementHeart.style.top = "0px";
+      this.domElementHeart.id = `${i}`;
+      this.domElementHeart.setAttribute("opacity", "1");
+      root.appendChild(this.domElementHeart);
+    }
+
+    this.score = document.createElement("h1");
+    this.score.id = "score";
+    this.score.style.position = "absolute";
+    this.score.style.color = "black";
+    this.score.style.left = "320px";
+    this.score.style.top = "0px";
+    this.score.innerText = SCORE;
+    root.appendChild(this.score);
   }
 
   // This method will be called when the user presses the left key. See in Engine.js

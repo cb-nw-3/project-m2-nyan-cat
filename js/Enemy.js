@@ -33,12 +33,12 @@ class Enemy {
     // We create a new DOM element. The tag of this DOM element is img. It is the DOM node that will display the enemy image
     // to the user. When the enemy is no longer needed, we will use a reference to this DOM node to remove it from the game. This
     // is why we create a property that refers to it.
-    this.domElement = document.createElement('img');
+    this.domElement = document.createElement("img");
 
     // We give it a src attribute to specify which image to display.
-    this.domElement.src = './images/enemy.png';
+    this.domElement.src = "./images/enemy.png";
     // We modify the CSS style of the DOM node.
-    this.domElement.style.position = 'absolute';
+    this.domElement.style.position = "absolute";
     this.domElement.style.left = `${this.x}px`;
     this.domElement.style.top = `${this.y}px`;
     this.domElement.style.zIndex = 5;
@@ -64,8 +64,9 @@ class Enemy {
     // the destroyed property to indicate that the enemy should no longer be in play
     if (this.y > GAME_HEIGHT) {
       this.root.removeChild(this.domElement);
-
       this.destroyed = true;
+      SCORE += 1;
+      console.log(SCORE);
     }
   }
 }

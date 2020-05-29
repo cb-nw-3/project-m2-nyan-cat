@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Quattrocento+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+h1 {
+  font-family: "Press Start 2P", cursive;
+}
+.message {
+  display: block;
+  background: #fff4e4;
+  width: 300px;
+  text-align: center;
+  padding: 30px;
+  position: absolute;
+  top: 187.5px;
+  color: #dfb460;
+  font-family: "Quattrocento Sans", sans-serif;
+  font-weight: bold;
+  border: double #dfb460 10px;
+  line-height: 1.5;
+}
+button {
+  margin-top: 20px;
+  background: #f9ead8;
+  border: 0px;
+  padding: 10px 10px;
+  color: #dfb460;
+  font-size: 1.5em;
+}
+button:hover {
+  background: #dfb460;
+  color: #f9ead8;
+}
+button:active {
+  border: green;
+}
+
+.animate {
+  animation: flicker 0.5s linear 3;
+}
+
+@keyframes flicker {
+  30% {
+    opacity: 0;
+  }
+}

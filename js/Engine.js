@@ -11,9 +11,14 @@ class Engine {
     // We create our hamburger.
     // Please refer to Player.js for more information about what happens when you create a player
     this.player = new Player(this.root);
+
+    this.wait = false;
+    this.oldTime = null;
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
+
+    this.grunt = new Audio("./audio/laugh.mp3");
     // We add the background image to the game
     addBackground(this.root);
   }
@@ -26,6 +31,8 @@ class Engine {
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
+    this.updateScore();
+
     if (this.lastFrame === undefined) {
       this.lastFrame = new Date().getTime();
     }
@@ -57,7 +64,25 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      const message = document.createElement("div");
+      const textNode = document.createTextNode(
+        `You have been reduced to a pile of ash`
+      );
+      const button = document.createElement("button");
+
+      message.classList.add("message");
+      button.innerText = "Restart";
+      message.appendChild(textNode);
+      message.appendChild(button);
+      message.style.display = "flex";
+      message.style.justifyContent = "center";
+      message.style.alignItems = "center";
+      message.style.flexDirection = "column";
+      message.style.zIndex = "20";
+
+      document.getElementById("app").appendChild(message);
+
+      button.addEventListener("click", restartGame);
       return;
     }
 
@@ -65,9 +90,54 @@ class Engine {
     setTimeout(this.gameLoop, 20);
   };
 
+  loseHeart() {
+    this.player.lives -= 1;
+    const heart = document.getElementById(`${this.player.lives}`);
+    const character = document.getElementById("nero");
+    heart.classList.add("animate");
+    character.classList.add("animate");
+    this.grunt.play();
+    setTimeout(() => {
+      heart.classList.remove("animate");
+      character.classList.remove("animate");
+      this.root.removeChild(heart);
+    }, 1500);
+  }
+
+  updateScore() {
+    let score = document.getElementById("score");
+    score.innerText = SCORE;
+  }
+
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    return false;
+    let dead = false;
+    let currentTime = new Date().getTime();
+
+    if (this.wait && currentTime - this.oldTime > 2200) {
+      this.wait = false;
+    }
+    if (this.wait !== true) {
+      this.enemies.forEach((enemy) => {
+        if (
+          enemy.x === this.player.x &&
+          enemy.y + ENEMY_HEIGHT >= GAME_HEIGHT - PLAYER_HEIGHT - 10
+        ) {
+          this.loseHeart();
+          this.wait = true;
+          this.oldTime = new Date().getTime();
+          if (this.player.lives === 0) {
+            audio.pause();
+            dead = true;
+          }
+        }
+      });
+    }
+    return dead;
   };
+}
+
+function restartGame() {
+  location.reload();
 }
