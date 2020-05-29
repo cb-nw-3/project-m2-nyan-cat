@@ -138,9 +138,12 @@ class Engine {
           laser.position === enemy.spot &&
           Math.round(laser.y) === Math.round(enemy.y)
         ) {
-          this.enemies.splice(index, 1);
-          enemyDead = true;
-          this.root.removeChild(enemy.domElement);
+          enemy.domElement.src = "../images/pow.png";
+          setTimeout(() => {
+            this.enemies.splice(index, 1);
+            enemyDead = true;
+            this.root.removeChild(enemy.domElement);
+          }, 200);
         }
       });
     });
