@@ -80,11 +80,12 @@ class Engine {
       this.enemies.push(new Enemy(this.root, spot));
 
      // Rendering the score
-     scoreTxt.innerText = `Score: ${score}`;
+     scoreTxt.innerText = `SCORE: ${score}`;
      scoreTxt.style.position = "absolute";
      scoreTxt.style.left = "20px";
      scoreTxt.style.top = "20px";
      scoreTxt.style.color = "white";
+     scoreTxt.style.fontSize = "30px";
      this.root.appendChild(scoreTxt);
    
   
@@ -107,8 +108,10 @@ class Engine {
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
 
-    livesTxt.innerText = `Lives: ${lives}`;
+    livesTxt.innerText = `LIVES: ${lives}`;
     livesTxt.style.position = "absolute";
+    livesTxt.style.fontSize = "30px";
+    livesTxt.style.fontFamily = "Maven Pro";
     livesTxt.style.left = "20px";
     livesTxt.style.top = "50px";
     livesTxt.style.color = "white";

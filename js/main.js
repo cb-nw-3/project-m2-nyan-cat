@@ -5,11 +5,12 @@ const app = document.querySelector("#app");
 const gameEngine = new Engine(app);
 
 const start = document.createElement("span");
-start.innerText = "Press 'Spacebar' to START";
+start.innerText = "PRESS 'SPACEBAR' TO START";
 start.style.position = "absolute";
 start.style.color = "white";
 start.style.top = `100px`;
-start.style.left = `120px`;
+start.style.left = `70px`;
+start.style.fontSize = '20px';
 app.appendChild(start);
 
 let score = 0;
