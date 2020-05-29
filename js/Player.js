@@ -13,6 +13,12 @@ class Player {
     // hamburger. The y position is the distance from the top margin of the browsing area.
     const y = GAME_HEIGHT - PLAYER_HEIGHT - 10;
 
+    this.top = y;
+
+    this.rightEdge = this.x + PLAYER_WIDTH;
+
+    this.gameStillOn = true;
+
     // We create a DOM node. We will be updating the DOM node every time we move the player, so we store a reference to the
     // DOM node in a property.
     this.domElement = document.createElement('img');
@@ -21,24 +27,62 @@ class Player {
     this.domElement.style.left = `${this.x}px`;
     this.domElement.style.top = ` ${y}px`;
     this.domElement.style.zIndex = '10';
+    this.domElement.style.opacity = '0.99';
+
     root.appendChild(this.domElement);
+  }
+
+  
+  flash()
+  {
+    console.log(this.domElement.style);
+
+    let flashing = setInterval(() => { 
+        
+      if (this.domElement.style.opacity === '0.99') {
+        this.domElement.style.opacity = '0.3';
+      } else if (this.domElement.style.opacity === '0.3') {
+        this.domElement.style.opacity = '0.99';
+      }    
+    }, 50);    
+
+    let stopFlash = setTimeout( () => {
+          clearInterval(flashing);
+          clearTimeout(stopFlash);
+    }, 300
+  );
+
   }
 
   // This method will be called when the user presses the left key. See in Engine.js
   // how we relate the key presses to this method
   moveLeft() {
-    if (this.x > 0) {
-      this.x = this.x - PLAYER_WIDTH;
+
+
+    if (this.gameStillOn)
+    {
+      if (this.x > 0) {
+        this.x = this.x - PLAYER_WIDTH;
+      }
+      this.rightEdge = this.x + PLAYER_WIDTH;
+  
+      this.domElement.style.left = `${this.x}px`;
+
     }
 
-    this.domElement.style.left = `${this.x}px`;
   }
 
   // We do the same thing for the right key. See Engine.js to see when this happens.
   moveRight() {
-    if (this.x + PLAYER_WIDTH < GAME_WIDTH) {
-      this.x = this.x + PLAYER_WIDTH;
+    if (this.gameStillOn)
+    {
+
+      if (this.x + PLAYER_WIDTH < GAME_WIDTH) {
+        this.x = this.x + PLAYER_WIDTH;
+      }
+      this.rightEdge = this.x + PLAYER_WIDTH;
+
+      this.domElement.style.left = `${this.x}px`;
     }
-    this.domElement.style.left = `${this.x}px`;
-  }
+  } 
 }

@@ -23,5 +23,13 @@ const keydownHandler = (event) => {
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
 document.addEventListener('keydown', keydownHandler);
 
+
+
 // We call the gameLoop method to start the game
+gameEngine.addLives();
+
 gameEngine.gameLoop();
+
+
+
+

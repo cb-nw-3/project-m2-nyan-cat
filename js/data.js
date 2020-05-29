@@ -17,3 +17,10 @@ const MAX_ENEMIES = 3;
 // These constants represent the player width and height.
 const PLAYER_WIDTH = 75;
 const PLAYER_HEIGHT = 54;
+
+
+// Extra lives 
+const LIFE_ICON_HEIGHT = 20;
+const LIFE_ICON_WIDTH = 20;
+const LIVES_START = 3;
+
