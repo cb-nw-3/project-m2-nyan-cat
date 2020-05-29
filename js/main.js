@@ -24,9 +24,14 @@ const keydownHandler = (event) => {
 document.addEventListener("keydown", keydownHandler);
 
 // We call the gameLoop method to start the game
-gameEngine.gameLoop();
-gameEngine.startScoreCounter();
-gameEngine.playBackgroundMusic();
+let startBtn = document.querySelector(".start-btn");
+startBtn.addEventListener("click", () => {
+  let startSection = document.querySelector(".start-container");
+  startSection.style.display = "none";
+  gameEngine.gameLoop();
+  gameEngine.startScoreCounter();
+  gameEngine.playBackgroundMusic();
+});
 
 // Restarts the game if the user clicks try again button
 let retryBtn = document.querySelector(".game-over-btn");
