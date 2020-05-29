@@ -54,6 +54,6 @@ document.addEventListener('keydown', keydownHandler);
 const audio = new Audio('./js/TechMusic.mp3');
 audio.play();
 
-document.documentElement.addEventListener('click', () => {
+document.documentElement.addEventListener('keypress', () => {
   audio.play()
 });
