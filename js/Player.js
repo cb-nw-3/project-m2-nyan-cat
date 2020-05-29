@@ -11,7 +11,7 @@ class Player {
 
     // The y position never changes, so we don't need to store it in a property. It represents the y position of the top of the
     // hamburger. The y position is the distance from the top margin of the browsing area.
-    const y = GAME_HEIGHT - PLAYER_HEIGHT - 10;
+    const y = GAME_HEIGHT - PLAYER_HEIGHT - 10 - 50;
 
     // Player lives
     this.lives = 3;
@@ -19,7 +19,7 @@ class Player {
     // We create a DOM node. We will be updating the DOM node every time we move the player, so we store a reference to the
     // DOM node in a property.
     this.domElement = document.createElement("img");
-    this.domElement.src = "images/mario2.png";
+    this.domElement.src = "images/mario3.png";
     this.domElement.style.position = "absolute";
     this.domElement.style.left = `${this.x}px`;
     this.domElement.style.top = ` ${y}px`;

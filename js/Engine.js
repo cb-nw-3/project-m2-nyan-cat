@@ -120,11 +120,14 @@ class Engine {
     // Find the enemy that hits the player
     let enemyHit = this.enemies.find(
       (enemy) =>
-        enemy.y + ENEMY_HEIGHT >= GAME_HEIGHT - PLAYER_HEIGHT &&
+        enemy.y + ENEMY_HEIGHT + 50 >= GAME_HEIGHT - PLAYER_HEIGHT &&
+        enemy.y < GAME_HEIGHT - ENEMY_HEIGHT + 60 &&
         enemy.x === this.player.x
     );
 
     if (enemyHit) {
+      console.log(enemyHit);
+      console.log(this.player);
       this.mainAudio.pause();
       this.oneDownAudio = new Audio("../sounds/onedown.mp3");
       this.oneDownAudio.play();
