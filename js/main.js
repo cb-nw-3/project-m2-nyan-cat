@@ -25,6 +25,3 @@ document.addEventListener("keydown", keydownHandler);
 
 // var gameTime = setInterval(gameEngine.timer, 1000);
 
-if (localStorage.getItem('bestTime') !== null) {
-  document.getElementById('bestTime').innerText = localStorage.getItem('bestTime');
-}

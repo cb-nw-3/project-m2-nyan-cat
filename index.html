@@ -2,16 +2,23 @@
 	<head>
 		<title>Nyan Kat</title>
 		<link rel="stylesheet" type="text/css" href="style.css" />
-		<link href="https://fonts.googleapis.com/css2?family=Exo:ital@0;1&display=swap" rel="stylesheet">
+		<link
+			href="https://fonts.googleapis.com/css2?family=Exo:ital@0;1&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
 		<audio id="crash" src="sounds\Crash.mp3" preload="auto"></audio>
 		<div class="container">
 			<div id="app"></div>
 			<div class="startGameCont" id="startBtnCont">
-				<button class="startGame" id="startBtn" onclick="
+				<button
+					class="startGame"
+					id="startBtn"
+					onclick="
 					gameEngine.gameLoop();
-				">
+				"
+				>
 					Start Game
 				</button>
 
@@ -26,16 +33,16 @@
 					</p>
 					<p>3. Dodge the Space Invaders!</p>
 				</div>
-				<!-- <div id="timer"></div> -->
 				<div class="timer">
 					<span>Timer: </span><label id="seconds">0</label><span> sec</span>
 				</div>
 				<div>
-					<span>Highscore: </span><label id="bestTime">0</label><span> sec</span>
+					<span>Highscore: </span><label id="bestTime">0</label
+					><span> sec</span>
 				</div>
 			</div>
 		</div>
-
+		
 		<script src="js/data.js"></script>
 		<script src="js/Enemy.js"></script>
 		<script src="js/engine-utilities.js"></script>
