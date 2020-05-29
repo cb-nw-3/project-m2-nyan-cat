@@ -39,7 +39,7 @@ class Player {
 
   // We do the same thing for the right key. See Engine.js to see when this happens.
   moveRight() {
-    if (this.x + PLAYER_WIDTH < GAME_WIDTH) {
+    if (this.x + PLAYER_WIDTH < GAME_WIDTH + 50) {
       this.x = this.x + PLAYER_WIDTH;
       gameSound.play();
     }
