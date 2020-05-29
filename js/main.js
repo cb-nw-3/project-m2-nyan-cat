@@ -15,6 +15,11 @@ app.appendChild(start);
 let score = 0;
 const scoreTxt = document.createElement("span");
 
+let lives = 3;
+const livesTxt = document.createElement("span");
+
+
+
 
 
 // keydownHandler is a variable that refers to a function. The function has one parameter

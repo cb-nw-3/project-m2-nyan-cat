@@ -94,7 +94,8 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      window.alert('Game over!\n' + 'Your score is ' + score + '!');
+      
       return;
     }
 
@@ -106,17 +107,32 @@ class Engine {
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
 
+    livesTxt.innerText = `Lives: ${lives}`;
+    livesTxt.style.position = "absolute";
+    livesTxt.style.left = "20px";
+    livesTxt.style.top = "50px";
+    livesTxt.style.color = "white";
+    this.root.appendChild(livesTxt);
+
     let isPlayerDead = false;
+
     for (let enemy of this.enemies) {
+
       if (
         enemy.y + ENEMY_HEIGHT - 4 >= (GAME_HEIGHT - PLAYER_HEIGHT - 10) &&
         enemy.x === this.player.x
       ) {
-        isPlayerDead = true;
-       
-      }
+
+        
+        if (lives > 1) {
+          alert('One More Chance!');
+          lives = lives - 1;
+        } else if (lives === 1) {
+          return isPlayerDead = true;
+        }
+        
     }
-    return isPlayerDead;
+    
 
 
 
@@ -124,5 +140,5 @@ class Engine {
 
 
   }
-
+}
 }
