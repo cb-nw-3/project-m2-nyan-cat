@@ -102,7 +102,7 @@ class Engine {
           }
         }
       }
-
+      this.mainAudio.pause();
       // Play Game Over sound
       this.mainAudio.pause();
       let gameOverAudio = new Audio("../sounds/gameover.mp3");
@@ -168,12 +168,15 @@ class Engine {
           this.root.removeChild(bonusScore);
         }, 1000);
       } else {
-        this.mainAudio.pause();
-        this.oneDownAudio = new Audio("../sounds/onedown.mp3");
-        this.oneDownAudio.play();
         // Reduce the player lives by 1
         this.player.updatePlayerLife("desc");
-        // If gameover stop the main background music
+        // Check lives so sounds dont overlap
+        if (this.player.lives > 0) {
+          this.mainAudio.pause();
+          this.oneDownAudio = new Audio("../sounds/onedown.mp3");
+          this.oneDownAudio.play();
+        }
+        // Play back mainaudio after onedown audio
         setTimeout(() => {
           if (
             this.player.lives > 0 &&
