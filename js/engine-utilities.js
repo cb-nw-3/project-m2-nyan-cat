@@ -8,7 +8,8 @@
 // The possibilities are 0, 1, 2, 3 or 4.
 const nextEnemySpot = (enemies) => {
   // enemySpots will refer to the number of spots available (can you calculate it?)
-  const enemySpots = GAME_WIDTH / ENEMY_WIDTH;
+  const enemySpots = GAME_WIDTH  / ENEMY_WIDTH;
+
 
   // To find out where to place an enemy, we first need to find out which are the spots available.
   // We don't want to place two enemies in the same lane. To accomplish this, we first create an
@@ -20,6 +21,7 @@ const nextEnemySpot = (enemies) => {
   enemies.forEach((enemy) => {
     spotsTaken[enemy.spot] = true;
   });
+
 
   // We are now in a position to find out position. We declare a variable candidate that is initially undefined.
   // candidate represents a potential spot. The variable will be repeatedly assigned different numbers.
@@ -44,8 +46,8 @@ const addBackground = (root) => {
 
   // We set its src attribute and the height and width CSS attributes
   bg.src = 'images/stars.png';
-  bg.style.height = `${GAME_HEIGHT}px`;
-  bg.style.width = `${GAME_WIDTH}px`;
+  bg.style.height = `${GAME_HEIGHT + 75}px`;
+  bg.style.width = `${GAME_WIDTH + 75 }px`;
 
   // We add it to the root DOM node
   root.append(bg);
@@ -60,7 +62,7 @@ const addBackground = (root) => {
   whiteBox.style.position = 'absolute';
   whiteBox.style.top = `${GAME_HEIGHT}px`;
   whiteBox.style.height = `${ENEMY_HEIGHT}px`;
-  whiteBox.style.width = `${GAME_WIDTH}px`;
+  whiteBox.style.width = `${GAME_WIDTH +100}px`;
   whiteBox.style.background = '#fff';
   root.append(whiteBox);
 };

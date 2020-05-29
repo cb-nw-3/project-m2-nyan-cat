@@ -18,16 +18,28 @@ class Enemy {
     // - We need to keep track of the enemy spot so that we don't place two enemies in the same spot.
     this.root = theRoot;
     this.spot = enemySpot;
+    this.fall = Math.random() < 0.5;
 
     // The x position of the enemy is determined by its width and its spot. We need this information for the lifetime
     // of the instance, so we make it a property of the instance. (Why is this information needed for the lifetime of the instance?)
+    if(this.fall){
     this.x = enemySpot * ENEMY_WIDTH;
+    }else{
+      this.x=0;
+    }
 
     // The y position is initially less than 0 so that the enemies fall from the top. This data is stored as a property
     // of the instance since it is needed throughout its lifetime. The destroyed property will indicate whether this enemy
     // is still in play. It is set to true whenever the enemy goes past the bottom of the screen.
     // It is used in the Engine to determine whether or not an enemy is in a particular column.
-    this.y = -ENEMY_HEIGHT;
+
+    if(this.fall){
+      this.y = -ENEMY_HEIGHT;
+    }else{
+      this.y=Math.random() * 400;
+    }
+    
+  
     this.destroyed = false;
 
     // We create a new DOM element. The tag of this DOM element is img. It is the DOM node that will display the enemy image
@@ -41,31 +53,56 @@ class Enemy {
     this.domElement.style.position = 'absolute';
     this.domElement.style.left = `${this.x}px`;
     this.domElement.style.top = `${this.y}px`;
+    this.domElement.setAttribute('id', Math.random());
     this.domElement.style.zIndex = 5;
-
+    if(!this.fall){
+      this.domElement.style.transform = "rotate(-90deg)";
+    }
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     theRoot.appendChild(this.domElement);
-    this.speed = Math.random() / 2 + 0.25;
+    this.speed = Math.random() / 5.5 + 0.30;
   }
 
   // We set the speed property of the enemy. This determines how fast it moves down the screen.
   // To make sure that every enemy has a different speed, we use Math.random()
   // this method will be called on the enemy instance every few milliseconds. The parameter
   // timeDiff refers to the number of milliseconds since the last update was called.
+  
   update(timeDiff) {
     // We update the y property of the instance in proportion of the amount of time
     // since the last call to update. We also update the top css property so that the image
     // is updated on screen
-    this.y = this.y + timeDiff * this.speed;
-    this.domElement.style.top = `${this.y}px`;
+    //this.y = this.y + timeDiff * this.speed;
+    //this.domElement.style.top = `${this.y}px`;
+    if(this.fall){
+      this.y = this.y + timeDiff * this.speed;
+      this.domElement.style.top = `${this.y}px`;
+    }else{
+      if(this.x < GAME_WIDTH){
+      this.x = this.x + timeDiff * this.speed;
+      this.domElement.style.left = `${this.x}px`;
+      this.domElement.style.top = `${this.y}px`;
+      }else{
+        this.x = GAME_WIDTH -100;
+        this.domElement.style.left = `${this.x}px`;
+        this.domElement.style.top = `${this.y}px`;
+      }
+      
+    }
 
+
+      
+    
     // If the y position of the DOM element is greater than the GAME_HEIGHT then the enemy is at the bottom
     // of the screen and should be removed. We remove the DOM element from the root DOM element and we set
     // the destroyed property to indicate that the enemy should no longer be in play
-    if (this.y > GAME_HEIGHT) {
+    if (this.y > GAME_HEIGHT || this.x > GAME_WIDTH) 
+    {
       this.root.removeChild(this.domElement);
 
       this.destroyed = true;
     }
   }
+  
+
 }

@@ -14,21 +14,38 @@ class Engine {
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
+    this.isPlayerDead = false;
+    this.gameSound = new Audio(
+      './sounds/gameSound.wav'
+     );
+     this.dead = new Audio(
+      './sounds/dead.wav'
+     )
     // We add the background image to the game
     addBackground(this.root);
   }
-
   // The gameLoop will run every few milliseconds. It does several things
   //  - Updates the enemy positions
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
+  playSound = () => {
+    this.gameSound.play();
+  };
+
+  playPacMan = () =>{
+    this.pacMan.play();
+  };
+
   gameLoop = () => {
+    
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
     if (this.lastFrame === undefined) {
       this.lastFrame = new Date().getTime();
+      
     }
+
 
     let timeDiff = new Date().getTime() - this.lastFrame;
 
@@ -54,10 +71,20 @@ class Engine {
       this.enemies.push(new Enemy(this.root, spot));
     }
 
+    while (this.enemies.length < MAX_ENEMIES) {
+      // We find the next available spot and, using this spot, we create an enemy.
+      // We add this enemy to the enemies array
+      const verticalSpot = nextEnemySpot(this.enemies);
+      this.enemies.push(new Enemy(this.root, verticalSpot));
+    }
+
+
+
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
-    if (this.isPlayerDead()) {
-      window.alert('Game over');
+    this.isPlayerDead = this.checkIfPlayerIsDead()
+    if (this.isPlayerDead) {
+      window.alert("Game over");
       return;
     }
 
@@ -67,7 +94,43 @@ class Engine {
 
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
-  isPlayerDead = () => {
-    return false;
+
+  checkIfPlayerIsDead = () => {
+    let dead = false;
+    
+    this.enemies.forEach((ele) => {
+      const enemyBottom = ele.y + ENEMY_HEIGHT;
+      const playerTop = this.player.y;
+      const playerBottom = playerTop + PLAYER_HEIGHT;
+      const enemyRight = ele.x + ENEMY_WIDTH;
+      const playerRight = this.player.x + PLAYER_WIDTH;
+      const playerLeft = this.player.x;
+      const enemyLeft = ele.x;
+      const enemyTop = ele.y
+
+      if (
+        enemyBottom > playerTop &&
+        enemyTop < playerBottom &&
+        enemyRight > playerLeft &&
+        enemyLeft < playerRight
+        
+      ) {
+        this.dead.play();
+        let answer = window.confirm("Start New Game?");
+        if (answer == true) {
+          dead = false;
+        } else {
+          document.write("thank you for playing the game!");
+          
+          dead = true;
+        }
+      }
+    });
+    
+    return dead;
+    
   };
+  
 }
+
+

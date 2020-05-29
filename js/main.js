@@ -1,3 +1,7 @@
+this.gameSound = new Audio(
+  './sounds/gameSound.wav'
+ );
+
 // We create an instance of the Engine class. Looking at our index.html,
 // we see that it has a div with an id of `"app"`
 const gameEngine = new Engine(document.getElementById('app'));
@@ -18,10 +22,26 @@ const keydownHandler = (event) => {
   if (event.code === 'ArrowRight') {
     gameEngine.player.moveRight();
   }
+
+  if (event.code === 'ArrowUp') {
+    gameEngine.player.moveUp();
+  }
+
+  if (event.code === 'ArrowDown') {
+    gameEngine.player.moveDown();
+  }
 };
 
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
 document.addEventListener('keydown', keydownHandler);
 
+
 // We call the gameLoop method to start the game
 gameEngine.gameLoop();
+
+function play(){
+  gameSound.play();
+}
+
+
+
