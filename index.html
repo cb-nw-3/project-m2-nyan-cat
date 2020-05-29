@@ -1,9 +1,30 @@
 <html>
 <head>    
     <title>Nyan Kat</title> 
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head> 
 <body>    
-    <div id="app"></div> 
+    <div id="app">
+        <div id="continue">
+            <h1 id ="title"></h1>
+            <p id ="lives"></p>
+            <div class="buttonField">
+                <button id="continueButton">Continue</button>
+                <button id="restartButton">Reset</button>
+            </div>
+        </div>
+    </div> 
+    <div id ="scoreBoard">
+        <h1>SCORE BOARD</h1>
+        <div>Level:<p id='levelCounter'></p></div>
+        <div>Score:<P id= "score"></P></div>
+        <div>High Score:<P id = "highScore"></P></div>
+        <div>Lives:<p id='lifeCounter'></p></div>
+    </div>
+    <div id = 'oneUpAnimation'>
+        1up
+    </div>
     <script src="js/data.js"></script> 
     <script src="js/Enemy.js"></script> 
     <script src="js/engine-utilities.js"></script> 
