@@ -18,9 +18,6 @@ class Engine {
     this.gameSound = new Audio(
       './sounds/gameSound.wav'
      );
-     this.pacMan = new Audio(
-      './sounds/pacMan.wav'
-     );
      this.dead = new Audio(
       './sounds/dead.wav'
      )
@@ -100,14 +97,8 @@ class Engine {
 
   checkIfPlayerIsDead = () => {
     let dead = false;
-    console.log(this.enemies)
     
     this.enemies.forEach((ele) => {
-      console.log(
-        ele.y > this.player.y &&
-          ele.y < this.player.y + PLAYER_HEIGHT + 10 &&
-          ele.x > this.player.x - PLAYER_WIDTH
-      );
       const enemyBottom = ele.y + ENEMY_HEIGHT;
       const playerTop = this.player.y;
       const playerBottom = playerTop + PLAYER_HEIGHT;
