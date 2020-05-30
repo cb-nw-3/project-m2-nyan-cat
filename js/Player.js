@@ -11,16 +11,22 @@ class Player {
 
     // The y position never changes, so we don't need to store it in a property. It represents the y position of the top of the
     // hamburger. The y position is the distance from the top margin of the browsing area.
-    const y = GAME_HEIGHT - PLAYER_HEIGHT - 10;
+    const y = GAME_HEIGHT - PLAYER_HEIGHT - 10 - 50;
+
+    // Player lives
+    this.lives = 3;
+
+    // powerup
+    this.invulnerable = false;
 
     // We create a DOM node. We will be updating the DOM node every time we move the player, so we store a reference to the
     // DOM node in a property.
-    this.domElement = document.createElement('img');
-    this.domElement.src = 'images/player.png';
-    this.domElement.style.position = 'absolute';
+    this.domElement = document.createElement("img");
+    this.domElement.src = "images/mario3.png";
+    this.domElement.style.position = "absolute";
     this.domElement.style.left = `${this.x}px`;
     this.domElement.style.top = ` ${y}px`;
-    this.domElement.style.zIndex = '10';
+    this.domElement.style.zIndex = "10";
     root.appendChild(this.domElement);
   }
 
@@ -40,5 +46,16 @@ class Player {
       this.x = this.x + PLAYER_WIDTH;
     }
     this.domElement.style.left = `${this.x}px`;
+  }
+
+  // Reduce Player Life
+  updatePlayerLife(direction) {
+    if (direction === "asc") {
+      this.lives++;
+    } else {
+      this.lives--;
+    }
+    let lifeCountDisplay = document.querySelector(".life-count");
+    lifeCountDisplay.innerHTML = "X " + this.lives;
   }
 }
