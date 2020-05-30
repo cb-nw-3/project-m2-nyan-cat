@@ -26,12 +26,13 @@ class Engine {
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
-    // if (currentTimes < 5000) {
-    //   // ***
-    //   MAX_ENEMIES = 3;
-    // } else {
-    //   MAX_ENEMIES = 5;
-    // }
+    if (currentTimes < 5000) {
+      // ***
+      MAX_ENEMIES = 3;
+    } else {
+      MAX_ENEMIES = 5;
+      x.style.opacity = 1;
+    }
 
     if (this.lastFrame === undefined) {
       this.lastFrame = new Date().getTime();
@@ -39,7 +40,7 @@ class Engine {
 
     let timeDiff = new Date().getTime() - this.lastFrame;
     // console.log(timeDiff);
-    // currentTimes = currentTimes + timeDiff; // ***
+    currentTimes = currentTimes + timeDiff; // ***
     // console.log(currentTimes);
     this.lastFrame = new Date().getTime();
     // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
