@@ -1,8 +1,9 @@
+// Improvement, base class for enemy and powerup objects
+// and use inheritance to add additional properties
 class PowerUp {
   constructor(theRoot, powerUpSpot) {
     this.root = theRoot;
     this.spot = powerUpSpot;
-
     this.x = powerUpSpot * POWERUP_WIDTH;
 
     this.y = -POWERUP_HEIGHT;

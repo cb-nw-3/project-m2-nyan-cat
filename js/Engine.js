@@ -21,7 +21,8 @@ class Engine {
     // Score Tracker
     this.score = 0;
     this.scoreInterval = undefined;
-
+    // Speed Incrementor
+    this.speedIncrementor = 0.25;
     // Audios
     this.mainAudio = undefined;
     this.oneDownAudio = undefined;
@@ -54,6 +55,7 @@ class Engine {
       enemy.update(timeDiff);
     });
 
+    // update each opwer ups position
     this.powerups.forEach((powerup) => {
       powerup.update(timeDiff);
     });
@@ -65,6 +67,7 @@ class Engine {
       return !enemy.destroyed;
     });
 
+    // remove destryoed powerups from array
     this.powerups = this.powerups.filter((powerup) => {
       return !powerup.destroyed;
     });
@@ -73,18 +76,31 @@ class Engine {
     while (this.enemies.length < MAX_ENEMIES) {
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
-      const spot = nextEnemySpot(this.enemies);
-      this.enemies.push(new Enemy(this.root, spot));
+      const spot = nextEnemySpot(this.enemies, this.powerups);
+      this.enemies.push(new Enemy(this.root, spot, this.speedIncrementor));
     }
 
+    // A random number will represent the chance of dropping a powerup
     let powerUpChance = Math.random();
-    if (powerUpChance > 0.999) {
+    if (powerUpChance > 0.997) {
+      // Drop only one powerup at a time
       while (this.powerups.length < 1) {
-        const spot = nextEnemySpot(this.enemies);
-        this.powerups.push(new PowerUp(this.root, spot));
+        // determine drop spot of powerup
+        const spot = nextEnemySpot(this.enemies, this.powerups);
+        // check what kind of powerup is created
+        // I dont want a star to drop while player is already affected by a star
+        let pow = new PowerUp(this.root, spot);
+        if (pow.type === "star" && this.player.invulnerable) {
+          // do nothing
+          // do not drop another star while player is already affected by a star
+          break;
+        } else {
+          this.powerups.push(pow);
+        }
       }
     }
 
+    // Check if the player is poweredup
     this.isPoweredUp();
 
     // We check if the player is dead. If he is, we alert the user
@@ -102,7 +118,7 @@ class Engine {
           }
         }
       }
-      this.mainAudio.pause();
+
       // Play Game Over sound
       this.mainAudio.pause();
       let gameOverAudio = new Audio("../sounds/gameover.mp3");
@@ -116,7 +132,14 @@ class Engine {
 
   // Initializes the score counter
   startScoreCounter() {
+    // variable to track level
+    let levelTracker = 0;
+    // set interval to increase the score, update the level tracker by each interval
+    // enemy speed will increase by .05 every 15 seconds
     this.scoreInterval = setInterval(() => {
+      // get the elements for the score to update
+      // on first load of the game on the browser, highscore will not exist
+      // in local storage, set high score to 0 in this case
       let highScoreDisplay = document.querySelector(".high-score");
       let highScore = localStorage.getItem("highScore");
       highScoreDisplay.innerHTML = highScore
@@ -125,6 +148,19 @@ class Engine {
       let scoreDisplay = document.querySelector(".your-score");
       scoreDisplay.innerHTML = "Your Score: " + this.score;
       this.score++;
+      levelTracker++;
+      // Setinterval is called every .5 second so levelTracker / 30 = 15 seconds
+      if (levelTracker > 29 && levelTracker % 30 === 0) {
+        this.speedIncrementor += 0.05;
+        let levelDisplay = document.querySelector(".level-number");
+        levelDisplay.innerHTML = "Level " + (levelTracker / 30 + 1);
+        let levelContainer = document.querySelector(".level-container");
+        levelContainer.style.display = "block";
+        // Briefly show the level on the screen
+        setTimeout(() => {
+          levelContainer.style.display = "none";
+        }, 1500);
+      }
     }, 500);
   }
 
@@ -168,12 +204,17 @@ class Engine {
           this.root.removeChild(bonusScore);
         }, 1000);
       } else {
+        if (!this.oneDownAudio) {
+          this.oneDownAudio = new Audio("../sounds/onedown.mp3");
+        }
         // Reduce the player lives by 1
         this.player.updatePlayerLife("desc");
         // Check lives so sounds dont overlap
         if (this.player.lives > 0) {
           this.mainAudio.pause();
-          this.oneDownAudio = new Audio("../sounds/onedown.mp3");
+          // load before playing onedownaudio to avoid overlapping sound
+          // can hit 2 enemies consecutively
+          this.oneDownAudio.load();
           this.oneDownAudio.play();
         }
         // Play back mainaudio after onedown audio
@@ -199,13 +240,14 @@ class Engine {
   };
 
   isPoweredUp() {
+    // Check collision with a powerup
     let powerUpHit = this.powerups.find(
       (powerup) =>
         powerup.y + POWERUP_HEIGHT + 50 >= GAME_HEIGHT - PLAYER_HEIGHT &&
         powerup.y < GAME_HEIGHT - POWERUP_HEIGHT + 60 &&
         powerup.x === this.player.x
     );
-
+    // If powerup is defined, it means powerup is hit
     if (powerUpHit) {
       // Remove the powerup from display after hitting the player
       powerUpHit.destroy();
@@ -217,24 +259,39 @@ class Engine {
       // Determine which powerup is obtained
       switch (powerUpHit.type) {
         case "star": {
+          // Pause main audio and start playing star audio
+          // Set player.invulnerable to true
           this.mainAudio.pause();
           if (!this.starAudio) {
             this.starAudio = new Audio("../sounds/star.mp3");
           }
           this.starAudio.play();
           this.player.invulnerable = true;
-          this.player.domElement.src = "images/mariostar.png";
+
+          // setintervals to switch the image repeatedly to create a star effect
+          let starInterval = setInterval(() => {
+            if (this.player.domElement.src.includes("images/mario3.png")) {
+              this.player.domElement.src = "images/starmario.png";
+            } else {
+              this.player.domElement.src = "images/mario3.png";
+            }
+          }, 100);
+
+          // star effect lasts 10 seconds, after 10 seconds return the game to normal state
           setTimeout(() => {
             this.mainAudio.play();
             this.player.invulnerable = false;
             this.player.domElement.src = "images/mario3.png";
+            clearInterval(starInterval);
           }, 10000);
           break;
         }
         case "1up": {
+          // if 1up is hit, play 1up audio and update player's life count
           if (!this.oneUpAudio) {
             this.oneUpAudio = new Audio("../sounds/1up.mp3");
           }
+          this.oneUpAudio.load();
           this.oneUpAudio.play();
           this.player.updatePlayerLife("asc");
           break;

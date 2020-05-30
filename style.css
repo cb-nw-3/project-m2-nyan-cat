@@ -34,6 +34,26 @@ body {
 }
 /* End Game header */
 
+/* level display start */
+.level-container {
+  position: absolute;
+  top: 25%;
+  text-align: center;
+  width: 100%;
+  z-index: 10;
+  color: azure;
+  display: none;
+}
+
+.level-number {
+  font-size: 2em;
+  color: azure;
+  animation-name: beat;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+/* level display end */
+
 /* start container */
 .start-container {
   position: absolute;
@@ -58,7 +78,6 @@ body {
   width: 50px;
   margin-bottom: 5px;
 }
-
 /* start container end */
 
 /* Game Over Start */

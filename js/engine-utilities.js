@@ -6,7 +6,7 @@
 
 // The purpose of this function is to determine in which slot to place our next enemy.
 // The possibilities are 0, 1, 2, 3 or 4.
-const nextEnemySpot = (enemies) => {
+const nextEnemySpot = (enemies, powerups) => {
   // enemySpots will refer to the number of spots available (can you calculate it?)
   const enemySpots = GAME_WIDTH / ENEMY_WIDTH;
 
@@ -19,6 +19,10 @@ const nextEnemySpot = (enemies) => {
   const spotsTaken = [false, false, false, false, false];
   enemies.forEach((enemy) => {
     spotsTaken[enemy.spot] = true;
+  });
+  // Also check the spot for the powerups
+  powerups.forEach((powerup) => {
+    spotsTaken[powerup.spot] = true;
   });
 
   // We are now in a position to find out position. We declare a variable candidate that is initially undefined.
