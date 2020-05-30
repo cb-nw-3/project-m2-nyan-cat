@@ -24,13 +24,11 @@ if (!localStorage.getItem("0")) {
 }
 
 function saveHighScores() {
-  console.log("saving", currentHighScoreList);
   for (let i = 0; i < currentHighScoreList.length; i++) {
     localStorage.setItem(
       String(i),
       currentHighScoreList[i].name + " " + currentHighScoreList[i].score
     );
-    console.log(`localstorage item ${i}`, localStorage.getItem(i));
   }
   console.log("saved", currentHighScoreList);
   console.log("localstorage.length: ", localStorage.length);
