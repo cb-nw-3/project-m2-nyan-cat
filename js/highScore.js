@@ -1,18 +1,18 @@
-let currentHighScoreList = [
-  { name: "EGG", score: 10280 },
-  { name: "STA", score: 4000 },
-  { name: "LPD", score: 1000 },
-  { name: "LUL", score: 500 },
-  { name: "ZZZ", score: 100 },
-];
+let currentHighScoreList = [];
 
 if (!localStorage.getItem("0")) {
-  console.log("no items", localStorage.length);
+  console.log("no save, length = ", localStorage.length);
+  currentHighScoreList = [
+    { name: "EGG", score: 10280 },
+    { name: "STA", score: 4000 },
+    { name: "LPD", score: 1000 },
+    { name: "LUL", score: 500 },
+    { name: "ZZZ", score: 100 },
+  ];
   saveHighScores();
 } else {
-  console.log("localstorage length", localStorage.getItem.length);
-  currentHighScoreList = [];
-  for (let i = 0; i < localStorage.getItem.length; i++) {
+  console.log("save found localstorage.length: ", localStorage.length);
+  for (let i = 0; i < localStorage.length; i++) {
     currentEntry = localStorage.getItem(i);
 
     currentName = currentEntry.split(" ")[0];
@@ -20,18 +20,20 @@ if (!localStorage.getItem("0")) {
 
     currentHighScoreList.push({ name: currentName, score: currentScore });
   }
-  console.log(currentHighScoreList);
   showHighScores();
 }
 
 function saveHighScores() {
-  console.log(currentHighScoreList);
+  console.log("saving", currentHighScoreList);
   for (let i = 0; i < currentHighScoreList.length; i++) {
     localStorage.setItem(
-      i,
+      String(i),
       currentHighScoreList[i].name + " " + currentHighScoreList[i].score
     );
+    console.log(`localstorage item ${i}`, localStorage.getItem(i));
   }
+  console.log("saved", currentHighScoreList);
+  console.log("localstorage.length: ", localStorage.length);
   showHighScores();
 }
 
@@ -55,8 +57,9 @@ function updateHighScores(currentScore, initials = "___") {
   currentHighScoreList.push({ name: initials, score: currentScore });
 
   //sort the array highest score at 0 index
+  console.log("sorting!");
   currentHighScoreList.sort(function (entryA, entryB) {
-    if (entryA.score > entryB.score) {
+    if (Number(entryA.score) > Number(entryB.score)) {
       return -1;
     } else {
       return 1;

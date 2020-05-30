@@ -26,6 +26,10 @@ const keydownHandler = (event) => {
   // if (event.code === "Space") {
   //   gameEngine.player.invincibilityFrames();
   // }
+  if (event.code === "KeyQ") {
+    localStorage.clear();
+    console.log("data cleared");
+  }
 
   if (event.code === "Space") {
     triggerGameStart();

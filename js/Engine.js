@@ -65,7 +65,7 @@ class Engine {
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
       //updateHighScores("tst", this.player.score);
-      updateHighScores(11300);
+      updateHighScores(this.player.score);
 
       gameOver();
       return;
