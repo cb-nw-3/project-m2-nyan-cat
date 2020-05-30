@@ -130,7 +130,7 @@ class Engine {
     return isDead;
   };
   checkScore = (totalScore) => {
-    if (totalScore % 20 === 0 && GAME_WIDTH < window.screen.width) {
+    if (totalScore % 200 === 0 && GAME_WIDTH < window.screen.width) {
       this.livesCounter += 1;
       this.levelCounter += 1;
       MAX_ENEMIES += 1;
