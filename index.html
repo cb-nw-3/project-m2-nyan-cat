@@ -1,14 +1,52 @@
 <html>
-<head>    
-    <title>Nyan Kat</title> 
-</head> 
-<body>    
-    <div id="app"></div> 
-    <script src="js/data.js"></script> 
-    <script src="js/Enemy.js"></script> 
-    <script src="js/engine-utilities.js"></script> 
-    <script src="js/Engine.js"></script> 
-    <script src="js/Player.js"></script> 
-    <script src="js/main.js"></script> 
-</body> 
-</html> 
+  <head>
+    <title>Nyan Kat</title>
+    <style>
+      #app {
+        z-index: -1;
+        position: relative;
+      }
+      button {
+        display: block;
+        position: absolute;
+        left: 150px;
+        top: 200px;
+        background-color: black;
+        color: white;
+        width: 100px;
+        height: 80px;
+        border: 5px solid transparent;
+        border-image: linear-gradient(
+          to bottom right,
+          #b827fc 0%,
+          #2c90fc 25%,
+          #b8fd33 50%,
+          #fec837 75%,
+          #fd1892 100%
+        );
+        border-image-slice: 1;
+        font-family: "Josefin", sans-serif;
+        font-weight: bold;
+        font-size: large;
+        visibility: hidden;
+        z-index: 999;
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&family=Piedra&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app"></div>
+    <button>Reset</button>
+
+    <script src="js/Text.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/Enemy.js"></script>
+    <script src="js/engine-utilities.js"></script>
+    <script src="js/Engine.js"></script>
+    <script src="js/Player.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
