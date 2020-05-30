@@ -1,0 +1,57 @@
+html {
+	background: linear-gradient(to right, #4568dc, #b06ab3);
+	font-family: "Exo", sans-serif;
+}
+
+body {
+	position: relative;
+	padding-top: 0;
+	margin-left: 25%;
+	margin-top: 150px;
+}
+
+.container {
+	display: flex;
+}
+
+.startGameCont {
+	margin-left: 75px;
+}
+
+.startGame {
+	font-size: 45px;
+	background-color: rgb(70, 20, 70);
+	color: ghostwhite;
+	border-radius: 5px;
+	z-index: 50;
+	box-shadow: 5px 5px ghostwhite;
+}
+
+.startGame:active {
+	background-color: ghostwhite;
+	color: rgb(70, 20, 70);
+	box-shadow: 5px 5px black;
+}
+
+.instructions {
+	color: ghostwhite;
+	font-size: 20px;
+}
+
+.instructions h1 {
+	text-decoration: underline;
+}
+
+label {
+	color: ghostwhite;
+	font-size: 35px;
+}
+
+span {
+	color: ghostwhite;
+	font-size: 35px;
+}
+
+#timer {
+	color: ghostwhite;
+}
