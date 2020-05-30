@@ -10,18 +10,22 @@ class Engine {
     this.root = theRoot;
     // We create our hamburger.
     // Please refer to Player.js for more information about what happens when you create a player
+    addBackground(this.root);
     this.player = new Player(this.root);
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
-    // We add the background image to the game
-    addBackground(this.root);
+    this.score = 0;
+    this.bgm = document.getElementById("bgm")
+    this.bgm.play();
+  
   }
 
   // The gameLoop will run every few milliseconds. It does several things
   //  - Updates the enemy positions
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
+  
   gameLoop = () => {
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
@@ -48,6 +52,9 @@ class Engine {
 
     // We need to perform the addition of enemies until we have enough enemies.
     while (this.enemies.length < MAX_ENEMIES) {
+      this.score = this.score + 10;
+      let scoreElement = document.getElementById("score");
+      scoreElement.innerText = `${this.score}`;
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
@@ -57,17 +64,50 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
+
       window.alert('Game over');
+      this.bgm.pause();
       return;
     }
-
+   
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
     setTimeout(this.gameLoop, 20);
   };
 
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
+
+// pseudo for isPlayerDead -----
+/*
+we have an array of enemies. each enemy has a postion x and y
+we also have the position of the player 
+
+*/
+
+  // function should return true or false
   isPlayerDead = () => {
-    return false;
+    let livesElement = document.getElementById('lives')
+    let collidedEnemy = false
+    this.enemies.forEach((enemy) => {
+      let topOfEnemy = enemy.y
+      let bottomOfEnemy = topOfEnemy+ENEMY_HEIGHT
+      if (enemy.x === this.player.x && bottomOfEnemy >= this.player.y && !enemy.collided) {
+        let sound = document.getElementById("soundbg")
+        collidedEnemy = true;
+        enemy.collided = true;
+        sound.play();
+      }
+      
+    })
+    if (collidedEnemy && this.player.lives>1){
+      this.player.lives--
+      livesElement.innerText = this.player.lives;
+      console.log("here")
+      return false 
+    } else {
+      return collidedEnemy;
+    }
+    
   };
 }
+
