@@ -1,6 +1,27 @@
 // We create an instance of the Engine class. Looking at our index.html,
 // we see that it has a div with an id of `"app"`
-const gameEngine = new Engine(document.getElementById('app'));
+//const gameEngine = new Engine(document.getElementById('app'));
+const app = document.querySelector("#app");
+const gameEngine = new Engine(app);
+
+const start = document.createElement("span");
+start.innerText = "PRESS 'SPACEBAR' TO START";
+start.style.position = "absolute";
+start.style.color = "white";
+start.style.top = `100px`;
+start.style.left = `70px`;
+start.style.fontSize = '20px';
+app.appendChild(start);
+
+let score = 0;
+const scoreTxt = document.createElement("span");
+
+let lives = 3;
+const livesTxt = document.createElement("span");
+
+
+
+
 
 // keydownHandler is a variable that refers to a function. The function has one parameter
 // (does the parameter name matter?) which is called event. As we will see below, this function
@@ -18,10 +39,22 @@ const keydownHandler = (event) => {
   if (event.code === 'ArrowRight') {
     gameEngine.player.moveRight();
   }
+
+// We call the gameLoop method to start the game
+  if (event.code === "Space") { 
+    app.removeChild(start);
+    gameEngine.gameLoop();
+  }
+  
 };
 
 // We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
 document.addEventListener('keydown', keydownHandler);
 
-// We call the gameLoop method to start the game
-gameEngine.gameLoop();
+//background music
+const audio = new Audio('./js/TechMusic.mp3');
+audio.play();
+
+document.documentElement.addEventListener('keypress', () => {
+  audio.play()
+});

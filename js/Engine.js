@@ -11,11 +11,32 @@ class Engine {
     // We create our hamburger.
     // Please refer to Player.js for more information about what happens when you create a player
     this.player = new Player(this.root);
+    //lives
+    this.lives = 3;
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
     // We add the background image to the game
     addBackground(this.root);
+    //score
+    // this.scoreNumber = 0;
+    // this.scoreTxt = new Text(this.root, 15, 15);
+
+    // const score = document.createElement("span");
+    // score.innerText = `SCORE: ${this.scoreNumber}`;
+    // score.style.position = "absolute";
+    // score.style.color = "white";
+    // score.style.top = `20px`;
+    // score.style.left = `20px`;
+    // app.appendChild(score);
+
+    this.score = 0;
+    const scoreTally = document.createElement("span");
+
+
+
+
+  
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -31,12 +52,13 @@ class Engine {
     }
 
     let timeDiff = new Date().getTime() - this.lastFrame;
-
+    
     this.lastFrame = new Date().getTime();
     // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
     // Furthermore, if any enemy is below the bottom of our game, its destroyed property will be set. (See Enemy.js)
     this.enemies.forEach((enemy) => {
       enemy.update(timeDiff);
+      
     });
 
     // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
@@ -44,20 +66,37 @@ class Engine {
     // Remember: this.enemies only contains instances of the Enemy class.
     this.enemies = this.enemies.filter((enemy) => {
       return !enemy.destroyed;
+      
     });
+
+    
 
     // We need to perform the addition of enemies until we have enough enemies.
     while (this.enemies.length < MAX_ENEMIES) {
+      
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
       this.enemies.push(new Enemy(this.root, spot));
+
+     // Rendering the score
+     scoreTxt.innerText = `SCORE: ${score}`;
+     scoreTxt.style.position = "absolute";
+     scoreTxt.style.left = "20px";
+     scoreTxt.style.top = "20px";
+     scoreTxt.style.color = "white";
+     scoreTxt.style.fontSize = "30px";
+     this.root.appendChild(scoreTxt);
+   
+  
     }
+    
 
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      window.alert('Game over!\n' + 'Your score is ' + score + '!');
+      
       return;
     }
 
@@ -68,6 +107,41 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    return false;
-  };
+
+    livesTxt.innerText = `LIVES: ${lives}`;
+    livesTxt.style.position = "absolute";
+    livesTxt.style.fontSize = "30px";
+    livesTxt.style.fontFamily = "Maven Pro";
+    livesTxt.style.left = "20px";
+    livesTxt.style.top = "50px";
+    livesTxt.style.color = "white";
+    this.root.appendChild(livesTxt);
+
+    let isPlayerDead = false;
+
+    for (let enemy of this.enemies) {
+
+      if (
+        enemy.y + ENEMY_HEIGHT - 4 >= (GAME_HEIGHT - PLAYER_HEIGHT - 10) &&
+        enemy.x === this.player.x
+      ) {
+
+        
+        if (lives > 1) {
+          alert('One More Chance!');
+          lives = lives - 1;
+        } else if (lives === 1) {
+          return isPlayerDead = true;
+        }
+        
+    }
+    
+
+
+
+    
+
+
+  }
+}
 }

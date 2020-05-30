@@ -22,6 +22,8 @@ class Player {
     this.domElement.style.top = ` ${y}px`;
     this.domElement.style.zIndex = '10';
     root.appendChild(this.domElement);
+
+    
   }
 
   // This method will be called when the user presses the left key. See in Engine.js
@@ -42,3 +44,4 @@ class Player {
     this.domElement.style.left = `${this.x}px`;
   }
 }
+
