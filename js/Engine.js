@@ -15,7 +15,7 @@ class Engine {
     // that contains instances of the Enemy class
     this.enemies = [];
     this.currentMaxEnemies = INITIAL_MAX_ENEMIES;
-    //initial speed of the enemies will be modified by difficulty * SPEED_INCREASE
+    //initial speed of the enemies will be multiplied by SPEED_INCREASE, this.difficulty times
     this.difficulty = 0;
     // We add the background image to the game
     addBackground(this.root);
@@ -64,6 +64,9 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
+      //updateHighScores("tst", this.player.score);
+      updateHighScores(11300);
+
       gameOver();
       return;
     }

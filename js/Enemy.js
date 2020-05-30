@@ -49,6 +49,7 @@ class Enemy {
     theRoot.appendChild(this.domElement);
     this.speed = Math.random() / 5 + 0.25;
     if (gameEngine.difficulty !== 0) {
+      //i use a for loop to simulate successive 20% speed increases, rather than *1.2, *2.4, *3.6 speed increases
       for (let i = 1; i <= gameEngine.difficulty; i++) {
         this.speed *= SPEED_INCREASE_VALUE;
       }

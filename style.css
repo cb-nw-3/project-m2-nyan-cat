@@ -74,3 +74,20 @@ body {
     opacity: 1;
   }
 }
+
+.highScoreTable {
+  position: absolute;
+  left: 550px;
+  font-size: 1.4rem;
+  font-family: "Comic Neue";
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  text-align: center;
+}
+
+.hsEntry {
+  font-family: "Comic Neue";
+  font-size: 1rem;
+  margin-top: 5px;
+}
