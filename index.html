@@ -1,14 +1,26 @@
 <html>
-<head>    
-    <title>Nyan Kat</title> 
-</head> 
-<body>    
-    <div id="app"></div> 
-    <script src="js/data.js"></script> 
-    <script src="js/Enemy.js"></script> 
-    <script src="js/engine-utilities.js"></script> 
-    <script src="js/Engine.js"></script> 
-    <script src="js/Player.js"></script> 
-    <script src="js/main.js"></script> 
-</body> 
-</html> 
+  <head>
+    <title>Nyan Kat</title>
+    <link href="style.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@1,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <div class="lives"></div>
+      <button class="sound-button" id="sound-button"></button>
+      <div class="highScoreTable">High Scores</div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/Text.js"></script>
+    <script src="js/Enemy.js"></script>
+    <script src="js/engine-utilities.js"></script>
+    <script src="js/Engine.js"></script>
+    <script src="js/Player.js"></script>
+    <script src="js/highScore.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

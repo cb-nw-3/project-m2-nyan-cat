@@ -14,8 +14,16 @@ class Engine {
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
+    this.currentMaxEnemies = INITIAL_MAX_ENEMIES;
+    //initial speed of the enemies will be multiplied by SPEED_INCREASE, this.difficulty times
+    this.difficulty = 0;
     // We add the background image to the game
     addBackground(this.root);
+    //we add the background musique to the game (code in the engine utilities)
+    this.bgmElement = addBackgroundMusic(this.root);
+    this.bgmElement.volume = 0.6;
+    //add and remove the start button at will (code in the engine utilities)
+    addStartBtn(this.root, "Start Game");
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -31,7 +39,6 @@ class Engine {
     }
 
     let timeDiff = new Date().getTime() - this.lastFrame;
-
     this.lastFrame = new Date().getTime();
     // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
     // Furthermore, if any enemy is below the bottom of our game, its destroyed property will be set. (See Enemy.js)
@@ -47,7 +54,7 @@ class Engine {
     });
 
     // We need to perform the addition of enemies until we have enough enemies.
-    while (this.enemies.length < MAX_ENEMIES) {
+    while (this.enemies.length < this.currentMaxEnemies) {
       // We find the next available spot and, using this spot, we create an enemy.
       // We add this enemy to the enemies array
       const spot = nextEnemySpot(this.enemies);
@@ -57,7 +64,10 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      //updateHighScores("tst", this.player.score);
+      updateHighScores(this.player.score);
+
+      gameOver();
       return;
     }
 
@@ -68,6 +78,33 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
+    this.enemies.find((enemy) => {
+      if (
+        enemy.y >= GAME_HEIGHT - PLAYER_HEIGHT * 3.5 &&
+        enemy.spot === this.player.spot
+      ) {
+        //only collide if it's touching more than the tail end of the rainbow (i mean come on)
+        if (enemy.y <= 420 && gameEngine.player.isInvincible === false) {
+          enemy.touchedPlayer = true;
+          this.player.loseLife();
+          this.player.scoreMultiplier(true);
+        }
+      }
+    });
+
+    if (this.player.lives === 0) {
+      return true;
+    }
+
     return false;
+  };
+
+  //this is called when difficulty is increased
+  difficultyIncrease = () => {
+    gameEngine.difficulty++;
+    this.currentMaxEnemies++;
+    if (this.currentMaxEnemies >= 5) {
+      this.currentMaxEnemies = 5;
+    }
   };
 }

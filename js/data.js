@@ -12,8 +12,15 @@ const GAME_HEIGHT = 500;
 // as well as the maximum number of enemies on screen at any given time.
 const ENEMY_WIDTH = 75;
 const ENEMY_HEIGHT = 156;
-const MAX_ENEMIES = 3;
+const INITIAL_MAX_ENEMIES = 2;
+const ENEMY_KILL_SCORE = 10;
 
 // These constants represent the player width and height.
 const PLAYER_WIDTH = 75;
 const PLAYER_HEIGHT = 54;
+const PLAYER_LIVES = 3;
+const STREAK_TRESHOLD = 15;
+
+//These constants are used for difficulty scaling
+const TIME_FOR_INCREASE = 10000;
+const SPEED_INCREASE_VALUE = 1.2;

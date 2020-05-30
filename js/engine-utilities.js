@@ -40,10 +40,10 @@ const nextEnemySpot = (enemies) => {
 // The parameter represents the DOM node to which we will add the background
 const addBackground = (root) => {
   // We create a new img DOM node.
-  const bg = document.createElement('img');
+  const bg = document.createElement("img");
 
   // We set its src attribute and the height and width CSS attributes
-  bg.src = 'images/stars.png';
+  bg.src = "images/stars.png";
   bg.style.height = `${GAME_HEIGHT}px`;
   bg.style.width = `${GAME_WIDTH}px`;
 
@@ -53,14 +53,99 @@ const addBackground = (root) => {
   // We don't want the enemies to go beyond the lower edge of the image
   // so we place a white div to hide the enemies after they reach the bottom.
   // To see what it does, you can comment out all the remaining lines in the function to see the effect.
-  const whiteBox = document.createElement('div');
+  const whiteBox = document.createElement("div");
 
   // We put a high z-index so that the div is placed over all other DOM nodes
   whiteBox.style.zIndex = 100;
-  whiteBox.style.position = 'absolute';
+  whiteBox.style.position = "absolute";
   whiteBox.style.top = `${GAME_HEIGHT}px`;
   whiteBox.style.height = `${ENEMY_HEIGHT}px`;
   whiteBox.style.width = `${GAME_WIDTH}px`;
-  whiteBox.style.background = '#fff';
+  whiteBox.style.background = "#fff";
   root.append(whiteBox);
+};
+
+const addBackgroundMusic = (root) => {
+  //element, source and looping attributes
+  const backgroundMusic = document.createElement("audio");
+  backgroundMusic.src = "./sounds/shootingstarsloop.wav";
+  backgroundMusic.loop = true;
+  root.append(backgroundMusic);
+
+  return backgroundMusic;
+};
+
+const addStartBtn = (root, text) => {
+  //game engine calls this on itself to create a start button to start the game and let the gameloop go
+  let startBtn = document.createElement("button");
+  startBtn.classList.add("startButton");
+  startBtn.innerText = text;
+  startBtn.addEventListener("click", triggerGameStart);
+  root.append(startBtn);
+};
+
+const gameOver = () => {
+  //called when player is dead resets all the components and calls a new start button toallow players to restart
+  gameEngine.player.lives = 3;
+  gameEngine.enemies.forEach((enemy) => {
+    enemy.root.removeChild(enemy.domElement);
+  });
+  gameEngine.enemies = [];
+
+  addStartBtn(gameEngine.root, "Game Over!!\nRestart");
+};
+
+const triggerGameStart = () => {
+  document.querySelector(".startButton").remove();
+  gameEngine.player.streak = 0;
+  gameEngine.difficulty = 0;
+  gameEngine.currentMaxEnemies = INITIAL_MAX_ENEMIES;
+
+  gameEngine.bgmElement.play();
+  gameEngine.player.showLives();
+  gameEngine.gameLoop();
+  gameEngine.player.updateScore(0, true);
+};
+
+//Every TIME_FOR_INCREASE milliseconds, we increment gameEngine.difficulty so that new enemies are faster
+setInterval(() => {
+  gameEngine.difficultyIncrease();
+}, TIME_FOR_INCREASE);
+
+const playRandomHitSound = () => {
+  if (soundOn) {
+    let randomIndex = Math.floor(
+      Math.random() * Math.floor(hitElementsArray.length)
+    );
+    hitElementsArray[randomIndex].play();
+    //console.log(hitElementsArray[randomIndex].src);
+  }
+};
+
+//create an array of sound elements from the sound files
+let hitElementsArray = [
+  "./sounds/hit1.wav",
+  "./sounds/hit2.wav",
+  "./sounds/hit3.wav",
+  "./sounds/hit4.wav",
+  "./sounds/hit5.wav",
+  "./sounds/hit6.wav",
+  "./sounds/hit7.wav",
+].map((sound) => {
+  newsoundElement = document.createElement("audio");
+  newsoundElement.src = sound;
+  newsoundElement.volume = 1;
+  return newsoundElement;
+});
+
+const toggleSound = () => {
+  if (soundOn === true) {
+    gameEngine.bgmElement.volume = 0;
+    soundOn = false;
+    soundButton.classList.toggle("soundOff-Button");
+  } else {
+    gameEngine.bgmElement.volume = 0.6;
+    soundOn = true;
+    soundButton.classList.toggle("soundOff-Button");
+  }
 };

@@ -1,0 +1,93 @@
+body {
+  position: relative;
+}
+
+.app {
+  position: relative;
+}
+
+.startButton {
+  font-family: "Comic Neue";
+  position: absolute;
+  top: 150px;
+  left: 95px;
+  z-index: 10000;
+  border: 2px red solid;
+  padding: 30px 40px;
+  font-size: 1.6rem;
+}
+
+.sound-button {
+  position: absolute;
+  left: 400px;
+  width: 35px;
+  height: 38px;
+  padding: 10px 25px;
+  border-radius: 4px;
+  background-image: url(images/soundOn.png);
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgb(148, 147, 147);
+  outline: none;
+}
+
+.soundOff-Button {
+  background-image: url(images/soundOff.png);
+}
+
+.lives {
+  position: absolute;
+  display: flex;
+}
+
+.lives > img {
+  height: 30px;
+  width: 40px;
+  padding: 2px;
+}
+
+.player-flicker {
+  animation: flicker 400ms linear;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 1;
+  }
+  17% {
+    opacity: 0;
+  }
+  34% {
+    opacity: 1;
+  }
+  51% {
+    opacity: 0;
+  }
+  68% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.highScoreTable {
+  position: absolute;
+  left: 550px;
+  font-size: 1.4rem;
+  font-family: "Comic Neue";
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  text-align: center;
+}
+
+.hsEntry {
+  font-family: "Comic Neue";
+  font-size: 1rem;
+  margin-top: 5px;
+}

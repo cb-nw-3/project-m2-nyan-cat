@@ -28,24 +28,33 @@ class Enemy {
     // is still in play. It is set to true whenever the enemy goes past the bottom of the screen.
     // It is used in the Engine to determine whether or not an enemy is in a particular column.
     this.y = -ENEMY_HEIGHT;
+    //adding a flag that shows if this enemy has touched player, or reach the bottom of the screen
+    this.touchedPLayer = false;
     this.destroyed = false;
 
     // We create a new DOM element. The tag of this DOM element is img. It is the DOM node that will display the enemy image
     // to the user. When the enemy is no longer needed, we will use a reference to this DOM node to remove it from the game. This
     // is why we create a property that refers to it.
-    this.domElement = document.createElement('img');
+    this.domElement = document.createElement("img");
 
     // We give it a src attribute to specify which image to display.
-    this.domElement.src = './images/enemy.png';
+    this.domElement.src = "./images/enemy.png";
     // We modify the CSS style of the DOM node.
-    this.domElement.style.position = 'absolute';
+    this.domElement.style.position = "absolute";
     this.domElement.style.left = `${this.x}px`;
     this.domElement.style.top = `${this.y}px`;
     this.domElement.style.zIndex = 5;
 
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     theRoot.appendChild(this.domElement);
-    this.speed = Math.random() / 2 + 0.25;
+    this.speed = Math.random() / 5 + 0.25;
+    if (gameEngine.difficulty !== 0) {
+      //i use a for loop to simulate successive 20% speed increases, rather than *1.2, *2.4, *3.6 speed increases
+      for (let i = 1; i <= gameEngine.difficulty; i++) {
+        this.speed *= SPEED_INCREASE_VALUE;
+      }
+    }
+    //console.log(this.speed);
   }
 
   // We set the speed property of the enemy. This determines how fast it moves down the screen.
@@ -59,12 +68,17 @@ class Enemy {
     this.y = this.y + timeDiff * this.speed;
     this.domElement.style.top = `${this.y}px`;
 
-    // If the y position of the DOM element is greater than the GAME_HEIGHT then the enemy is at the bottom
-    // of the screen and should be removed. We remove the DOM element from the root DOM element and we set
-    // the destroyed property to indicate that the enemy should no longer be in play
-    if (this.y > GAME_HEIGHT) {
+    //I add this bit in case the enemy is to be destroyed because he touched the player. Here we remove a life, reset streak and not give points
+    if (this.touchedPlayer) {
       this.root.removeChild(this.domElement);
-
+      this.destroyed = true;
+    } else if (this.y > GAME_HEIGHT) {
+      // If the y position of the DOM element is greater than the GAME_HEIGHT then the enemy is at the bottom
+      // of the screen and should be removed. We remove the DOM element from the root DOM element and we set
+      // the destroyed property to indicate that the enemy should no longer be in play
+      this.root.removeChild(this.domElement);
+      gameEngine.player.updateScore(ENEMY_KILL_SCORE);
+      gameEngine.player.scoreMultiplier();
       this.destroyed = true;
     }
   }
