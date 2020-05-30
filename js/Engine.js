@@ -1,3 +1,6 @@
+// Select button
+const button = document.querySelector("button");
+
 // The engine class will only be instantiated once. It contains all the logic
 // of the game relating to the interactions between the player and the
 // enemy and also relating to how our enemies are created and evolve over time
@@ -21,10 +24,13 @@ class Engine {
     this.scoreDisplay = new Text(this.root, 15, 15);
     // Lives counter
     this.lives = 3;
+    this.maxLives = 5;
     this.livesDisplay = new Text(this.root, 265, 15);
     // Level counter
     this.level = 0;
     this.levelDisplay = new Text(this.root, 265, 45);
+    // Extra life when a new level is reached
+    this.gottenCredit = false;
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -66,20 +72,38 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
+      // This will update the score to 0, once the Game Over OK button is pressed
       this.livesDisplay.update("Lives: " + this.lives);
       window.alert("Game over");
-      return;
+
+      // This makes the Reset button visible when the game is over
+      button.style.visibility = "visible";
+      button.addEventListener("click", reset);
+      return false;
     }
 
     // Display the updated score
     this.scoreDisplay.update("Score: " + this.score * 10);
 
-    // Display the lives score
-    this.livesDisplay.update("Lives: " + this.lives);
-
     // Update and Display the Level
     this.level = Math.floor(this.score / 10);
     this.levelDisplay.update("Level: " + this.level);
+
+    // Update and Display the lives score
+    if (
+      this.score % 10 === 0 &&
+      this.score !== 0 &&
+      this.gottenCredit === false
+    ) {
+      if (this.lives < this.maxLives) {
+        this.lives++;
+        this.gottenCredit = true;
+      }
+    }
+    if (this.score % 10 !== 0) {
+      this.gottenCredit = false;
+    }
+    this.livesDisplay.update("Lives: " + this.lives);
 
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
     setTimeout(this.gameLoop, 20);
@@ -89,15 +113,15 @@ class Engine {
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
     let result = false;
-    // this.enemies.forEach((enemy) => {
-    //   if (
-    //     enemy.x === this.player.x &&
-    //     enemy.y - (GAME_HEIGHT - PLAYER_HEIGHT - 10) >= 0
-    //   ) {
-    //     this.lives--;
-    //     enemy.destroy();
-    //   }
-    // });
+    this.enemies.forEach((enemy) => {
+      if (
+        enemy.x === this.player.x &&
+        enemy.y - (GAME_HEIGHT - PLAYER_HEIGHT - 10) >= 0
+      ) {
+        this.lives--;
+        enemy.destroy();
+      }
+    });
     if (this.lives === 0) {
       result = true;
     }
