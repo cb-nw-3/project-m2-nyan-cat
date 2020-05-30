@@ -9,6 +9,7 @@
 	</head>
 	<body>
 		<audio id="crash" src="sounds\Crash.mp3" preload="auto"></audio>
+
 		<div class="container">
 			<div id="app"></div>
 			<div class="startGameCont" id="startBtnCont">
@@ -21,28 +22,29 @@
 				>
 					Start Game
 				</button>
-
-				<div class="instructions">
-					<h1>Instructions</h1>
-					<p>
-						1. Hit <em><strong>Start Game</strong></em>
-					</p>
-					<p>
-						2. Use <- and -> Keys to move the spaceship <br />
-						left and right respectively.
-					</p>
-					<p>3. Dodge the Space Invaders!</p>
-				</div>
-				<div class="timer">
-					<span>Timer: </span><label id="seconds">0</label><span> sec</span>
-				</div>
-				<div>
-					<span>Highscore: </span><label id="bestTime">0</label
-					><span> sec</span>
+				<div class="styleRight">
+					<div class="instructions">
+						<h1>Instructions</h1>
+						<p>
+							1. Hit <em><strong>Start Game</strong></em>
+						</p>
+						<p>
+							2. Use <- and -> Keys to move the spaceship <br />
+							left and right respectively.
+						</p>
+						<p>3. Dodge the Space Invaders!</p>
+					</div>
+					<div class="timer">
+						<span>Timer: </span><label id="seconds">0</label><span> sec</span>
+					</div>
+					<div>
+						<span>Highscore: </span><label id="bestTime">0</label
+						><span> sec</span>
+					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<script src="js/data.js"></script>
 		<script src="js/Enemy.js"></script>
 		<script src="js/engine-utilities.js"></script>
