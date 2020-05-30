@@ -10,6 +10,8 @@ class Engine {
     this.root = theRoot;
     // We create our hamburger.
     // Please refer to Player.js for more information about what happens when you create a player
+
+    addBackground(this.root);
     this.player = new Player(this.root);
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
@@ -19,8 +21,6 @@ class Engine {
     // I want engine.score so this.score
     //to add score to the engine class
     // We add the background image to the game
-
-    addBackground(this.root);
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -83,12 +83,23 @@ class Engine {
   // the slot is equal to the column where the player is where each column is size of one enemy.
   //if conditions are met game over
   isPlayerDead = () => {
+    let livesElement = document.getElementById("lives");
     const slot = this.player.x / ENEMY_WIDTH;
-    const isDead = this.enemies.find((enemy) => {
+    const collidedEnemy = this.enemies.find((enemy) => {
       console.log(enemy.spot, slot);
-      return enemy.spot === slot && enemy.y + ENEMY_HEIGHT >= this.player.y;
+      return (
+        enemy.spot === slot &&
+        enemy.y + ENEMY_HEIGHT >= this.player.y &&
+        !enemy.collided
+      );
     });
-    return isDead;
+    if (collidedEnemy && this.player.lives > 1) {
+      this.player.lives--;
+      livesElement.innerText = this.player.lives;
+      collidedEnemy.collided = true;
+      return false;
+    }
+    return collidedEnemy;
   };
 }
 

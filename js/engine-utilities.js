@@ -45,13 +45,17 @@ const addBackground = (root) => {
   score.innerText = "0";
   score.id = "score"; ///like a css id
 
+  let lives = document.createElement("h2");
+  lives.innerText = "0";
+  lives.id = "lives"; ///like a css id
   // We set its src attribute and the height and width CSS attributes
   bg.src = "images/sky.png";
   bg.style.height = `${GAME_HEIGHT}px`;
   bg.style.width = `${GAME_WIDTH}px`;
 
   // We add it to the root DOM node
-  root.append(score);
+  document.body.prepend(score);
+  document.body.prepend(lives);
   root.append(bg);
 
   // We don't want the enemies to go beyond the lower edge of the image
