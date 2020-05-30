@@ -28,11 +28,10 @@ class Enemy {
 
     if (this.y > GAME_HEIGHT) {
       this.root.removeChild(this.domElement);
-
       this.destroyed = true;
       score = score + 10;
     } else {
-      lasers.forEach((laser) => {
+      lasers.forEach((laser, index) => {
         const samePosition = laser.position === this.spot;
         const laserPastHead = laser.y < this.y + ENEMY_HEIGHT;
         const enemyCollision = samePosition && laserPastHead;
@@ -40,11 +39,13 @@ class Enemy {
         if (enemyCollision) {
           score = score + 20;
           this.domElement.src = "../images/pow.png";
+
           setTimeout(() => {
             this.destroyed = true;
             this.root.removeChild(this.domElement);
             this.root.removeChild(laser);
-          }, 200);
+            lasers.splice(index, 1);
+          }, 50);
         }
       });
     }

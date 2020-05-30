@@ -104,10 +104,6 @@ class Engine {
       return;
     }
 
-    // if (this.isEnemyDead()) {
-    //   score = score + 20;
-    // }
-
     setTimeout(this.gameLoop, 20);
   };
 
@@ -129,12 +125,4 @@ class Engine {
     });
     return dead;
   };
-
-  // isEnemyDead = (enemy) => {
-  //   this.enemies.forEach((enemy, index) => {
-
-  //     });
-  //   });
-  //   return enemy.destroyed;
-  // };
 }
