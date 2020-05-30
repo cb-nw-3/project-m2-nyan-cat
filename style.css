@@ -1,0 +1,31 @@
+span {
+  background-color: blue;
+  color: violet;
+  z-index: 1;
+  position: absolute;
+  opacity: 0;
+  top: 5vh;
+  font-size: 28px;
+  font-family: 'Press Start 2P', cursive;
+}
+
+#app {
+  background-color: #003366;
+  min-height: 100vh;
+  background-image: url('./images/nyan.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+body {
+  margin: 0px;
+}
+
+.title {
+  position: absolute;
+  left: 40vw;
+  font-family: 'Press Start 2P', cursive;
+  top: 30vh;
+  font-size: 2rem;
+  color: violet;
+}
