@@ -52,7 +52,7 @@ class Engine {
     this.lastFrame = new Date().getTime();
 
     this.enemies.forEach((enemy) => {
-      enemy.update(timeDiff);
+      enemy.update(timeDiff, this.lasers);
     });
 
     this.enemies = this.enemies.filter((enemy) => !enemy.destroyed);
@@ -104,9 +104,9 @@ class Engine {
       return;
     }
 
-    if (this.isEnemyDead()) {
-      score = score + 20;
-    }
+    // if (this.isEnemyDead()) {
+    //   score = score + 20;
+    // }
 
     setTimeout(this.gameLoop, 20);
   };
@@ -130,23 +130,11 @@ class Engine {
     return dead;
   };
 
-  isEnemyDead = () => {
-    let enemyDead = false;
-    this.lasers.forEach((laser) => {
-      this.enemies.filter((enemy, index) => {
-        if (
-          laser.position === enemy.spot &&
-          Math.round(laser.y) === Math.round(enemy.y)
-        ) {
-          enemy.domElement.src = "../images/pow.png";
-          setTimeout(() => {
-            this.enemies.splice(index, 1);
-            enemyDead = true;
-            this.root.removeChild(enemy.domElement);
-          }, 200);
-        }
-      });
-    });
-    return enemyDead;
-  };
+  // isEnemyDead = (enemy) => {
+  //   this.enemies.forEach((enemy, index) => {
+
+  //     });
+  //   });
+  //   return enemy.destroyed;
+  // };
 }

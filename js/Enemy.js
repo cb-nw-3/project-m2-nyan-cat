@@ -20,15 +20,33 @@ class Enemy {
     this.speed = Math.random() / 2 + 0.1;
   }
 
-  update(timeDiff) {
+  update(timeDiff, lasers) {
     this.y = this.y + timeDiff * this.speed;
     this.domElement.style.top = `${this.y}px`;
+
+    if (this.destroyed) return;
 
     if (this.y > GAME_HEIGHT) {
       this.root.removeChild(this.domElement);
 
       this.destroyed = true;
       score = score + 10;
+    } else {
+      lasers.forEach((laser) => {
+        const samePosition = laser.position === this.spot;
+        const laserPastHead = laser.y < this.y + ENEMY_HEIGHT;
+        const enemyCollision = samePosition && laserPastHead;
+
+        if (enemyCollision) {
+          score = score + 20;
+          this.domElement.src = "../images/pow.png";
+          setTimeout(() => {
+            this.destroyed = true;
+            this.root.removeChild(this.domElement);
+            this.root.removeChild(laser);
+          }, 200);
+        }
+      });
     }
   }
 }
