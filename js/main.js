@@ -17,6 +17,8 @@ btnStart.addEventListener("click", function () {
   this.style.display = "none";
   gameEngine.gameLoop();
   if (btnStart.innerHTML === "Play Again") {
+    MAX_ENEMIES = 3;
+    GAME_WIDTH = 375;
     bg = null;
     gameEngine = {};
     isFirstGame = false;
@@ -25,6 +27,10 @@ btnStart.addEventListener("click", function () {
     audio.currentTime = 0;
     audio = new Audio("./images/GroundZero.mp3");
     audio.play();
+    document.body.removeChild(startGame);
+    startGame = document.createElement("div");
+    startGame.setAttribute("style", "position: relative; width: fit-content;");
+    document.body.appendChild(startGame);
     gameEngine = new Engine(startGame);
     gameEngine.gameLoop();
   }
@@ -32,46 +38,6 @@ btnStart.addEventListener("click", function () {
 let mainBackground = document.getElementById("app");
 mainBackground.setAttribute("style", "position: relative; width: fit-content;");
 mainBackground.appendChild(btnStart);
-
-let livesAndValue = document.createElement("div");
-livesAndValue.setAttribute(
-  "style",
-  "position: absolute; top: 2%; right:2%; font-size: 25px; color:white; background-color: transparent; display: inline;"
-);
-let livesLabel = document.createElement("span");
-livesLabel.innerHTML = "Lives: ";
-
-let livesRemain = document.createElement("span");
-livesRemain.innerHTML = 3;
-livesAndValue.appendChild(livesLabel);
-livesAndValue.appendChild(livesRemain);
-mainBackground.appendChild(livesAndValue);
-
-let scoreAndValue = document.createElement("div");
-scoreAndValue.setAttribute(
-  "style",
-  "position: absolute; top: 2%; left:2%; font-size: 25px; color:white; background-color: transparent; display: inline;"
-);
-let scoreLabel = document.createElement("span");
-scoreLabel.innerHTML = "Score: ";
-let scoreValue = document.createElement("span");
-scoreValue.innerHTML = 0;
-scoreAndValue.appendChild(scoreLabel);
-scoreAndValue.appendChild(scoreValue);
-mainBackground.appendChild(scoreAndValue);
-
-let levelAndValue = document.createElement("div");
-levelAndValue.setAttribute(
-  "style",
-  "position: absolute; top: 2%; left:50%; font-size: 25px; color:white; background-color: transparent; transform: translate(-50%); transparent; display: inline;"
-);
-let levelLabel = document.createElement("span");
-levelLabel.innerHTML = "Level: ";
-let levelValue = document.createElement("span");
-levelValue.innerHTML = 0;
-levelAndValue.appendChild(levelLabel);
-levelAndValue.appendChild(levelValue);
-mainBackground.appendChild(levelAndValue);
 
 let gameStart = setInterval(function () {
   btnStart.style.visibility =

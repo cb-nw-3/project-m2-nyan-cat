@@ -39,6 +39,52 @@ const nextEnemySpot = (enemies) => {
 // It is a variable that refers to a function.
 // The function takes one parameter
 // The parameter represents the DOM node to which we will add the background
+const setupStats = (root) => {
+  let livesAndValue = document.createElement("div");
+  livesAndValue.setAttribute(
+    "style",
+    "position: absolute; top: 2%; right:2%; font-size: 25px; color:white; background-color: transparent; display: inline;"
+  );
+  let livesLabel = document.createElement("span");
+  livesLabel.innerHTML = "Lives: ";
+
+  let livesRemain = document.createElement("span");
+  livesRemain.id = "lives-remain";
+  livesRemain.innerHTML = 3;
+  livesAndValue.appendChild(livesLabel);
+  livesAndValue.appendChild(livesRemain);
+  root.appendChild(livesAndValue);
+
+  let scoreAndValue = document.createElement("div");
+  scoreAndValue.setAttribute(
+    "style",
+    "position: absolute; top: 2%; left:2%; font-size: 25px; color:white; background-color: transparent; display: inline;"
+  );
+  let scoreLabel = document.createElement("span");
+  scoreLabel.innerHTML = "Score: ";
+
+  let scoreValue = document.createElement("span");
+  scoreValue.id = "score";
+  scoreValue.innerHTML = 0;
+  scoreAndValue.appendChild(scoreLabel);
+  scoreAndValue.appendChild(scoreValue);
+  root.appendChild(scoreAndValue);
+
+  let levelAndValue = document.createElement("div");
+  levelAndValue.setAttribute(
+    "style",
+    "position: absolute; top: 2%; left:50%; font-size: 25px; color:white; background-color: transparent; transform: translate(-50%); transparent; display: inline;"
+  );
+  let levelLabel = document.createElement("span");
+  levelLabel.innerHTML = "Level: ";
+  let levelValue = document.createElement("span");
+  levelValue.innerHTML = 1;
+  levelValue.id = "level-value";
+  levelAndValue.appendChild(levelLabel);
+  levelAndValue.appendChild(levelValue);
+  root.appendChild(levelAndValue);
+};
+
 const addBackground = (root) => {
   // We create a new img DOM node.
   bg = document.createElement("img");

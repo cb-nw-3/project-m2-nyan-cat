@@ -20,6 +20,7 @@ class Engine {
     this.scoreCounter = 0;
     this.levelCounter = 1;
     addBackground(this.root);
+    setupStats(this.root);
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -109,11 +110,13 @@ class Engine {
       ) {
         enemy.y = 501;
         this.livesCounter -= 1;
+        let livesRemain = document.querySelector("#lives-remain");
         livesRemain.innerHTML = this.livesCounter;
       }
       if (enemy.y + ENEMY_HEIGHT > GAME_HEIGHT) {
         enemy.y = 501;
-        scoreValue.innerHTML = this.scoreCounter += 10;
+        let score = document.querySelector("#score");
+        score.innerHTML = this.scoreCounter += 10;
         this.checkScore(this.scoreCounter);
       }
     });
@@ -127,13 +130,15 @@ class Engine {
     return isDead;
   };
   checkScore = (totalScore) => {
-    if (totalScore % 200 === 0 && GAME_WIDTH < window.screen.width) {
+    if (totalScore % 20 === 0 && GAME_WIDTH < window.screen.width) {
       this.livesCounter += 1;
       this.levelCounter += 1;
       MAX_ENEMIES += 1;
       GAME_WIDTH += PLAYER_WIDTH;
       bg.style.width = GAME_WIDTH + "px";
+      let livesRemain = document.querySelector("#lives-remain");
       livesRemain.innerHTML = this.livesCounter;
+      let levelValue = document.querySelector("#level-value");
       levelValue.innerHTML = this.levelCounter;
     }
   };
