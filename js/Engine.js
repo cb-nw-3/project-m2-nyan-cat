@@ -14,6 +14,17 @@ class Engine {
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
+
+    this.lastFrame = undefined;
+    //Added sound effect during game play
+    this.gameSound = document.createElement("audio");
+    this.gameSound.src = "./sounds/Funk_in_your_face_Introloop.mp3";
+    this.gameSound.setAttribute("preload", "auto");
+    this.gameSound.setAttribute("controls", "none");
+    this.gameSound.setAttribute("allow", "autoplay");
+    this.gameSound.style.display = "none";
+    this.gameSound.volume = 0.1;
+
     // We add the background image to the game
     addBackground(this.root);
   }
@@ -23,6 +34,9 @@ class Engine {
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
   gameLoop = () => {
+    //Game sound effect
+    this.gameSound.play();
+
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
@@ -57,7 +71,35 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      // Show game over gifs
+      this.bodyRoot = document.getElementById("gameOver");
+      this.domElement = document.createElement("img");
+
+      // Create new game over gif
+      this.domElement.src = "https://art.pixilart.com/8d49c08afc8229f.gif";
+      this.domElement.style.position = "absolute";
+      this.domElement.style.width = GAME_WIDTH + "px";
+      this.domElement.style.height = GAME_HEIGHT + "px";
+      this.domElement.style.zIndex = 1000000;
+
+      this.bodyRoot.appendChild(this.domElement);
+      return;
+    }
+
+    if (WIN_GAME === true) {
+      // Show game win gif
+      let bodyRoot = document.getElementById("gameWin");
+      let domWinElement = document.createElement("img");
+
+      // Create new game over gif
+      domWinElement.src =
+        "https://media2.giphy.com/media/be2QjtfV90e0o/source.gif";
+      domWinElement.style.position = "absolute";
+      domWinElement.style.width = GAME_WIDTH + "px";
+      domWinElement.style.height = GAME_HEIGHT + "px";
+      domWinElement.style.zIndex = 1000000;
+
+      bodyRoot.appendChild(domWinElement);
       return;
     }
 
@@ -67,7 +109,21 @@ class Engine {
 
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
+
+  //Added gameOver sound effect when player dies
   isPlayerDead = () => {
+    for (let index = 0; index < this.enemies.length; index++) {
+      if (
+        this.enemies[index].x === this.player.x &&
+        this.enemies[index].y + ENEMY_HEIGHT - 50 >= this.player.y &&
+        this.enemies[index].y <= this.player.y
+      ) {
+        let soundGameOver = document.getElementById("myGameOverAudio");
+        soundGameOver.play();
+
+        return true;
+      }
+    }
     return false;
   };
 }
