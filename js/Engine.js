@@ -68,6 +68,33 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    return false;
+    //THE PLAYER COORDINATES
+    const playerLeft = this.player.x;
+    const playerTop = GAME_HEIGHT - PLAYER_HEIGHT - 10;
+    const playerBot = GAME_HEIGHT - 10;
+    let deathValue = false;
+
+    //LOOP FOR EACH ENEMY
+    this.enemies.forEach(enemy => {
+      //THE ENEMY COORDINATES
+      const enemyLeft = enemy.x;
+      const enemyTop = enemy.y;
+      const enemyBot = enemy.y + ENEMY_HEIGHT;
+
+      //COLISION TEST
+      if(enemyLeft === playerLeft){
+        //BOTTOM OF ENEMY HITTING FROM TOP
+        if(enemyBot > playerTop && enemyBot < playerBot){
+          deathValue = true;
+        } 
+        //HITTING THE ENEMY FROM THE SIDE
+        if (enemyTop > playerTop && enemyTop < playerBot){
+          deathValue = true;
+        }
+      }
+    });
+
+
+    return deathValue;
   };
 }
