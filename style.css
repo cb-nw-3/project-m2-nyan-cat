@@ -1,0 +1,48 @@
+body {
+  font-family: "Quicksand", sans-serif;
+}
+
+#startButton {
+  background-color: white;
+  font-family: "Quicksand", sans-serif;
+  width: 250px;
+  top: 150px;
+  left: 100px;
+  position: absolute;
+  font-size: 5rem;
+  padding: 10px;
+  border-radius: 25px;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 4px 4px 4px #666666;
+}
+
+#resetButton {
+  background-color: white;
+  font-family: "Quicksand", sans-serif;
+  width: 250px;
+  top: 150px;
+  left: 100px;
+  position: absolute;
+  font-size: 5rem;
+  padding: 10px;
+  border-radius: 25px;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 4px 4px 4px #666666;
+}
+
+#showScore {
+  font-family: "Quicksand", sans-serif;
+  color: black;
+  width: 250px;
+  top: 20px;
+  left: 20px;
+  position: absolute;
+  font-size: 2rem;
+  padding: 10px;
+  border-radius: 25px;
+  z-index: 1000;
+}
