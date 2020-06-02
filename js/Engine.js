@@ -93,7 +93,7 @@ class Engine {
 
       //Is the enemy equal to our y or greater (passed us)
       let checkYCollision =
-        enemyBottomY >= burgerTopY && enemyBottomY > GAME_HEIGHT;
+        enemyBottomY >= burgerTopY && enemyBottomY <= GAME_HEIGHT;
 
       if (checkXCollision && checkYCollision) {
         return true;
