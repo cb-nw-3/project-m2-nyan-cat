@@ -45,7 +45,13 @@ class Enemy {
 
     // Show that the user can actually see the img DOM node, we append it to the root DOM node.
     theRoot.appendChild(this.domElement);
-    this.speed = Math.random() / 2 + 0.25;
+    this.speed = Math.random() / 2 + 0.25; //Default value (Normal mode)
+    
+    if(level === "easy"){
+      this.speed = Math.random() / 4 + 0.1;
+    } else if (level === "impossible"){
+      this.speed = 0.1;
+    }
   }
 
   // We set the speed property of the enemy. This determines how fast it moves down the screen.
