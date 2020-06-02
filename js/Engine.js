@@ -58,6 +58,7 @@ class Engine {
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
       window.alert("Game over , press 'ok' to restart");
+      location.reload();
       return gameEngine.gameLoop();
     }
 
@@ -82,3 +83,5 @@ class Engine {
     return hasCollided;
   };
 }
+let gameAudio = document.getElementById("buddy");
+gameAudio.play();
