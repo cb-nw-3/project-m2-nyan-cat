@@ -91,7 +91,7 @@ we also have the position of the player
     this.enemies.forEach((enemy) => {
       let topOfEnemy = enemy.y
       let bottomOfEnemy = topOfEnemy+ENEMY_HEIGHT
-      if (enemy.x === this.player.x && bottomOfEnemy >= this.player.y && !enemy.collided) {
+      if (enemy.x === this.player.x && bottomOfEnemy > this.player.y && !enemy.collided) {
         let sound = document.getElementById("soundbg")
         collidedEnemy = true;
         enemy.collided = true;
