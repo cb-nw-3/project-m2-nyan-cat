@@ -21,6 +21,7 @@ const nextEnemySpot = (enemies) => {
     spotsTaken[enemy.spot] = true;
   });
 
+ 
   // We are now in a position to find out position. We declare a variable candidate that is initially undefined.
   // candidate represents a potential spot. The variable will be repeatedly assigned different numbers.
   // We will randomly try different spots until we find out that is available
@@ -33,23 +34,41 @@ const nextEnemySpot = (enemies) => {
   // When the while loop is finished, we are assured that we have a number that corresponds to a free spot, so we return it.
   return candidate;
 };
-
+let soundflag = true;
 // addBackground contains all the logic to display the starry background of the game.
 // It is a variable that refers to a function.
 // The function takes one parameter
 // The parameter represents the DOM node to which we will add the background
+
 const addBackground = (root) => {
+ 
+  let score = document.createElement("h2");
+  score.innerText = "0";
+  score.id = "score"; 
+  score.style.zIndex = "150";
+  score.style.position = "absolute"
   // We create a new img DOM node.
+
+  let lives = document.createElement("h2");
+  lives.innerText = "0";
+  lives.id = "lives";
+  lives.style.zIndex = "150";
+  lives.style.position = "absolute"
+  lives.style.top = "50px"
   const bg = document.createElement('img');
+  
+  
 
   // We set its src attribute and the height and width CSS attributes
-  bg.src = 'images/stars.png';
+  bg.src = 'images/blue background.jpg';
   bg.style.height = `${GAME_HEIGHT}px`;
   bg.style.width = `${GAME_WIDTH}px`;
 
   // We add it to the root DOM node
+  document.body.append(score);
+  document.body.append(lives);
   root.append(bg);
-
+  
   // We don't want the enemies to go beyond the lower edge of the image
   // so we place a white div to hide the enemies after they reach the bottom.
   // To see what it does, you can comment out all the remaining lines in the function to see the effect.
