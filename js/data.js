@@ -18,5 +18,10 @@ const ENEMY_HEIGHT = 156;
 const PLAYER_WIDTH = 75;
 const PLAYER_HEIGHT = 54;
 
+// Constant for background music
+const audio = new Audio(src="\John_Bartmann_-_13_-_Robot_Gypsy_Jazz.mp3");
+
+//Variables for the difficulty levels change
 let MAX_ENEMIES = 3; //Subject to change later in the program based on the difficulty level
 let level = "normal"; //default choice
+let currentScore = 0;

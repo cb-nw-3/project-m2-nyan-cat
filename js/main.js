@@ -1,22 +1,27 @@
+//EVENT LISTENERS FOR THE THREE MENU BUTTONS
 document.getElementById("easy").addEventListener("click",event => {
   document.getElementById("menu").remove();
   gameEngineMasterFunction("easy");
+  audio.play();
 });
 
 document.getElementById("normal").addEventListener("click",event => {
   document.getElementById("menu").remove();
   gameEngineMasterFunction("normal");
+  audio.play();
 });
 
 document.getElementById("impossible").addEventListener("click",event => {
   document.getElementById("menu").remove();
   gameEngineMasterFunction("impossible");
+  audio.play();
 });
 
 
 
 
 function gameEngineMasterFunction(lvl){
+  //TWEEKING A FEW VALUES BASED ON DIFFICULTY CHOSEN
   level = lvl;
   if(level === "easy"){
     MAX_ENEMIES = 2;

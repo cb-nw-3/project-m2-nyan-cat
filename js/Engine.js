@@ -57,7 +57,9 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      audio.pause();
+      audio.currentTime = 0;
+      window.alert(`Game Over\nYour score is: ${currentScore}`);
       return;
     }
 
@@ -83,7 +85,7 @@ class Engine {
 
       //COLISION TEST
       if(enemyLeft === playerLeft){
-        //BOTTOM OF ENEMY HITTING FROM TOP
+        //ENEMY DROPPING ON TOP OF HAMBURGER
         if(enemyBot > playerTop && enemyBot < playerBot){
           deathValue = true;
         } 
@@ -93,8 +95,6 @@ class Engine {
         }
       }
     });
-
-
     return deathValue;
   };
 }

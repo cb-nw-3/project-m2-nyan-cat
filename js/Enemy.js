@@ -35,22 +35,27 @@ class Enemy {
     // is why we create a property that refers to it.
     this.domElement = document.createElement('img');
 
-    // We give it a src attribute to specify which image to display.
+    // CHANGES ENEMY IMAGE AT IMPOSSIBLE DIFFICULTY
+    if(level === "impossible"){
+      this.domElement.src = './images/evilCat.png';
+    } else {
     this.domElement.src = './images/enemy.png';
+    
+  }
     // We modify the CSS style of the DOM node.
     this.domElement.style.position = 'absolute';
     this.domElement.style.left = `${this.x}px`;
     this.domElement.style.top = `${this.y}px`;
     this.domElement.style.zIndex = 5;
 
-    // Show that the user can actually see the img DOM node, we append it to the root DOM node.
+    // Show that the user can actually see the img DOM node, we append it to the root DOM node. 
     theRoot.appendChild(this.domElement);
     this.speed = Math.random() / 2 + 0.25; //Default value (Normal mode)
     
     if(level === "easy"){
       this.speed = Math.random() / 4 + 0.1;
     } else if (level === "impossible"){
-      this.speed = 0.1;
+      this.speed = 0.02;
     }
   }
 
@@ -69,6 +74,7 @@ class Enemy {
     // of the screen and should be removed. We remove the DOM element from the root DOM element and we set
     // the destroyed property to indicate that the enemy should no longer be in play
     if (this.y > GAME_HEIGHT) {
+      currentScore = currentScore + 1;
       this.root.removeChild(this.domElement);
 
       this.destroyed = true;
