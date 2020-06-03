@@ -16,6 +16,8 @@ class Engine {
     this.enemies = [];
     // We add the background image to the game
     addBackground(this.root);
+    //Player is dead or not
+    this.playerDead = false;
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -57,7 +59,17 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      // starting death sound
+      const deathMusic = new Audio("audio/dead.mp3");
+      deathMusic.playbackRate = 2;
+      deathMusic.play();
+
+      // creating reset button
+      const resetGame = document.createElement("button");
+      resetGame.id = "resetButton";
+      resetGame.innerText = "Reset Game";
+      resetGame.addEventListener("click", nowPlaying);
+      document.body.appendChild(resetGame);
       return;
     }
 
@@ -67,7 +79,28 @@ class Engine {
 
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
+
   isPlayerDead = () => {
-    return false;
+    return this.enemies.some((enemy) => {
+      //Bottom of the enemy Y position.
+      let enemyBottomY = enemy.y + ENEMY_HEIGHT;
+
+      //Top of burger Y position
+      let burgerTopY = this.player.y;
+
+      //Is the enemy matching burger X
+      let checkXCollision = this.player.x === enemy.x;
+
+      //Is the enemy equal to our y or greater (passed us)
+      let checkYCollision =
+        enemyBottomY >= burgerTopY && enemyBottomY <= GAME_HEIGHT;
+
+      if (checkXCollision && checkYCollision) {
+        return true;
+      } else {
+        //Did not collide
+        return false;
+      }
+    });
   };
 }
