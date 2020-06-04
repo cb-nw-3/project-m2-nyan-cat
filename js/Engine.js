@@ -1,6 +1,11 @@
 // The engine class will only be instantiated once. It contains all the logic
 // of the game relating to the interactions between the player and the
 // enemy and also relating to how our enemies are created and evolve over time
+
+//LET'S CREATE THE SCORE ELEMENT. THERE IS PROBABLY A MORE LOGICAL PLACE TO PUT THIS PIECE OF CODE...
+let score = new Text(document.getElementById('app'), 175, 35);
+score;
+
 class Engine {
   // The constructor has one parameter. It will refer to the DOM node that we will be adding everything to.
   // You need to provide the DOM node when you create an instance of the class
@@ -23,6 +28,10 @@ class Engine {
   //  - Detects a collision between the player and any enemy
   //  - Removes enemies that are too low from the enemies array
   gameLoop = () => {
+
+    //LET'S UPDATE THE SCORE
+    score.update(currentScore);
+
     // This code is to see how much time, in milliseconds, has elapsed since the last
     // time this method was called.
     // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
@@ -57,7 +66,9 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      audio.pause();
+      audio.currentTime = 0;
+      window.alert(`Game Over\nYour score is: ${currentScore}`);
       return;
     }
 
@@ -68,6 +79,31 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    return false;
+    //THE PLAYER COORDINATES
+    const playerLeft = this.player.x;
+    const playerTop = GAME_HEIGHT - PLAYER_HEIGHT - 10;
+    const playerBot = GAME_HEIGHT - 10;
+    let deathValue = false;
+
+    //LOOP FOR EACH ENEMY
+    this.enemies.forEach(enemy => {
+      //THE ENEMY COORDINATES
+      const enemyLeft = enemy.x;
+      const enemyTop = enemy.y;
+      const enemyBot = enemy.y + ENEMY_HEIGHT;
+
+      //COLISION TEST
+      if(enemyLeft === playerLeft){
+        //ENEMY DROPPING ON TOP OF HAMBURGER
+        if(enemyBot > playerTop && enemyBot < playerBot){
+          deathValue = true;
+        } 
+        //HITTING THE ENEMY FROM THE SIDE
+        if (enemyTop > playerTop && enemyTop < playerBot){
+          deathValue = true;
+        }
+      }
+    });
+    return deathValue;
   };
 }

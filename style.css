@@ -1,0 +1,10 @@
+#menuButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+button {
+    width: 200px;
+    margin: 5 0 5 60;
+}
