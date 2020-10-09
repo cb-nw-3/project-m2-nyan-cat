@@ -1,3 +1,5 @@
+https://eloquent-thompson-86e709.netlify.app/
+
 # Object Oriented Programming Game Project
 
 <p align="center"><img src="./images/screenshot.png"></p>
@@ -8,7 +10,7 @@ This project was designed as a way for you to practice and learn about Object Or
 
 The project is divided in two parts. In a first part, you will fix and implement some basic functionality. In the second part, you will be able to customize the game as you wish!
 
-Because there is a fair bit of JavaScript in this app, we have split code into more manageable pieces. You wil find all of the code in the `js` folder.
+Because there is a fair bit of JavaScript in this app, we have split code into more manageable pieces. You will find all of the code in the `js` folder.
 
 _Because we split the code into many files, we need to add the `<script>` tags in the right order in the `index.html` file._ This is already done for you, but it's important not to change the order.
 
@@ -24,7 +26,7 @@ At the moment, the game is a bit broken. This project will have you first fix th
 
 1. Open the `index.html` file in your browser, and observe what goes on when you load it.
 2. After reading the instructions of the project, **take a look at the provided code**. Don't worry if you don't understand _everything_, but try to get a general feel for what the code is doing. There are extensive comments throughout the code.
-3. Once the provided code has been consulted,go through the Assignment section at your own pace.
+3. Once the provided code has been consulted, go through the Assignment section at your own pace.
 
 ## Assignment
 
@@ -52,14 +54,14 @@ _HINT:_ Try calling `console.log` on the player. You might notice that you don't
 
 Having completed the basic section of this project is already great! However, next up is the fun part: customizing and evolving the game. Since this is an open-ended activity, we will give you some suggestions. Feel free to use them or not.
 
-- Instead of completely stopping the game when it's over, allow the player to start a new game
-- Add a sound track and sound effects to the game
-- Add the possibility of having lives
-- Increase the difficulty level of the game as time passes by making the enemies go faster
+<!-- - Instead of completely stopping the game when it's over, allow the player to start a new game -->
+ <!-- - Add a sound track and sound effects to the game -->
+<!-- // Add the possibility of having lives -->
+<!-- - Increase the difficulty level of the game as time passes by making the enemies go faster -->
 - Allow the enemies and player to have animated sprites instead of the current static ones. You could do this by defining a sprite as an array of images and setting a speed at which these images should switch. This could be implemented in the `render` method.
-- Allow the player to shoot bullets at the Nyan Cats
-- Add another type of entity called `Bonus` that will also fall from the sky and add points to the score
-- Make the game more hardcore by allowing the player to also move up/down and making Nyan Cats also shoot from the left of the screen
+<!-- - Allow the player to shoot bullets at the Nyan Cats -->
+<!-- - Add another type of entity called `Bonus` that will also fall from the sky and add points to the score -->
+<!-- - Make the game more hardcore by allowing the player to also move up/down --> and making Nyan Cats also shoot from the left of the screen 
 - **Don't stop!** These suggestions are only here to get you started :)
 
 ## Project Success guidelines

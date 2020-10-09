@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+}
+
+button {
+  z-index: 9999;
+  background: url('images/stars.png') no-repeat;
+  background-size: 100%;
+  opacity: 0.8;
+  position: absolute;
+  border: none;
+  color: #eeeeee;
+  top: 680px;
+  width: 525px;
+  height: 150px;
+  font-family: impact;
+  font-size: 3rem;
+  transition: all 0.1s linear;
+}
+button:hover {
+  opacity: 1;
+  font-size: 4.2rem;
+}
+button:focus {
+  opacity: 1;
+  font-size: 2.2rem;
+}
+
+#lives {
+  height: 54px;
+  width: 200px;
+  position: absolute;
+  top: 0;
+  left: 325px;
+  z-index: 500;
+  background: transparent;
+  display: flex;
+  justify-content: flex-end;
+}
+#bullets {
+  height: 54px;
+  width: 200px;
+  position: absolute;
+  top: 30px;
+  left: 325px;
+  z-index: 500;
+  background: transparent;
+  display: flex;
+  justify-content: flex-end;
+}
