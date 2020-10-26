@@ -20,6 +20,9 @@ class Engine {
     addBackground(this.root);
 
     startNewGame(this.root);
+
+    this.musicAlivePlayer = playMusicAlivePlayer(this.root);
+    this.musicDeadPlayer = playMusicDeadPlayer(this.root);
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -64,8 +67,6 @@ class Engine {
       startNewGame(this.root);
       return;
     }
-    // console.log('Player: ', this.player);
-    // console.log('Enemies: ', this.enemies);
 
     // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
     setTimeout(this.gameLoop, 20);
@@ -81,7 +82,11 @@ class Engine {
         enemy.x === this.player.x &&
         enemy.y - (GAME_HEIGHT - PLAYER_HEIGHT - 10) >= 0
       ) {
-        return (isCollisionHappen = true);
+        return (
+          (isCollisionHappen = true),
+          gameEngine.musicAlivePlayer.pause(),
+          gameEngine.musicDeadPlayer.play()
+        );
       }
     });
     return isCollisionHappen;
