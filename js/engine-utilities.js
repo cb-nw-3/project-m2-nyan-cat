@@ -64,3 +64,16 @@ const addBackground = (root) => {
   whiteBox.style.background = '#fff';
   root.append(whiteBox);
 };
+
+const startNewGame = (root) => {
+  let startButton = document.createElement('button');
+  startButton.classList.add('start-new-game-button');
+  startButton.innerText = 'Start New Game';
+  startButton.addEventListener('click', triggerGameStart);
+  root.append(startButton);
+};
+
+const triggerGameStart = (event) => {
+  event.target.remove();
+  gameEngine.gameLoop();
+};

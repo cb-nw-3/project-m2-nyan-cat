@@ -18,6 +18,8 @@ class Engine {
     console.log('Enemies: ', this.enemies);
     // We add the background image to the game
     addBackground(this.root);
+
+    startNewGame(this.root);
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -59,7 +61,7 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      startNewGame(this.root);
       return;
     }
     // console.log('Player: ', this.player);
