@@ -64,3 +64,34 @@ const addBackground = (root) => {
   whiteBox.style.background = '#fff';
   root.append(whiteBox);
 };
+
+const startNewGame = (root) => {
+  let startButton = document.createElement('button');
+  startButton.classList.add('start-new-game-button');
+  startButton.innerText = 'Start New Game';
+  startButton.addEventListener('click', triggerGameStart);
+  root.append(startButton);
+};
+
+const playMusicAlivePlayer = (root) => {
+  const musicAlivePlayer = document.createElement('audio');
+  musicAlivePlayer.src = './sounds/battle-planes-fight.mp3';
+  musicAlivePlayer.loop = true;
+  root.append(musicAlivePlayer);
+
+  return musicAlivePlayer;
+};
+
+const playMusicDeadPlayer = (root) => {
+  const musicDeadPlayer = document.createElement('audio');
+  musicDeadPlayer.src = './sounds/explosion.mp3';
+  root.append(musicDeadPlayer);
+
+  return musicDeadPlayer;
+};
+
+const triggerGameStart = (event) => {
+  event.target.remove();
+  gameEngine.gameLoop();
+  gameEngine.musicAlivePlayer.play();
+};

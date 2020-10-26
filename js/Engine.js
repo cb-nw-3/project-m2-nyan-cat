@@ -11,11 +11,18 @@ class Engine {
     // We create our hamburger.
     // Please refer to Player.js for more information about what happens when you create a player
     this.player = new Player(this.root);
+    console.log('Player: ', this.player);
     // Initially, we have no enemies in the game. The enemies property refers to an array
     // that contains instances of the Enemy class
     this.enemies = [];
+    console.log('Enemies: ', this.enemies);
     // We add the background image to the game
     addBackground(this.root);
+
+    startNewGame(this.root);
+
+    this.musicAlivePlayer = playMusicAlivePlayer(this.root);
+    this.musicDeadPlayer = playMusicDeadPlayer(this.root);
   }
 
   // The gameLoop will run every few milliseconds. It does several things
@@ -57,7 +64,7 @@ class Engine {
     // We check if the player is dead. If he is, we alert the user
     // and return from the method (Why is the return statement important?)
     if (this.isPlayerDead()) {
-      window.alert('Game over');
+      startNewGame(this.root);
       return;
     }
 
@@ -68,6 +75,20 @@ class Engine {
   // This method is not implemented correctly, which is why
   // the burger never dies. In your exercises you will fix this method.
   isPlayerDead = () => {
-    return false;
+    let isCollisionHappen = false;
+
+    this.enemies.forEach((enemy) => {
+      if (
+        enemy.x === this.player.x &&
+        enemy.y - (GAME_HEIGHT - PLAYER_HEIGHT - 10) >= 0
+      ) {
+        return (
+          (isCollisionHappen = true),
+          gameEngine.musicAlivePlayer.pause(),
+          gameEngine.musicDeadPlayer.play()
+        );
+      }
+    });
+    return isCollisionHappen;
   };
 }

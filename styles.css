@@ -1,0 +1,14 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.start-new-game-button {
+  position: absolute;
+  top: 30px;
+  padding: 20px;
+  font-size: 20px;
+  z-index: 5;
+  transform: translate(-145%, 200%);
+  border-radius: 6px;
+  color: red;
+}
